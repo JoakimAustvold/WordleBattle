@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.MainMenuController;
 
 public class WordleBattleGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -17,8 +18,8 @@ public class WordleBattleGame extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 
 		/* Push starting-screen to controller*/
-		ControllerManager.getInstance().push(new Controller() {
-		});
+		// TODO: instantiate starting screen, for example MainMenuController.
+		ControllerManager.getInstance().push(new MainMenuController());
 	}
 	@Override
 	public void render () {

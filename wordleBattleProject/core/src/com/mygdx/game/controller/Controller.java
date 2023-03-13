@@ -26,7 +26,5 @@ public abstract class Controller {
     /**
      * Handle input.
      */
-    public void handleInput(){
-
-    }
+    public abstract void handleInput();
 }
