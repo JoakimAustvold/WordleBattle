@@ -12,7 +12,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 	FirebaseAPI firebaseAPI;
 
 	public WordleBattleGame(FirebaseAPI firebaseAPI) {
-		firebaseAPI = firebaseAPI;
+		this.firebaseAPI = firebaseAPI;
 	}
 
 	@Override
@@ -20,6 +20,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 
+		System.out.println(firebaseAPI);
 		firebaseAPI.updateAPI();
 	}
 
