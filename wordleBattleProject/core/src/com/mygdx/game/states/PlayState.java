@@ -2,14 +2,14 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SettingsState extends State {
-    private static SettingsState instance = new SettingsState(GameStateManager.getInstance());
+public class PlayState extends State { // Called WordleGame in first draft of diagrams
+    private static PlayState instance = new PlayState(GameStateManager.getInstance());
 
-    private SettingsState(GameStateManager gsm) {
+    private PlayState(GameStateManager gsm) {
         super(gsm);
     }
 
-    public static SettingsState getInstance() {
+    public static PlayState getInstance() {
         return instance;
     }
 

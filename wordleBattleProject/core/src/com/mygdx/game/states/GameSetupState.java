@@ -2,14 +2,14 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SettingsState extends State {
-    private static SettingsState instance = new SettingsState(GameStateManager.getInstance());
+public class GameSetupState extends State {
+    private static GameSetupState instance = new GameSetupState(GameStateManager.getInstance());
 
-    private SettingsState(GameStateManager gsm) {
+    private GameSetupState(GameStateManager gsm) {
         super(gsm);
     }
 
-    public static SettingsState getInstance() {
+    public static GameSetupState getInstance() {
         return instance;
     }
 
