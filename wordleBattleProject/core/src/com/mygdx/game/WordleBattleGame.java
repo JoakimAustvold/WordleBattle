@@ -9,6 +9,9 @@ import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
 
+/**
+ * App entrypoint from LibGDX.
+ */
 public class WordleBattleGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
