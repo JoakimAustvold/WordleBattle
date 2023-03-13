@@ -37,4 +37,8 @@ public class ControllerManager{
     public void render(SpriteBatch spriteBatch){
         controllerStack.peek().render(spriteBatch);
     }
+
+    public void handleInput(){
+        controllerStack.peek().handleInput();
+    }
 }

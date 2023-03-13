@@ -11,7 +11,6 @@ public class WordleBattleGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 
-	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -24,6 +23,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
+		ControllerManager.getInstance().handleInput();
 		ControllerManager.getInstance().update();
 		ControllerManager.getInstance().render(batch);
 		batch.begin();
