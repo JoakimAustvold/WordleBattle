@@ -8,11 +8,19 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class WordleBattleGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+
+	FirebaseAPI firebaseAPI;
+
+	public WordleBattleGame(FirebaseAPI firebaseAPI) {
+		firebaseAPI = firebaseAPI;
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+
+		firebaseAPI.updateAPI();
 	}
 
 	@Override
