@@ -6,8 +6,9 @@ import com.mygdx.game.view.View;
 
 public abstract class Controller {
 
-    private State state;
-    private View view;
+    protected State state;
+    protected View view;
+
 
     /**
      * Run the render function on the view.
@@ -19,8 +20,8 @@ public abstract class Controller {
     /**
      * Run the update function in the model.
      */
-    public void update(){
-        state.update();
+    public void update(float deltaTime){
+        state.update(deltaTime);
     }
 
     /**

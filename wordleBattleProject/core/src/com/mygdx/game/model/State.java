@@ -1,6 +1,6 @@
 package com.mygdx.game.model;
 
 public abstract class State {
-    
-    public abstract void update();
+
+    public abstract void update(float deltaTime);
 }

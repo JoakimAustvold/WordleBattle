@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,14 +19,14 @@ public class WordleBattleGame extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 
 		/* Push starting-screen to controller*/
-		// TODO: instantiate starting screen, for example MainMenuController.
+		// TODO:
 		ControllerManager.getInstance().push(new MainMenuController());
 	}
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 		ControllerManager.getInstance().handleInput();
-		ControllerManager.getInstance().update();
+		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
 		ControllerManager.getInstance().render(batch);
 		batch.begin();
 		batch.draw(img, 0, 0);

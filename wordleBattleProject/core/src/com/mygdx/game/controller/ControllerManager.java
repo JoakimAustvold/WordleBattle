@@ -30,8 +30,8 @@ public class ControllerManager{
         controllerStack.push(controller);
     }
 
-    public void update (){
-        controllerStack.peek().update();
+    public void update (float deltaTime){
+        controllerStack.peek().update(deltaTime);
     }
 
     public void render(SpriteBatch spriteBatch){
