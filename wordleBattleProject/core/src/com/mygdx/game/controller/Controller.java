@@ -9,8 +9,8 @@ import com.mygdx.game.view.View;
  * @version 13.03.2023
  *
  * Template abstract class for a controller.
- * A controller should only handle user-input.
- * Controller contains a state and a view.
+ * A controller should only handle user-input, and pass between state and view.
+ * Controller contains a state and a view responsible for update() and render() methods respectively.
  */
 public abstract class Controller {
 
