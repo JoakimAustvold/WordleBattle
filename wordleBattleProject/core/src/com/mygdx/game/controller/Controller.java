@@ -4,6 +4,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.model.State;
 import com.mygdx.game.view.View;
 
+/**
+ * @author Marcus Birkeland
+ * @version 13.03.2023
+ *
+ * Template abstract class for a controller.
+ * A controller should only handle user-input.
+ * Controller contains a state and a view.
+ */
 public abstract class Controller {
 
     protected State state;
