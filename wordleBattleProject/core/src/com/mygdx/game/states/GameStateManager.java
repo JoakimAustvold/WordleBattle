@@ -5,9 +5,14 @@ import java.util.Stack;
 
 public class GameStateManager {
     private Stack<State> states;
+    private static GameStateManager instance = new GameStateManager();
 
-    public GameStateManager(){
+    private GameStateManager(){
         states = new Stack<State>();
+    }
+
+    public static GameStateManager getInstance() {
+        return instance;
     }
 
     public void push(State state){
