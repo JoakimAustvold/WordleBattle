@@ -1,6 +1,7 @@
 package com.mygdx.game;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mygdx.game.model.FirebaseAPI;
 
 public class DesktopAPI implements FirebaseAPI {
 
