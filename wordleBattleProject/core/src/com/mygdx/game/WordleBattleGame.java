@@ -19,10 +19,11 @@ public class WordleBattleGame extends ApplicationAdapter {
 	Texture img;
 
 	FirebaseAPI firebaseAPI;
-	HighscoreList highscores = new HighscoreList(firebaseAPI);
+	HighscoreList highscores;
 
     public WordleBattleGame(FirebaseAPI firebaseAPI) {
     		this.firebaseAPI = firebaseAPI;
+			this.highscores = new HighscoreList(firebaseAPI);
     	}
 
 	@Override
@@ -37,20 +38,17 @@ public class WordleBattleGame extends ApplicationAdapter {
 		// TODO:
 		//ControllerManager.getInstance().push(new MainMenuController());
 
-
 		highscores.fetchHighscores();
         highscores.submitHighscore("John", 3600);
         highscores.fetchHighscores();
-
-
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
-		ControllerManager.getInstance().handleInput();
-		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
-		ControllerManager.getInstance().render(batch);
+//		ControllerManager.getInstance().handleInput();
+//		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
+//		ControllerManager.getInstance().render(batch);
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();

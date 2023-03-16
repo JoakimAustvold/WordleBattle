@@ -5,6 +5,11 @@ public class Score implements Comparable<Score> {
     private int highscore;
     private String name;
 
+    public Score() {
+        highscore = 0;
+        name = "";
+    }
+
     public Score(String name, int highscore)
     {
         this.highscore = highscore;
