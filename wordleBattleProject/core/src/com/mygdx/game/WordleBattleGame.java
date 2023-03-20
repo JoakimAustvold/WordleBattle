@@ -32,16 +32,18 @@ public class WordleBattleGame extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 
 		System.out.println(firebaseAPI);
-        firebaseAPI.updateAPI();
 
 		/* Push starting-screen to controller*/
 		// TODO:
 		//ControllerManager.getInstance().push(new MainMenuController());
 
+		/*
+		// This is how you would fetch and update the current highscore list
 		highscores.fetchHighscores();
         highscores.submitHighscore("John", 3600);
 		highscores.submitHighscore("Emma", 4500);
         highscores.fetchHighscores();
+		 */
 	}
 
 	@Override
@@ -51,7 +53,8 @@ public class WordleBattleGame extends ApplicationAdapter {
 //		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
 //		ControllerManager.getInstance().render(batch);
 
-		System.out.println(highscores.getLocalHighscores());
+		// This is a way to check what the highscore list contains
+		// System.out.println(highscores.getLocalHighscores());
 
 
 		batch.begin();
