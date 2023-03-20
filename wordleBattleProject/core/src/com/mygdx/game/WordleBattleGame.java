@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.HighscoreList;
 import com.mygdx.game.model.highscore.Score;
@@ -17,14 +18,11 @@ import com.mygdx.game.model.words.WordGenerator;
  * App entrypoint from LibGDX.
  */
 public class WordleBattleGame extends ApplicationAdapter {
+
 	SpriteBatch batch;
-	Texture img;
 
 	FirebaseAPI firebaseAPI;
 	HighscoreList highscores;
-
-	BitmapFont font;
-	String word;
 
     public WordleBattleGame(FirebaseAPI firebaseAPI) {
     		this.firebaseAPI = firebaseAPI;
@@ -37,31 +35,22 @@ public class WordleBattleGame extends ApplicationAdapter {
 		//System.out.println(firebaseAPI);
 
 		/* Push starting-screen to controller*/
-		//ControllerManager.getInstance().push(new MainMenuController());
-
-		font = new BitmapFont();
-		font.getData().setScale(6,6);
-
-		WordGenerator wg = new WordGenerator(WordGenerator.Language.ENGLISH);
-		word = wg.generateWord();
+		ControllerManager.getInstance().push(new SingleplayerGameController());
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
-		//ControllerManager.getInstance().handleInput();
-		//ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
-		//ControllerManager.getInstance().render(batch);
-
+		ControllerManager.getInstance().handleInput();
+		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
 
 		batch.begin();
-		font.draw(batch, word, 450, 1000);
+		ControllerManager.getInstance().render(batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }
