@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,40 +20,48 @@ public class AndriodAPI implements FirebaseAPI {
 
     // Write a message to the database
     FirebaseDatabase database;
-    DatabaseReference highscores;
+    DatabaseReference highscoresRef;
 
     public AndriodAPI() {
         database = FirebaseDatabase.getInstance("https://tdt4240-wordlebattle-default-rtdb.europe-west1.firebasedatabase.app/");
         System.out.println(database);
-        highscores = database.getReference("highscores");
+        highscoresRef = database.getReference("highscores");
     }
 
     @Override
-    public void updateAPI() {
-        if(highscores != null) {
-            highscores.setValue("Hello World!");
-        } else {
-            System.out.println("Database test failed");
-        }
-    }
-
-    @Override
+    /**
+     * Push a new highscore to the database
+     */
     public void submitHighscore(Score score) {
-        highscores.push().setValue(score);
+        highscoresRef.push().setValue(score);
     }
 
     @Override
+    /**
+     * Read the highscore list from the database once.
+     * This happens asynchronous. Do not expect a print statement to be correct immediately.
+     */
     public void getHighscoreList(List<Score> dataholder) {
         System.out.println("Getting highscores");
-        highscores.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        highscoresRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                System.out.println("Got highscores");
-                Iterable<DataSnapshot> response = task.getResult().getChildren();
-                for (DataSnapshot child : response) {
-                    dataholder.add(child.getValue(Score.class));
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
                 }
-                Collections.sort(dataholder);
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+                    System.out.println("Got highscores");
+                    Iterable<DataSnapshot> response = task.getResult().getChildren();
+                    for (DataSnapshot child : response) {
+                        Log.d("firebase loop:", String.valueOf(child.getValue(Score.class)));
+                        dataholder.add(child.getValue(Score.class));
+                    }
+                    Collections.sort(dataholder);
+                    Log.d("firebase dataholder:", String.valueOf(dataholder));
+
+                }
             }
         });
     }

@@ -1,5 +1,8 @@
 package com.mygdx.game.model.highscore;
 
+/**
+ * A class representing a player's score.
+ */
 public class Score implements Comparable<Score> {
 
     private int highscore;

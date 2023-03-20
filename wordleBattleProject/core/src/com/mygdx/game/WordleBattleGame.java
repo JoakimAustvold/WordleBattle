@@ -40,6 +40,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 
 		highscores.fetchHighscores();
         highscores.submitHighscore("John", 3600);
+		highscores.submitHighscore("Emma", 4500);
         highscores.fetchHighscores();
 	}
 
@@ -49,6 +50,10 @@ public class WordleBattleGame extends ApplicationAdapter {
 //		ControllerManager.getInstance().handleInput();
 //		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
 //		ControllerManager.getInstance().render(batch);
+
+		System.out.println(highscores.getLocalHighscores());
+
+
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();

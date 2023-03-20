@@ -4,18 +4,17 @@ import com.mygdx.game.model.highscore.Score;
 
 import java.util.List;
 
+/**
+ * Can be used to test the functionality
+ */
 public class CoreAPI implements FirebaseAPI {
-    @java.lang.Override
-    public void updateAPI() {
 
-    }
-
-    @java.lang.Override
+    @Override
     public void getHighscoreList(List<Score> dataholder) {
 
     }
 
-    @java.lang.Override
+    @Override
     public void submitHighscore(Score score) {
 
     }
