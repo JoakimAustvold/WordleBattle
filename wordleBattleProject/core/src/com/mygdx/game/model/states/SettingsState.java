@@ -1,14 +1,12 @@
-package com.mygdx.game.states;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+package com.mygdx.game.model.states;
 
 public class SettingsState extends State {
-    private static SettingsState instance = new SettingsState(GameStateManager.getInstance());
+    private static SettingsState instance = new SettingsState();
     private int volume;
     private boolean isDarkMode;
 
-    private SettingsState(GameStateManager gsm) {
-        super(gsm);
+    private SettingsState() {
+
     }
 
     public static SettingsState getInstance() {

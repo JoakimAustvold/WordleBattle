@@ -1,10 +1,8 @@
-package com.mygdx.game.states;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+package com.mygdx.game.model.states;
 
 
 public class PlayState extends State { // Called WordleGame in first draft of diagrams
-    private static PlayState instance = new PlayState(GameStateManager.getInstance());
+    private static PlayState instance = new PlayState();
     private boolean isDuel;
     private boolean isGameOver;
     private int turn;
@@ -15,8 +13,7 @@ public class PlayState extends State { // Called WordleGame in first draft of di
     //private Player player2;
 
 
-    private PlayState(GameStateManager gsm) {
-        super(gsm);
+    private PlayState() {
     }
 
     public static PlayState getInstance() {

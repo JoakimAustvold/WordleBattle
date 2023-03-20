@@ -1,7 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.State;
+import com.mygdx.game.model.states.State;
 
 /**
  * @author Marcus Birkeland
