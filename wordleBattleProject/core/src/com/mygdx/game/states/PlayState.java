@@ -23,23 +23,11 @@ public class PlayState extends State { // Called WordleGame in first draft of di
         return instance;
     }
 
-    @Override
-    protected void handleInput() {
 
-    }
 
     @Override
     public void update(float dt) {
 
     }
 
-    @Override
-    public void render(SpriteBatch sb) {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }

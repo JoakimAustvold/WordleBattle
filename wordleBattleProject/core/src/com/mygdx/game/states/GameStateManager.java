@@ -31,8 +31,4 @@ public class GameStateManager {
     public void update(float dt){ // Argument: delta time
         states.peek().update(dt);
     }
-
-    public void render(SpriteBatch sb){ // Argument: the sprite batch, everything we want to render
-        states.peek().render(sb);
-    }
 }

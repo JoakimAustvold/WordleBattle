@@ -14,22 +14,8 @@ public class GameSetupState extends State {
     }
 
     @Override
-    protected void handleInput() {
-
-    }
-
-    @Override
     public void update(float dt) {
 
     }
 
-    @Override
-    public void render(SpriteBatch sb) {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }
