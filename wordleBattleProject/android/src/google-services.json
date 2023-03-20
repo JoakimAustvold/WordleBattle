@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1057853385473",
+    "project_id": "tdt4240-wordlebattle",
+    "storage_bucket": "tdt4240-wordlebattle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057853385473:android:83e773d9b737c90b620900",
+        "android_client_info": {
+          "package_name": "com.mygdx.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057853385473-ue649kjirm6ejr7bhd99fdpeittn65t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmEMhyjZiUrcgdk8hBFmR6ncR-NPx7D-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057853385473-ue649kjirm6ejr7bhd99fdpeittn65t0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
