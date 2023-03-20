@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.MainMenuView;
@@ -10,13 +11,13 @@ import com.mygdx.game.model.State;
  * @version 13.03.2023
  * Empty example implementation of a Controller.
  */
-public class ScreenController extends Controller{
+public class ScreenController extends Game {
 
-    private LoadingScreen loadingScreen;
-    private PreferencesScreen preferencesScreen;
-    private MenuScreen menuScreen;
-    private MainScreen mainScreen;
-    private EndScreen endScreen;
+    //private LoadingScreen loadingScreen;
+    //private PreferencesScreen preferencesScreen;
+    private MainMenuView menuScreen;
+    //private MainScreen mainScreen;
+   // private EndScreen endScreen;
 
     protected State state;
     protected View view;
@@ -30,10 +31,10 @@ public class ScreenController extends Controller{
     public void changeScreen(int screen) {
         switch (screen) {
             case MENU:
-                if(menuScreen == null) menuScreen = new MenuScreen(this); // added (this)
+                if(menuScreen == null) menuScreen = new MainMenuView(this); // added (this)
                 this.setScreen(menuScreen);
                 break;
-
+            /**
             case SETTINGS:
                 if(preferencesScreen == null) preferencesScreen = new PreferencesScreen(this); // added (this)
                 this.setScreen(preferencesScreen);
@@ -48,70 +49,47 @@ public class ScreenController extends Controller{
                 if(endScreen == null) endScreen = new EndScreen(this);  // added (this)
                 this.setScreen(endScreen);
                 break;
+             */
         }
     }
 
 
-
+    /**
     public MainMenuController() {
         // Set corresponding state and view here!!!
         this.state = new State();
         this.view = new MainMenuView();
     }
+     */
 
     /**
      * Run the render function on the view.
      */
-    public void render(SpriteBatch spriteBatch){
-        //super.render(spriteBatch);
-        view.render(state, spriteBatch);
+    public void render(){
+        super.render();
+        //view.render(state, spriteBatch);
     }
 
     /**
      * Run the update function in the model.
      */
 
+    /**
     @Override
-    public void update(float deltaTime){
+    public void update(){
         //super.update();
 
         state.update(deltaTime);
     }
-
-    /**
-     * Handle input.
-     */
-    @Override
-    public abstract void handleInput(int changeEvent) {
-
-
-    };
+    */
 
     @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
+    public void create() {
+        changeScreen(MENU);
     }
 
 
-    @Override
-    public void rezise(int width, int height) {
 
-    }
 
     /*public void render( float delta) {
         Gdx.gl.glClearColor(.1f, .12f, .16f, 1);

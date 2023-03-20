@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,11 +9,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.ScreenController;
+import com.mygdx.game.view.MainMenuView;
 
 /**
  * App entrypoint from LibGDX.
  */
-public class WordleBattleGame extends ApplicationAdapter {
+public class WordleBattleGame extends Game {
 	SpriteBatch batch;
 	Texture img;
 
@@ -23,10 +26,12 @@ public class WordleBattleGame extends ApplicationAdapter {
 
 		/* Push starting-screen to controller*/
 		// TODO:
-		ControllerManager.getInstance().push(new MainMenuController());
+		//ControllerManager.getInstance().push(new MainMenuController());
+		setScreen(new MainMenuView(new ScreenController()));
 	}
 	@Override
 	public void render () {
+		/*
 		ScreenUtils.clear(0, 0, 0, 1);
 		ControllerManager.getInstance().handleInput();
 		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
@@ -34,6 +39,9 @@ public class WordleBattleGame extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
+
+		 */
+		super.render();
 	}
 	
 	@Override
