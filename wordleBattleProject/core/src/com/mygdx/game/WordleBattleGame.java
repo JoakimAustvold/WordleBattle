@@ -15,11 +15,13 @@ import com.mygdx.game.controller.MainMenuController;
 public class WordleBattleGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	Wordgrid wordgrid;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		wordgrid = new Wordgrid();
 
 		/* Push starting-screen to controller*/
 		// TODO:
