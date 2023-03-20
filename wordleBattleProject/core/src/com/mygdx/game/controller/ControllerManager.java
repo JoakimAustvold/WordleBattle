@@ -4,6 +4,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Stack;
 
+/**
+ * @author Marcus Birkeland
+ * @version 13.03.2023
+ *
+ * Singleton class containing a stack of controllers.
+ * Each controller is coupled with a view and a state class.
+ * To change a game-screen, push a new controller to the stack!
+ */
 public class ControllerManager{
 
     private static final ControllerManager controllerManagerInstance = new ControllerManager();
@@ -30,8 +38,8 @@ public class ControllerManager{
         controllerStack.push(controller);
     }
 
-    public void update (){
-        controllerStack.peek().update();
+    public void update (float deltaTime){
+        controllerStack.peek().update(deltaTime);
     }
 
     public void render(SpriteBatch spriteBatch){
