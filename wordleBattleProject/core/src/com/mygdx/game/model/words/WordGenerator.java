@@ -56,7 +56,7 @@ public class WordGenerator {
                 filename = "words/wordle_norwegian.json";
                 break;
             default:
-                filename = "words/english_words_5.json";
+                filename = "words/worlde_answers_eng.json";
         }
         return filename;
     }
