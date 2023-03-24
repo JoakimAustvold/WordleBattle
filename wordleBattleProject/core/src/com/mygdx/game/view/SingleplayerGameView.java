@@ -25,10 +25,10 @@ public class SingleplayerGameView extends View {
             {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
     };
 
-    private final TextButton[][] buttons = new TextButton[buttonValues.length][];
+    public final TextButton[][] buttons = new TextButton[buttonValues.length][];
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
-    private final KeyboardInput keyboardInput;
+    public final KeyboardInput keyboardInput;
     private final Stage stage = new Stage();
 
     public SingleplayerGameView() {
