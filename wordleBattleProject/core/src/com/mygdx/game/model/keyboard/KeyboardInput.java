@@ -1,9 +1,10 @@
 package com.mygdx.game.model.keyboard;
 
+// This class keeps track of which keys the user clicks on the keyboard and saves it in variable text
 public class KeyboardInput {
     private StringBuilder text = new StringBuilder();
 
-    public void appendText(String newText) {
+    public void appendChar(String newText) {
         text.append(newText);
     }
 

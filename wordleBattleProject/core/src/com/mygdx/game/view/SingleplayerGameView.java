@@ -69,7 +69,8 @@ public class SingleplayerGameView extends View {
 
         if (state instanceof PlayState) {
             font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / (((PlayState) state).getWord().length() - 2), Gdx.graphics.getHeight() - 45);
-        } else {
+        }
+        else {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 

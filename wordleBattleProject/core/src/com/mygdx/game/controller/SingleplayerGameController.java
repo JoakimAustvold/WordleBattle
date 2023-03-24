@@ -16,8 +16,9 @@ public class SingleplayerGameController extends Controller {
         this.state = new PlayState();
         this.view = new SingleplayerGameView();
 
-        keyboardInput = ((SingleplayerGameView) view).keyboardInput;
-        buttons = ((SingleplayerGameView) view).buttons;
+        SingleplayerGameView singleplayerView = (SingleplayerGameView) view; // Maybe a bit dodgy
+        keyboardInput = singleplayerView.keyboardInput;
+        buttons = singleplayerView.buttons;
 
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
@@ -31,6 +32,7 @@ public class SingleplayerGameController extends Controller {
         // This method is empty because input is handled by the KeyboardInputListener class
     }
 
+    // Possibly placed in the wrong place
     private class KeyboardInputListener extends InputListener {
 
         private final String buttonValue;
@@ -43,13 +45,14 @@ public class SingleplayerGameController extends Controller {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             switch (buttonValue) {
                 case "Enter":
-                    keyboardInput.appendText("\n");
+                    // We currently have no logic for checking/submitting word, so a linebreak is used
+                    keyboardInput.appendChar("\n");
                     break;
                 case "<--":
                     keyboardInput.deleteLastChar();
                     break;
                 default:
-                    keyboardInput.appendText(buttonValue);
+                    keyboardInput.appendChar(buttonValue);
                     break;
             }
             return true;
