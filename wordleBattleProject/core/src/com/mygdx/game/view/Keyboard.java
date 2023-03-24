@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Keyboard extends ApplicationAdapter {
@@ -27,8 +26,6 @@ public class Keyboard extends ApplicationAdapter {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        float x = Gdx.graphics.getWidth() / 10f;
-        float y = Gdx.graphics.getHeight() / 2f;
         float buttonWidth = Gdx.graphics.getWidth() / 10f;
         float buttonHeight = Gdx.graphics.getHeight() / 10f;
         float buttonPadding = Gdx.graphics.getWidth() / 100f;
@@ -36,17 +33,16 @@ public class Keyboard extends ApplicationAdapter {
         // Create buttons for each letter of the alphabet
         for (char c = 'a'; c <= 'z'; c++) {
             final char charToAdd = c;
-            createButton(String.valueOf(c), x, y, buttonWidth, buttonHeight, new Runnable() {
+            createButton(String.valueOf(c), buttonWidth, buttonHeight, new Runnable() {
                 @Override
                 public void run() {
                     currentText += charToAdd;
                 }
             });
-            x += buttonWidth + buttonPadding;
         }
 
         // Create the "Enter" button
-        createButton("Enter", Gdx.graphics.getWidth() - buttonWidth - buttonPadding, y, buttonWidth, buttonHeight, new Runnable() {
+        createButton("Enter", buttonWidth, buttonHeight, new Runnable() {
             @Override
             public void run() {
                 currentText += "\n";
@@ -54,7 +50,7 @@ public class Keyboard extends ApplicationAdapter {
         });
 
         // Create the "Backspace" button
-        createButton("Backspace", Gdx.graphics.getWidth() - buttonWidth - buttonPadding, y - buttonHeight - buttonPadding, buttonWidth, buttonHeight, new Runnable() {
+        createButton("Backspace", buttonWidth, buttonHeight, new Runnable() {
             @Override
             public void run() {
                 if (currentText.length() > 0) {
@@ -64,10 +60,9 @@ public class Keyboard extends ApplicationAdapter {
         });
     }
 
-    private void createButton(String label, float x, float y, float width, float height, final Runnable onClick) {
-        Button button = new Button(new ButtonStyle());
+    private void createButton(String label, float width, float height, final Runnable onClick) {
+        Button button = new Button();
         button.setSize(width, height);
-        button.setPosition(x, y);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -92,5 +87,7 @@ public class Keyboard extends ApplicationAdapter {
     @Override
     public void dispose () {
         batch.dispose();
+        font.dispose();
+        stage.dispose();
     }
 }
