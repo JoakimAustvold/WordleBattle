@@ -1,93 +1,79 @@
 package com.mygdx.game.view;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.model.keyboard.KeyboardInput;
 
-public class Keyboard extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private BitmapFont font;
-    private String currentText;
-    private Stage stage;
+public class Keyboard {
+    private final float buttonWidth = Gdx.graphics.getWidth() / 10f;
+    private final float buttonHeight = Gdx.graphics.getHeight() / 12f;
+    private final float buttonPadding = buttonWidth / 5f;
 
-    @Override
-    public void create () {
-        batch = new SpriteBatch();
-        font = new BitmapFont();
+    private final String[] buttonValues = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+            "a", "s", "d", "f", "g", "h", "j", "k", "l",
+            "z", "x", "c", "v", "b", "n", "m", "<--", "Enter"};
+
+    private final TextButton[] buttons = new TextButton[buttonValues.length];
+
+    private final SpriteBatch batch = new SpriteBatch();
+    private final BitmapFont font = new BitmapFont();
+    private final KeyboardInput keyboardInput;
+    private final Stage stage = new Stage();
+
+    public Keyboard(KeyboardInput keyboardInput) {
+        this.keyboardInput = keyboardInput;
+
         font.setColor(Color.BLACK);
-        currentText = "";
-        stage = new Stage();
+
         Gdx.input.setInputProcessor(stage);
 
-        float buttonWidth = Gdx.graphics.getWidth() / 10f;
-        float buttonHeight = Gdx.graphics.getHeight() / 10f;
-        float buttonPadding = Gdx.graphics.getWidth() / 100f;
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
 
-        // Create buttons for each letter of the alphabet
-        for (char c = 'a'; c <= 'z'; c++) {
-            final char charToAdd = c;
-            createButton(String.valueOf(c), buttonWidth, buttonHeight, new Runnable() {
-                @Override
-                public void run() {
-                    currentText += charToAdd;
-                }
-            });
+        for (int i = 0; i < buttonValues.length; i++) {
+            String buttonValue = buttonValues[i];
+            TextButton button = new TextButton(buttonValue, getButtonStyle());
+            button.getLabel().setFontScale(buttonWidth / 20f);
+            buttons[i] = button;
         }
 
-        // Create the "Enter" button
-        createButton("Enter", buttonWidth, buttonHeight, new Runnable() {
-            @Override
-            public void run() {
-                currentText += "\n";
-            }
-        });
-
-        // Create the "Backspace" button
-        createButton("Backspace", buttonWidth, buttonHeight, new Runnable() {
-            @Override
-            public void run() {
-                if (currentText.length() > 0) {
-                    currentText = currentText.substring(0, currentText.length() - 1);
-                }
-            }
-        });
+        for (int i = 0; i < buttonValues.length; i += 3) {
+            table.add(buttons[i]).size(buttonWidth, buttonHeight).pad(buttonPadding);
+            table.add(buttons[i+1]).size(buttonWidth, buttonHeight).pad(buttonPadding);
+            table.add(buttons[i+2]).size(buttonWidth, buttonHeight).pad(buttonPadding);
+            table.row();
+        }
     }
 
-    private void createButton(String label, float width, float height, final Runnable onClick) {
-        Button button = new Button();
-        button.setSize(width, height);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                onClick.run();
-            }
-        });
-        stage.addActor(button);
-    }
-
-    @Override
-    public void render () {
+    public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         batch.begin();
-        font.draw(batch, currentText, Gdx.graphics.getWidth() / 10f, Gdx.graphics.getHeight() / 2f);
+        font.draw(batch, keyboardInput.getCurrentText(), buttonWidth, Gdx.graphics.getHeight() / 2f);
         batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
-    @Override
-    public void dispose () {
+    public void dispose() {
         batch.dispose();
         font.dispose();
         stage.dispose();
+    }
+
+    private TextButton.TextButtonStyle getButtonStyle() {
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = font;
+        style.fontColor = Color.BLACK;
+        return style;
     }
 }
