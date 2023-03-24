@@ -3,20 +3,26 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.HighscoreList;
 import com.mygdx.game.model.highscore.Score;
+import com.mygdx.game.model.words.WordGenerator;
+import com.mygdx.game.model.words.WordValidator;
+
+import jdk.internal.org.jline.utils.Log;
 
 /**
  * App entrypoint from LibGDX.
  */
 public class WordleBattleGame extends ApplicationAdapter {
+
 	SpriteBatch batch;
-	Texture img;
 
 	FirebaseAPI firebaseAPI;
 	HighscoreList highscores;
@@ -24,47 +30,41 @@ public class WordleBattleGame extends ApplicationAdapter {
     public WordleBattleGame(FirebaseAPI firebaseAPI) {
     		this.firebaseAPI = firebaseAPI;
 			this.highscores = new HighscoreList(firebaseAPI);
-    	}
+	}
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-
-		System.out.println(firebaseAPI);
+		//System.out.println(firebaseAPI);
 
 		/* Push starting-screen to controller*/
-		// TODO:
-		//ControllerManager.getInstance().push(new MainMenuController());
+		ControllerManager.getInstance().push(new SingleplayerGameController());
 
-		/*
-		// This is how you would fetch and update the current highscore list
-		highscores.fetchHighscores();
-        highscores.submitHighscore("John", 3600);
-		highscores.submitHighscore("Emma", 4500);
-        highscores.fetchHighscores();
-		 */
+		/* Test Word validator
+		*  See println with logcat window.
+		*  Remove after testing!!
+		*/
+		WordValidator wv = new WordValidator(WordGenerator.Language.ENGLISH);
+		String word = "shame";
+		System.out.println("Valid word " + word + ": " + wv.isValid(word));
+		word = "shaml";
+		System.out.println("Valid word " + word + ": " + wv.isValid(word));
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
-//		ControllerManager.getInstance().handleInput();
-//		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
-//		ControllerManager.getInstance().render(batch);
-
-		// This is a way to check what the highscore list contains
-		// System.out.println(highscores.getLocalHighscores());
+		ControllerManager.getInstance().handleInput();
+		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
 
 
 		batch.begin();
-		batch.draw(img, 0, 0);
+		ControllerManager.getInstance().render(batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }

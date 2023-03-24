@@ -99,7 +99,7 @@ project(":core") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-
-
+        // Import the BoM for the Firebase platform
+        implementation platform('com.google.firebase:firebase-bom:31.2.3')
     }
 }
