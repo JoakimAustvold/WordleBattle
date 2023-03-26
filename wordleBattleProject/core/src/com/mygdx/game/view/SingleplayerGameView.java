@@ -60,6 +60,8 @@ public class SingleplayerGameView extends View {
             }
             table.row();
         }
+
+        table.setY(-Gdx.graphics.getHeight()/3.5f);
     }
 
     @Override
@@ -68,14 +70,14 @@ public class SingleplayerGameView extends View {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (state instanceof PlayState) {
-            font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / (((PlayState) state).getWord().length() - 2), Gdx.graphics.getHeight() - 45);
+            font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() - 45);
         }
         else {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
         batch.begin();
-        font.draw(batch, keyboardInput.getCurrentText(), buttonWidth, Gdx.graphics.getHeight() / 2f);
+        font.draw(batch, keyboardInput.getCurrentText(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 1.2f);
         batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
