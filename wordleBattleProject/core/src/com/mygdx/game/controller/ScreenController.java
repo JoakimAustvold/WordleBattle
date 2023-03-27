@@ -2,6 +2,7 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.view.SettingsScreenView;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.MainMenuView;
 import com.mygdx.game.model.State;
@@ -16,6 +17,7 @@ public class ScreenController extends Game {
     //private LoadingScreen loadingScreen;
     //private PreferencesScreen preferencesScreen;
     private MainMenuView menuScreen;
+    private SettingsScreenView settingsScreen;
     //private MainScreen mainScreen;
    // private EndScreen endScreen;
 
@@ -34,11 +36,12 @@ public class ScreenController extends Game {
                 if(menuScreen == null) menuScreen = new MainMenuView(this); // added (this)
                 this.setScreen(menuScreen);
                 break;
-            /**
             case SETTINGS:
-                if(preferencesScreen == null) preferencesScreen = new PreferencesScreen(this); // added (this)
-                this.setScreen(preferencesScreen);
+                if(settingsScreen == null) settingsScreen = new SettingsScreenView(this); // added (this)
+                this.setScreen(settingsScreen);
                 break;
+
+            /**
 
             case GAMESCREEN:
                 if(mainScreen == null) mainScreen = new MainScreen(this); //added (this)
@@ -52,15 +55,6 @@ public class ScreenController extends Game {
              */
         }
     }
-
-
-    /**
-    public MainMenuController() {
-        // Set corresponding state and view here!!!
-        this.state = new State();
-        this.view = new MainMenuView();
-    }
-     */
 
     /**
      * Run the render function on the view.
@@ -88,22 +82,4 @@ public class ScreenController extends Game {
         changeScreen(MENU);
     }
 
-
-
-
-    /*public void render( float delta) {
-        Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act();
-        stage.draw();
-    }*/
-
-
-    /*   public MainMenu(WordleBattle WordleBattleGame) {
-           this.WordleBattleGame = WordleBattleGame;
-           width = WordleBattleGame.getWidth();
-           height = WordleBattleGame.getHeight();
-           skin = WordleBattleGame.getSkin();
-       }*/
 }
