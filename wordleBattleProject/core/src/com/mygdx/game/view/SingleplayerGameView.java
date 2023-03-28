@@ -19,13 +19,8 @@ public class SingleplayerGameView extends View {
     private final float buttonHeight = Gdx.graphics.getHeight() / 20f;
     private final float buttonPadding = buttonWidth / 5f;
 
-    private final String[][] buttonValues = {
-            {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"},
-            {"a", "s", "d", "f", "g", "h", "j", "k", "l"},
-            {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
-    };
 
-    public final TextButton[][] buttons = new TextButton[buttonValues.length][];
+    public final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
     public final KeyboardInput keyboardInput;
@@ -43,10 +38,10 @@ public class SingleplayerGameView extends View {
         table.setFillParent(true);
         stage.addActor(table);
 
-        for (int i = 0; i < buttonValues.length; i++) {
-            TextButton[] rowButtons = new TextButton[buttonValues[i].length];
-            for (int j = 0; j < buttonValues[i].length; j++) {
-                String buttonValue = buttonValues[i][j];
+        for (int i = 0; i < PlayState.buttonValues.length; i++) {
+            TextButton[] rowButtons = new TextButton[PlayState.buttonValues[i].length];
+            for (int j = 0; j < PlayState.buttonValues[i].length; j++) {
+                String buttonValue = PlayState.buttonValues[i][j];
                 TextButton button = new TextButton(buttonValue, getButtonStyle());
                 button.getLabel().setFontScale(buttonWidth / 20f);
                 rowButtons[j] = button;

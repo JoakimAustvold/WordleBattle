@@ -14,6 +14,11 @@ public class PlayState extends State { // Called WordleGame in first draft of di
     //private Player player1;
     //private Player player2;
 
+    public static final String[][] buttonValues = {
+            {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"},
+            {"a", "s", "d", "f", "g", "h", "j", "k", "l"},
+            {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
+    };
 
     public PlayState() {
         WordGenerator wg = new WordGenerator(WordGenerator.Language.ENGLISH);
