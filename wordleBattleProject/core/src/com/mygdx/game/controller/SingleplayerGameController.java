@@ -17,8 +17,8 @@ public class SingleplayerGameController extends Controller {
         this.view = new SingleplayerGameView();
 
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view; // Maybe a bit dodgy
-        keyboardInput = singleplayerView.keyboardInput;
-        buttons = singleplayerView.buttons;
+        keyboardInput = PlayState.keyboardInput;
+        buttons = PlayState.buttons;
 
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {

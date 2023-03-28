@@ -1,6 +1,10 @@
 package com.mygdx.game.model.states;
 
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.model.keyboard.KeyboardInput;
 import com.mygdx.game.model.words.WordGenerator;
 
 public class PlayState extends State { // Called WordleGame in first draft of diagrams
@@ -20,7 +24,12 @@ public class PlayState extends State { // Called WordleGame in first draft of di
             {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
     };
 
+    public static final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
+
+    public static KeyboardInput keyboardInput;
+
     public PlayState() {
+        keyboardInput = new KeyboardInput();
         WordGenerator wg = new WordGenerator(WordGenerator.Language.ENGLISH);
         word = wg.generateWord();
     }
