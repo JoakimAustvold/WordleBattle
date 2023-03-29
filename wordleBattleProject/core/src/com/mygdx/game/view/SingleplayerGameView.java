@@ -18,11 +18,6 @@ public class SingleplayerGameView extends View {
     private final float buttonWidth = Gdx.graphics.getWidth() / 16f;
     private final float buttonHeight = Gdx.graphics.getHeight() / 20f;
     private final float buttonPadding = buttonWidth / 5f;
-
-    public TextButton[][] getButtons() {
-        return buttons;
-    }
-
     private final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
 
     private final SpriteBatch batch = new SpriteBatch();
@@ -86,5 +81,9 @@ public class SingleplayerGameView extends View {
         style.font = font;
         style.fontColor = Color.BLACK;
         return style;
+    }
+
+    public TextButton[][] getButtons() {
+        return buttons;
     }
 }
