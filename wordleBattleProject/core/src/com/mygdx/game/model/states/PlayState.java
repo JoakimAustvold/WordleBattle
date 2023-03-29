@@ -24,8 +24,6 @@ public class PlayState extends State { // Called WordleGame in first draft of di
             {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
     };
 
-    public static final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
-
     private KeyboardInput keyboardInput;
 
     public PlayState() {

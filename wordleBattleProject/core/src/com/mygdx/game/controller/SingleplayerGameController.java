@@ -16,13 +16,16 @@ public class SingleplayerGameController extends Controller {
         this.state = new PlayState();
         this.view = new SingleplayerGameView();
 
-        SingleplayerGameView singleplayerView = (SingleplayerGameView) view; // Maybe a bit dodgy
+        if(!(view instanceof  SingleplayerGameView)){
+            throw new IllegalArgumentException("Please instantiate this controller with a SinglePlayerGameView!");
+        }
+        SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
         if(this.state instanceof  PlayState){
             keyboardInput = ((PlayState) this.state).getKeyboardInput();
         }
 
-        buttons = PlayState.buttons;
+        buttons = singleplayerView.getButtons();
 
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {

@@ -19,6 +19,12 @@ public class SingleplayerGameView extends View {
     private final float buttonHeight = Gdx.graphics.getHeight() / 20f;
     private final float buttonPadding = buttonWidth / 5f;
 
+    public TextButton[][] getButtons() {
+        return buttons;
+    }
+
+    private final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
+
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
     private final Stage stage = new Stage();
@@ -27,7 +33,6 @@ public class SingleplayerGameView extends View {
         font.getData().setScale(6, 6);
         font.setColor(Color.BLACK);
 
-//        keyboardInput = new KeyboardInput();
 
         Gdx.input.setInputProcessor(stage);
 
@@ -43,10 +48,10 @@ public class SingleplayerGameView extends View {
                 button.getLabel().setFontScale(buttonWidth / 20f);
                 rowButtons[j] = button;
             }
-            PlayState.buttons[i] = rowButtons;
+            buttons[i] = rowButtons;
         }
 
-        for (TextButton[] rowButtons : PlayState.buttons) {
+        for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
                 table.add(button).size(buttonWidth, buttonHeight).pad(buttonPadding);
             }
