@@ -9,7 +9,7 @@ import com.mygdx.game.view.SingleplayerGameView;
 
 public class SingleplayerGameController extends Controller {
 
-    private final KeyboardInput keyboardInput;
+    private KeyboardInput keyboardInput;
     private final TextButton[][] buttons;
 
     public SingleplayerGameController() {
@@ -17,7 +17,11 @@ public class SingleplayerGameController extends Controller {
         this.view = new SingleplayerGameView();
 
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view; // Maybe a bit dodgy
-        keyboardInput = PlayState.keyboardInput;
+
+        if(this.state instanceof  PlayState){
+            keyboardInput = ((PlayState) this.state).getKeyboardInput();
+        }
+
         buttons = PlayState.buttons;
 
         for (TextButton[] rowButtons : buttons) {

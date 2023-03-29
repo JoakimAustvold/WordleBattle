@@ -61,15 +61,15 @@ public class SingleplayerGameView extends View {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (state instanceof PlayState) {
-            font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() - 45);
-        }
-        else {
+        if (!(state instanceof PlayState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
+
+
         batch.begin();
-        font.draw(batch, PlayState.keyboardInput.getCurrentText(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 1.2f);
+        font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() - 45);
+        font.draw(batch, ((PlayState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 1.2f);
         batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());

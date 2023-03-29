@@ -26,12 +26,16 @@ public class PlayState extends State { // Called WordleGame in first draft of di
 
     public static final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
 
-    public static KeyboardInput keyboardInput;
+    private KeyboardInput keyboardInput;
 
     public PlayState() {
         keyboardInput = new KeyboardInput();
         WordGenerator wg = new WordGenerator(WordGenerator.Language.ENGLISH);
         word = wg.generateWord();
+    }
+
+    public KeyboardInput getKeyboardInput(){
+        return this.keyboardInput;
     }
 
 
