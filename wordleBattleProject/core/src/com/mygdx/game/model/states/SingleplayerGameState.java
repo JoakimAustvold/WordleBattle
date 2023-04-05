@@ -1,22 +1,14 @@
 package com.mygdx.game.model.states;
 
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.mygdx.game.model.keyboard.KeyboardInput;
+import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.words.WordGenerator;
 
-public class PlayState extends State { // Called WordleGame in first draft of diagrams
-    private boolean isDuel;
+public class SingleplayerGameState extends State { // Called WordleGame in first draft of diagrams
     private boolean isGameOver;
     private int turn;
-    private String inviteCode;
-    private String[] guessesPlayer1;
-    private String[] guessesPlayer2;
-    private String word;
-    //private Player player1;
-    //private Player player2;
+    private String[] guesses;
+    private final String word;
 
     public static final String[][] buttonValues = {
             {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"},
@@ -24,9 +16,9 @@ public class PlayState extends State { // Called WordleGame in first draft of di
             {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
     };
 
-    private KeyboardInput keyboardInput;
+    private final KeyboardInput keyboardInput;
 
-    public PlayState() {
+    public SingleplayerGameState() {
         keyboardInput = new KeyboardInput();
         WordGenerator wg = new WordGenerator(WordGenerator.Language.ENGLISH);
         word = wg.generateWord();

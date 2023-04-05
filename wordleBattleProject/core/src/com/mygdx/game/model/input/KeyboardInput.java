@@ -1,4 +1,4 @@
-package com.mygdx.game.model.keyboard;
+package com.mygdx.game.model.input;
 
 // This class keeps track of which keys the user clicks on the keyboard and saves it in variable text
 public class KeyboardInput {

@@ -3,8 +3,8 @@ package com.mygdx.game.controller;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.mygdx.game.model.keyboard.KeyboardInput;
-import com.mygdx.game.model.states.PlayState;
+import com.mygdx.game.model.input.KeyboardInput;
+import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.view.SingleplayerGameView;
 
 public class SingleplayerGameController extends Controller {
@@ -12,14 +12,13 @@ public class SingleplayerGameController extends Controller {
     private KeyboardInput keyboardInput;
 
     public SingleplayerGameController() {
-        this.state = new PlayState();
+        this.state = new SingleplayerGameState();
         this.view = new SingleplayerGameView();
-
 
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
-        if(this.state instanceof  PlayState){
-            keyboardInput = ((PlayState) this.state).getKeyboardInput();
+        if(this.state instanceof SingleplayerGameState){
+            keyboardInput = ((SingleplayerGameState) this.state).getKeyboardInput();
         }
 
         final TextButton[][] buttons = singleplayerView.getButtons();

@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
-import com.mygdx.game.model.states.PlayState;
+import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
 
 public class SingleplayerGameView extends View {
@@ -17,7 +17,7 @@ public class SingleplayerGameView extends View {
     private final float buttonWidth = Gdx.graphics.getWidth() / 16f;
     private final float buttonHeight = Gdx.graphics.getHeight() / 20f;
     private final float buttonPadding = buttonWidth / 5f;
-    private final TextButton[][] buttons = new TextButton[PlayState.buttonValues.length][];
+    private final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
@@ -37,15 +37,15 @@ public class SingleplayerGameView extends View {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (!(state instanceof PlayState)) {
+        if (!(state instanceof SingleplayerGameState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
 
 
         batch.begin();
-        font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() - 45);
-        font.draw(batch, ((PlayState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 1.2f);
+        font.draw(spriteBatch, ((SingleplayerGameState) state).getWord(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() - 45);
+        font.draw(batch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 1.2f);
         batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -58,7 +58,7 @@ public class SingleplayerGameView extends View {
         stage.addActor(table);
 
         int rowCounter = 0;
-        for (String [] buttonValueRow :  PlayState.buttonValues) {
+        for (String [] buttonValueRow :  SingleplayerGameState.buttonValues) {
             TextButton[] rowButtons = new TextButton[buttonValueRow.length];
 
             int letterCounter = 0;
