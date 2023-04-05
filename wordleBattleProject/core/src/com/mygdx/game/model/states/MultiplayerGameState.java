@@ -4,7 +4,7 @@ package com.mygdx.game.model.states;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.words.WordGenerator;
 
-public class MultiplayerGameState extends State { // Called WordleGame in first draft of diagrams
+public class MultiplayerGameState extends State {
     private boolean isDuel;
     private boolean isGameOver;
     private int turn;
