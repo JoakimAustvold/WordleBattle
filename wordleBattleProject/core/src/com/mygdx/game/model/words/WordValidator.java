@@ -12,9 +12,9 @@ import java.util.Random;
  */
 public class WordValidator {
 
-    private WordGenerator.Language selectedLanguage;
+    private Language selectedLanguage;
 
-    public WordValidator(WordGenerator.Language language){
+    public WordValidator(Language language){
         this.selectedLanguage = language;
     }
 
@@ -60,11 +60,11 @@ public class WordValidator {
         return filename;
     }
 
-    public WordGenerator.Language getSelectedLanguage() {
+    public Language getSelectedLanguage() {
         return selectedLanguage;
     }
 
-    public void setSelectedLanguage(WordGenerator.Language selectedLanguage) {
+    public void setSelectedLanguage(Language selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
     }
 }

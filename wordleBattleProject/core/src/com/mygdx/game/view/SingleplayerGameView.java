@@ -41,10 +41,8 @@ public class SingleplayerGameView extends View {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
-
-
         batch.begin();
-        font.draw(spriteBatch, ((SingleplayerGameState) state).getWord(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() - 45);
+        font.draw(spriteBatch, ((SingleplayerGameState) state).getSolution(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() - 45);
         font.draw(batch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 1.2f);
         batch.end();
 
@@ -82,6 +80,14 @@ public class SingleplayerGameView extends View {
         table.setY(-Gdx.graphics.getHeight()/3.5f);
     }
 
+    public TextButton[][] getButtons() {
+        return buttons;
+    }
+
+    private void renderInput(){
+
+    }
+
     private TextButton.TextButtonStyle getButtonStyle() {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
@@ -89,7 +95,5 @@ public class SingleplayerGameView extends View {
         return style;
     }
 
-    public TextButton[][] getButtons() {
-        return buttons;
-    }
+
 }
