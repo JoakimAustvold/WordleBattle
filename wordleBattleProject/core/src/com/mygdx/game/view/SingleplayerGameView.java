@@ -48,17 +48,21 @@ public class SingleplayerGameView extends View {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
-        batch.begin();
         font.draw(spriteBatch, ((SingleplayerGameState) state).getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = ((SingleplayerGameState) state).getGuesses();
         int c = 0;
         for (GuessedWord word : guessedWords){
-            font.draw(spriteBatch, word.getWord(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y);
+            //TODO: color each individual letter based on state.
+            float height = (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y*2;
+            font.draw(spriteBatch, word.getWord(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
             c++;
         }
 
-        font.draw(batch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() / 1.2f);
-        batch.end();
+        font.draw(
+                spriteBatch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(),
+                Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR,
+                (Gdx.graphics.getHeight() - 100.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y
+        );
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
