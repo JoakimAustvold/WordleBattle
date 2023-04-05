@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
-import com.mygdx.game.model.keyboard.KeyboardInput;
 import com.mygdx.game.model.states.PlayState;
 import com.mygdx.game.model.states.State;
 
@@ -28,32 +27,9 @@ public class SingleplayerGameView extends View {
         font.getData().setScale(6, 6);
         font.setColor(Color.BLACK);
 
-
         Gdx.input.setInputProcessor(stage);
 
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
-
-        for (int i = 0; i < PlayState.buttonValues.length; i++) {
-            TextButton[] rowButtons = new TextButton[PlayState.buttonValues[i].length];
-            for (int j = 0; j < PlayState.buttonValues[i].length; j++) {
-                String buttonValue = PlayState.buttonValues[i][j];
-                TextButton button = new TextButton(buttonValue, getButtonStyle());
-                button.getLabel().setFontScale(buttonWidth / 20f);
-                rowButtons[j] = button;
-            }
-            buttons[i] = rowButtons;
-        }
-
-        for (TextButton[] rowButtons : buttons) {
-            for (TextButton button : rowButtons) {
-                table.add(button).size(buttonWidth, buttonHeight).pad(buttonPadding);
-            }
-            table.row();
-        }
-
-        table.setY(-Gdx.graphics.getHeight()/3.5f);
+        setupKeyboard();
     }
 
     @Override
@@ -68,12 +44,42 @@ public class SingleplayerGameView extends View {
 
 
         batch.begin();
-        font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() - 45);
-        font.draw(batch, ((PlayState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 1.2f);
+        font.draw(spriteBatch, ((PlayState) state).getWord(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() - 45);
+        font.draw(batch, ((PlayState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 1.2f);
         batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    private void setupKeyboard(){
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        int rowCounter = 0;
+        for (String [] buttonValueRow :  PlayState.buttonValues) {
+            TextButton[] rowButtons = new TextButton[buttonValueRow.length];
+
+            int letterCounter = 0;
+            for (String buttonValue : buttonValueRow) {
+                TextButton button = new TextButton(buttonValue, getButtonStyle());
+                button.getLabel().setFontScale(buttonWidth / 20f);
+                rowButtons[letterCounter] = button;
+                letterCounter++;
+            }
+            buttons[rowCounter] = rowButtons;
+            rowCounter++;
+        }
+
+        for (TextButton[] rowButtons : buttons) {
+            for (TextButton button : rowButtons) {
+                table.add(button).size(buttonWidth, buttonHeight).pad(buttonPadding);
+            }
+            table.row();
+        }
+
+        table.setY(-Gdx.graphics.getHeight()/3.5f);
     }
 
     private TextButton.TextButtonStyle getButtonStyle() {
