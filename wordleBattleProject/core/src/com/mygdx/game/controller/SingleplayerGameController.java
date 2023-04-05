@@ -10,22 +10,19 @@ import com.mygdx.game.view.SingleplayerGameView;
 public class SingleplayerGameController extends Controller {
 
     private KeyboardInput keyboardInput;
-    private final TextButton[][] buttons;
 
     public SingleplayerGameController() {
         this.state = new PlayState();
         this.view = new SingleplayerGameView();
 
-        if(!(view instanceof  SingleplayerGameView)){
-            throw new IllegalArgumentException("Please instantiate this controller with a SinglePlayerGameView!");
-        }
+
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
         if(this.state instanceof  PlayState){
             keyboardInput = ((PlayState) this.state).getKeyboardInput();
         }
 
-        buttons = singleplayerView.getButtons();
+        final TextButton[][] buttons = singleplayerView.getButtons();
 
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
@@ -39,11 +36,11 @@ public class SingleplayerGameController extends Controller {
         // This method is empty because input is handled by the KeyboardInputListener class
     }
 
-    // Possibly placed in the wrong place
+    /**
+     * Handles input events for the keyboard-view.
+     */
     private class KeyboardInputListener extends InputListener {
-
         private final String buttonValue;
-
         public KeyboardInputListener(String buttonValue) {
             this.buttonValue = buttonValue;
         }
