@@ -52,4 +52,12 @@ public class SingleplayerGameState extends State {
     public WordInputHandler getWordInputHandler() {
         return wordInputHandler;
     }
+
+    public Collection<GuessedWord> getGuesses() {
+        return guesses;
+    }
+
+    public Collection<Character> getDisabledChars() {
+        return disabledChars;
+    }
 }

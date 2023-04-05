@@ -1,15 +1,24 @@
 package com.mygdx.game.controller;
 
+import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.input.KeyboardInput;
+import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.states.SingleplayerGameState;
+import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.SingleplayerGameView;
+
+import java.util.Collection;
+import java.util.EventListener;
 
 public class SingleplayerGameController extends Controller {
 
-    private KeyboardInput keyboardInput;
+    private final KeyboardInput keyboardInput;
+    private final SingleplayerGameState gameState;
 
     public SingleplayerGameController() {
         this.state = new SingleplayerGameState();
@@ -17,15 +26,31 @@ public class SingleplayerGameController extends Controller {
 
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
-        if(this.state instanceof SingleplayerGameState){
-            keyboardInput = ((SingleplayerGameState) this.state).getKeyboardInput();
+        if(!(this.state instanceof SingleplayerGameState)){
+            throw new StateException("Please provide a SingleplayerGameState to this controller");
         }
+        this.gameState = ((SingleplayerGameState) this.state);
 
-        final TextButton[][] buttons = singleplayerView.getButtons();
-
+        keyboardInput = gameState.getKeyboardInput();
+        TextButton[][] buttons = singleplayerView.getButtons();
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
-                button.addListener(new KeyboardInputListener(button.getLabel().getText().toString()));
+                button.addListener(new KeyboardInputListener(
+                        button.getLabel().getText().toString()
+                ));
+            }
+        }
+    }
+
+    private void disableButtons(Collection<Character> disabledLetters){
+        SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
+
+        TextButton[][] buttons = singleplayerView.getButtons();
+        for (TextButton[] rowButtons : buttons) {
+            for (TextButton button : rowButtons) {
+                if(disabledLetters.contains(button.getLabel().getText().toString())){
+                    button.setDisabled(true);
+                }
             }
         }
     }
@@ -40,25 +65,50 @@ public class SingleplayerGameController extends Controller {
      */
     private class KeyboardInputListener extends InputListener {
         private final String buttonValue;
+        private boolean isDisabled = false;
+
+        public boolean isDisabled() {
+            return isDisabled;
+        }
+
+        public void setDisabled(boolean disabled) {
+            isDisabled = disabled;
+        }
+
         public KeyboardInputListener(String buttonValue) {
             this.buttonValue = buttonValue;
         }
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            if (this.isDisabled)
+                return false;
+            
             switch (buttonValue) {
                 case "Enter":
-                    // We currently have no logic for checking/submitting word, so a linebreak is used
-                    keyboardInput.appendChar("\n");
+                    handleEnter();
                     break;
                 case "<--":
                     keyboardInput.deleteLastChar();
                     break;
                 default:
-                    keyboardInput.appendChar(buttonValue);
+                    if(keyboardInput.getCurrentText().length() < WORD_LENGTH)
+                        keyboardInput.appendChar(buttonValue);
                     break;
             }
             return true;
+        }
+
+        /**
+         * Handle input word in state. Clear input and disable incorrectly guessed letters if input
+         * word was valid.
+         */
+        private void handleEnter(){
+           WordStatus wordStatus = gameState.getWordInputHandler().handleInput(keyboardInput);
+           if (!wordStatus.equals(WordStatus.INVALID)){
+               keyboardInput.clear();
+               disableButtons(gameState.getDisabledChars());
+           }
         }
     }
 }

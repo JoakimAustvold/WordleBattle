@@ -33,7 +33,7 @@ public class WordInputHandler {
 
 
     /**
-     * Handles input of new words.
+     * Handles input of new words. Adds a new guessed word with validation flags, and sets disabled letters.
      * @param keyboardInput to handle and validate.
      * @return validation state WordStatus of the input word.
      */

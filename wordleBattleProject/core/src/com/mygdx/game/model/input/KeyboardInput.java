@@ -16,6 +16,10 @@ public class KeyboardInput {
         }
     }
 
+    public void clear(){
+        text = new StringBuilder();
+    }
+
     public String getCurrentText() {
         return text.toString();
     }
