@@ -2,6 +2,7 @@ package com.mygdx.game.model.states;
 
 
 import com.mygdx.game.model.input.KeyboardInput;
+import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;
 
 public class MultiplayerGameState extends State {
@@ -25,7 +26,7 @@ public class MultiplayerGameState extends State {
 
     public MultiplayerGameState() {
         keyboardInput = new KeyboardInput();
-        WordGenerator wg = new WordGenerator(WordGenerator.Language.ENGLISH);
+        WordGenerator wg = new WordGenerator(Language.ENGLISH);
         word = wg.generateWord();
     }
 

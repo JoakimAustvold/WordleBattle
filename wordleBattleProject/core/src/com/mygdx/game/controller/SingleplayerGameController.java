@@ -83,7 +83,7 @@ public class SingleplayerGameController extends Controller {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             if (this.isDisabled)
                 return false;
-            
+
             switch (buttonValue) {
                 case "Enter":
                     handleEnter();
