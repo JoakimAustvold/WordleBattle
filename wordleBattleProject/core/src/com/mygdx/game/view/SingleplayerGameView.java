@@ -21,6 +21,9 @@ public class SingleplayerGameView extends View {
     private static final float WORD_POS_X_DIVISOR = 2.5f;
     private static final float WORD_DELTA_Y = 90.0f;
 
+    private static final Color COLOR_KEY_ENABLED = Color.BLACK;
+    private static final Color COLOR_KEY_DISABLED = Color.LIGHT_GRAY;
+
     private static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
     private static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
     private static final float buttonPadding = buttonWidth / 5f;
@@ -72,11 +75,18 @@ public class SingleplayerGameView extends View {
         return buttons;
     }
 
+    public void updateKeyboardStyle(){
+        for (TextButton[] rowButtons : buttons) {
+            for (TextButton button : rowButtons) {
+                button.setStyle(getButtonStyle(button));
+            }
+        }
+    }
 
     private TextButton.TextButtonStyle getButtonStyle() {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
-        style.fontColor = Color.BLACK;
+        style.fontColor = COLOR_KEY_ENABLED;
         return style;
     }
 
@@ -84,9 +94,9 @@ public class SingleplayerGameView extends View {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
         if(!button.isDisabled())
-            style.fontColor = Color.BLACK;
+            style.fontColor = COLOR_KEY_ENABLED;
         else
-            style.fontColor = Color.GRAY;
+            style.fontColor = COLOR_KEY_DISABLED;
 
         return style;
     }

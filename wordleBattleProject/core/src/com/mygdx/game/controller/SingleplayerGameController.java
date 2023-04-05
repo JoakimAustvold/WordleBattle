@@ -48,11 +48,13 @@ public class SingleplayerGameController extends Controller {
         TextButton[][] buttons = singleplayerView.getButtons();
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
-                if(disabledLetters.contains(button.getLabel().getText().toString())){
+                if(disabledLetters.contains((Character)button.getLabel().getText().toString().charAt(0))){
+                    //System.out.println("Disabling button: " + button.getLabel().getText());
                     button.setDisabled(true);
                 }
             }
         }
+        singleplayerView.updateKeyboardStyle();
     }
 
     @Override
