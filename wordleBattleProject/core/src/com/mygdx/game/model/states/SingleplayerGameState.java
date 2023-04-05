@@ -9,6 +9,7 @@ import com.mygdx.game.model.input.WordInputHandler;
 import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class SingleplayerGameState extends State {
@@ -32,7 +33,10 @@ public class SingleplayerGameState extends State {
         keyboardInput = new KeyboardInput();
         WordGenerator wg = new WordGenerator(language);
         solution = wg.generateWord();
+        guesses = new ArrayList<>();
+        disabledChars = new ArrayList<>();
         wordInputHandler = new WordInputHandler(solution, language, guesses, disabledChars);
+
     }
 
     public KeyboardInput getKeyboardInput(){

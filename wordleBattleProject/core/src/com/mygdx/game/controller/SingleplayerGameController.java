@@ -36,7 +36,7 @@ public class SingleplayerGameController extends Controller {
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
                 button.addListener(new KeyboardInputListener(
-                        button.getLabel().getText().toString()
+                       button
                 ));
             }
         }
@@ -65,23 +65,16 @@ public class SingleplayerGameController extends Controller {
      */
     private class KeyboardInputListener extends InputListener {
         private final String buttonValue;
-        private boolean isDisabled = false;
+        private final TextButton textButton;
 
-        public boolean isDisabled() {
-            return isDisabled;
-        }
-
-        public void setDisabled(boolean disabled) {
-            isDisabled = disabled;
-        }
-
-        public KeyboardInputListener(String buttonValue) {
-            this.buttonValue = buttonValue;
+        public KeyboardInputListener(TextButton button) {
+            this.textButton = button;
+            this.buttonValue =  button.getLabel().getText().toString();
         }
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (this.isDisabled)
+            if (this.textButton.isDisabled())
                 return false;
 
             switch (buttonValue) {

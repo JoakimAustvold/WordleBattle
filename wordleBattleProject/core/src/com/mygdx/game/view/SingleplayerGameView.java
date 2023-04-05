@@ -3,20 +3,27 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
+import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
 
+import java.util.Collection;
+
 public class SingleplayerGameView extends View {
 
-    private final float buttonWidth = Gdx.graphics.getWidth() / 16f;
-    private final float buttonHeight = Gdx.graphics.getHeight() / 20f;
-    private final float buttonPadding = buttonWidth / 5f;
+    private static final float WORD_POS_X_DIVISOR = 2.5f;
+    private static final float WORD_DELTA_Y = 90.0f;
+
+    private static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
+    private static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
+    private static final float buttonPadding = buttonWidth / 5f;
     private final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
     private final SpriteBatch batch = new SpriteBatch();
@@ -42,12 +49,42 @@ public class SingleplayerGameView extends View {
         }
 
         batch.begin();
-        font.draw(spriteBatch, ((SingleplayerGameState) state).getSolution(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() - 45);
-        font.draw(batch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / 3.0f, Gdx.graphics.getHeight() / 1.2f);
+        font.draw(spriteBatch, ((SingleplayerGameState) state).getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
+        Collection<GuessedWord> guessedWords = ((SingleplayerGameState) state).getGuesses();
+        int c = 0;
+        for (GuessedWord word : guessedWords){
+            font.draw(spriteBatch, word.getWord(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y);
+            c++;
+        }
+
+        font.draw(batch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() / 1.2f);
         batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    public TextButton[][] getButtons() {
+        return buttons;
+    }
+
+
+    private TextButton.TextButtonStyle getButtonStyle() {
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = font;
+        style.fontColor = Color.BLACK;
+        return style;
+    }
+
+    private TextButton.TextButtonStyle getButtonStyle(TextButton button) {
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = font;
+        if(!button.isDisabled())
+            style.fontColor = Color.BLACK;
+        else
+            style.fontColor = Color.GRAY;
+
+        return style;
     }
 
     private void setupKeyboard(){
@@ -76,24 +113,6 @@ public class SingleplayerGameView extends View {
             }
             table.row();
         }
-
         table.setY(-Gdx.graphics.getHeight()/3.5f);
     }
-
-    public TextButton[][] getButtons() {
-        return buttons;
-    }
-
-    private void renderInput(){
-
-    }
-
-    private TextButton.TextButtonStyle getButtonStyle() {
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = font;
-        style.fontColor = Color.BLACK;
-        return style;
-    }
-
-
 }
