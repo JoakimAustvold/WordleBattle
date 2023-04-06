@@ -3,6 +3,7 @@ package com.mygdx.game.model.states;
 
 import static com.mygdx.game.model.words.Language.ENGLISH;
 
+import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
@@ -15,7 +16,7 @@ import java.util.Collection;
 
 public class SingleplayerGameState extends State {
 
-    private boolean isGameOver; // Replaces isGameOver
+    private GameStatus gameStatus; // Replaces isGameOver
     private int turn;
     private static final int MAX_GUESSES = 6;
     private Collection<GuessedWord> guesses;
@@ -39,7 +40,7 @@ public class SingleplayerGameState extends State {
         guesses = new ArrayList<>();
         disabledChars = new ArrayList<>();
         wordInputHandler = new WordInputHandler(solution, language, guesses, disabledChars);
-
+        gameStatus= GameStatus.ONGOING;
     }
 
     public KeyboardInput getKeyboardInput(){
@@ -55,11 +56,23 @@ public class SingleplayerGameState extends State {
             return;
         }
 
+        if(wordStatus.equals(WordStatus.SOLUTION)){
+            gameStatus = GameStatus.WIN;
+        }
+
+        else if(guesses.size() >= MAX_GUESSES){
+            gameStatus = GameStatus.LOSS;
+        }
+
     }
 
     @Override
     public void update(float dt) {
 
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
 
     public String getSolution(){

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
+import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.input.GuessedLetter;
 import com.mygdx.game.model.input.GuessedLetterStatus;
 import com.mygdx.game.model.input.GuessedWord;
@@ -45,6 +46,8 @@ public class SingleplayerGameView extends View {
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
+        SingleplayerGameState gameState = (SingleplayerGameState) state;
+
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -52,29 +55,42 @@ public class SingleplayerGameView extends View {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
         // Draw solution word
-        font.draw(spriteBatch, ((SingleplayerGameState) state).getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
-        Collection<GuessedWord> guessedWords = ((SingleplayerGameState) state).getGuesses();
+        font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
+        Collection<GuessedWord> guessedWords = gameState.getGuesses();
 
         // Draw guessed words
         int c = 0;
         for (GuessedWord word : guessedWords){
             float height = (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y*2;
-            //TODO: color each individual letter based on state.
             font.getData().markupEnabled = true;
             String wordToDraw = createColoredWord(word);
             font.draw(spriteBatch, wordToDraw, Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
             c++;
         }
 
-        // Draw keyboard
-        font.draw(
-                spriteBatch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(),
-                Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR,
-                (Gdx.graphics.getHeight() - 100.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y
-        );
+        if(gameState.getGameStatus().equals(GameStatus.ONGOING)){
+            // Draw keyboardinput
+            font.draw(
+                    spriteBatch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(),
+                    Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR,
+                    (Gdx.graphics.getHeight() - 100.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y
+            );
+            // Draw keyboard
+            stage.act(Gdx.graphics.getDeltaTime());
+            stage.draw();
+        }
 
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        if(gameState.getGameStatus().equals(GameStatus.WIN)){
+            font.draw(spriteBatch, "You win!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
+            font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
+            font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 600);
+        }
+        else if(gameState.getGameStatus().equals(GameStatus.LOSS)){
+            font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
+            font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
+            font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
+        }
+
     }
 
     public TextButton[][] getButtons() {
