@@ -3,13 +3,14 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
+import com.mygdx.game.model.input.GuessedLetter;
+import com.mygdx.game.model.input.GuessedLetterStatus;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
@@ -21,8 +22,8 @@ public class SingleplayerGameView extends View {
     private static final float WORD_POS_X_DIVISOR = 2.5f;
     private static final float WORD_DELTA_Y = 90.0f;
 
-    private static final Color COLOR_KEY_ENABLED = Color.BLACK;
-    private static final Color COLOR_KEY_DISABLED = Color.LIGHT_GRAY;
+    private static final Color COLOR_KEY_ENABLED = Color.WHITE;
+    private static final Color COLOR_KEY_DISABLED = Color.GRAY;
 
     private static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
     private static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
@@ -35,7 +36,7 @@ public class SingleplayerGameView extends View {
 
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
-        font.setColor(Color.BLACK);
+        font.setColor(COLOR_KEY_ENABLED);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -44,23 +45,28 @@ public class SingleplayerGameView extends View {
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (!(state instanceof SingleplayerGameState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
-
+        // Draw solution word
         font.draw(spriteBatch, ((SingleplayerGameState) state).getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = ((SingleplayerGameState) state).getGuesses();
+
+        // Draw guessed words
         int c = 0;
         for (GuessedWord word : guessedWords){
-            //TODO: color each individual letter based on state.
             float height = (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y*2;
-            font.draw(spriteBatch, word.getWord(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
+            //TODO: color each individual letter based on state.
+            font.getData().markupEnabled = true;
+            String wordToDraw = createColoredWord(word);
+            font.draw(spriteBatch, wordToDraw, Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
             c++;
         }
 
+        // Draw keyboard
         font.draw(
                 spriteBatch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(),
                 Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR,
@@ -81,6 +87,33 @@ public class SingleplayerGameView extends View {
                 button.setStyle(getButtonStyle(button));
             }
         }
+    }
+
+    /**
+     * Create colored word based on letter-state
+     * @param guessedWord to color letters for
+     * @return string with libgdx markup to color letters.
+     */
+    private String createColoredWord(GuessedWord guessedWord){
+        String word = "";
+        for(GuessedLetter letter : guessedWord.getLetters()){
+            word += getColorFromLetter(letter) + letter.getLetter();
+        }
+        return word;
+    }
+
+    private String getColorFromLetter(GuessedLetter guessedLetter){
+        GuessedLetterStatus status =  guessedLetter.getStatus();
+        if(status.equals(GuessedLetterStatus.INCORRECT)){
+            return "[GRAY]";
+        }
+        if (status.equals(GuessedLetterStatus.CORRECT)){
+                return "[GREEN]";
+        }
+        if(status.equals(GuessedLetterStatus.WRONG_POS)) {
+            return "[ORANGE]";
+        }
+        return "";
     }
 
     private TextButton.TextButtonStyle getButtonStyle() {
