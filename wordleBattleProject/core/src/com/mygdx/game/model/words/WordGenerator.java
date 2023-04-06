@@ -15,11 +15,6 @@ public class WordGenerator {
 
     private final Random random;
 
-    public enum Language {
-        ENGLISH,
-        NORWEGIAN
-    }
-
     private Language selectedLanguage;
 
     public WordGenerator(Language language){

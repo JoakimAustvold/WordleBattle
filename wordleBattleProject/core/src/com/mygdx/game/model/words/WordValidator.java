@@ -1,5 +1,7 @@
 package com.mygdx.game.model.words;
 
+import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 
@@ -12,9 +14,9 @@ import java.util.Random;
  */
 public class WordValidator {
 
-    private WordGenerator.Language selectedLanguage;
+    private Language selectedLanguage;
 
-    public WordValidator(WordGenerator.Language language){
+    public WordValidator(Language language){
         this.selectedLanguage = language;
     }
 
@@ -24,7 +26,7 @@ public class WordValidator {
      * @return true if valid, false if invalid.
      */
     public boolean isValid(String word){
-        if(word.length() != 5){
+        if(word.length() != WORD_LENGTH){
             return false;
         }
         // Open wordlist as json, and store to a Words object.
@@ -60,11 +62,11 @@ public class WordValidator {
         return filename;
     }
 
-    public WordGenerator.Language getSelectedLanguage() {
+    public Language getSelectedLanguage() {
         return selectedLanguage;
     }
 
-    public void setSelectedLanguage(WordGenerator.Language selectedLanguage) {
+    public void setSelectedLanguage(Language selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
     }
 }
