@@ -1,10 +1,11 @@
 package com.mygdx.game.model.input;
 
+import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
+
 import com.mygdx.game.model.words.Language;
-import com.mygdx.game.model.words.WordGenerator;
 import com.mygdx.game.model.words.WordValidator;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -43,7 +44,8 @@ public class WordInputHandler {
         if(wordStatus == WordStatus.INVALID){
             return wordStatus;
         }
-        guessedWords.add(new GuessedWord(inputWord,getValidatedLetters(inputWord)));
+        Collection<GuessedLetter> letters = Arrays.asList(getValidatedLetters(inputWord));
+        guessedWords.add(new GuessedWord(inputWord,letters));
         return wordStatus;
     }
 
@@ -67,23 +69,64 @@ public class WordInputHandler {
      * @param guess to validate letters for. Also sets disabled letters collection.
      * @return a collection of GuessedLetter(s). All letters should have set a flag for their status.
      */
-    private Collection<GuessedLetter> getValidatedLetters(String guess){
-        Collection<GuessedLetter> guessedLetters = new ArrayList<>();
+    private GuessedLetter [] getValidatedLetters(String guess){
+        GuessedLetter [] guessedLetters = new GuessedLetter [WORD_LENGTH];
 
+        // Do separate pass for correct letters to be able to count correct letters in guess later.
         for (int i = 0; i < guess.length(); i++){
             char c = guess.charAt(i);
 
             if(solution.charAt(i) == c){
-                guessedLetters.add(new GuessedLetter(c,GuessedLetterStatus.CORRECT));
+                guessedLetters[i] = new GuessedLetter(c,GuessedLetterStatus.CORRECT);
             }
-            else if(solution.contains("" + c)){             // Concat to CharSequence
-                guessedLetters.add(new GuessedLetter(c, GuessedLetterStatus.WRONG_POS));
+        }
+        
+        // Pass for flagging WRONG_POS and INCORRECT letters.
+        for (int i = 0; i < guess.length(); i++){
+            if(guessedLetters[i] != null){
+                continue;
+            }
+            char c = guess.charAt(i);
+            int validGuessCount = 0; // Keeps track of  non-incorrect guesses for given letter.
+
+            if(solution.contains("" + c)){             // Concat to CharSequence
+                guessedLetters[i] = new GuessedLetter(c, GuessedLetterStatus.WRONG_POS);
+                // Count number of times letter has been flagged with correct or wrong_pos
+                for (GuessedLetter g : guessedLetters){
+                    if(g == null){
+                        continue;
+                    }
+                    if(g.getLetter().equals((Character) c) && !g.getStatus().equals(GuessedLetterStatus.INCORRECT)){
+                        validGuessCount++;
+                    }
+                }
+                // Flag as WRONG_POS if not already guessed correctly,
+                // or WRONG_POS is set greater or equal to that char's number of occurrences.
+                if(validGuessCount <= getNumOccurrences(solution.toCharArray(), c)){
+                    guessedLetters[i] = new GuessedLetter(c, GuessedLetterStatus.WRONG_POS);
+                }
+                else{
+                    guessedLetters[i] = (new GuessedLetter(c, GuessedLetterStatus.INCORRECT));
+                }
             }
             else {
-                guessedLetters.add(new GuessedLetter(c, GuessedLetterStatus.INCORRECT));
+                guessedLetters[i] = (new GuessedLetter(c, GuessedLetterStatus.INCORRECT));
                 this.disabledLetters.add(c);
             }
         }
         return guessedLetters;
+    }
+
+    /**
+     * Get number of occurences of a char in an array.
+     * @return num occurences.
+     */
+    private static int getNumOccurrences(char[] array, char c){
+        int count = 0;
+        for (char element : array){
+            if(element == c)
+                count++;
+        }
+        return  count;
     }
 }

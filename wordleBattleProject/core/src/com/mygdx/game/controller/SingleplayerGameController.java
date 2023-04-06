@@ -103,6 +103,8 @@ public class SingleplayerGameController extends Controller {
            if (!wordStatus.equals(WordStatus.INVALID)){
                keyboardInput.clear();
                disableButtons(gameState.getDisabledChars());
+               // Pass control back to state
+               gameState.handleSubmit(wordStatus);
            }
         }
     }

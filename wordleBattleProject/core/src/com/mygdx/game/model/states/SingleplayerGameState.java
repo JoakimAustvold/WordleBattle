@@ -6,6 +6,7 @@ import static com.mygdx.game.model.words.Language.ENGLISH;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
+import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;
 
@@ -13,8 +14,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SingleplayerGameState extends State {
-    private boolean isGameOver;
+
+    private boolean isGameOver; // Replaces isGameOver
     private int turn;
+    private static final int MAX_GUESSES = 6;
     private Collection<GuessedWord> guesses;
     private Collection<Character> disabledChars;
     private final String solution;
@@ -43,6 +46,16 @@ public class SingleplayerGameState extends State {
         return this.keyboardInput;
     }
 
+    /**
+     * Checks word-submissions to end game when player is out of guesses, or guesses correctly.
+     * @param wordStatus of the entered word.
+     */
+    public void handleSubmit(WordStatus wordStatus){
+        if(wordStatus.equals(WordStatus.INVALID)){
+            return;
+        }
+
+    }
 
     @Override
     public void update(float dt) {
