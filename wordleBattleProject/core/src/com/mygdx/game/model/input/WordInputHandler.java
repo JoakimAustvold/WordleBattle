@@ -80,35 +80,28 @@ public class WordInputHandler {
                 guessedLetters[i] = new GuessedLetter(c,GuessedLetterStatus.CORRECT);
             }
         }
-        
+
         // Pass for flagging WRONG_POS and INCORRECT letters.
         for (int i = 0; i < guess.length(); i++){
+
             if(guessedLetters[i] != null){
                 continue;
             }
             char c = guess.charAt(i);
-            int validGuessCount = 0; // Keeps track of  non-incorrect guesses for given letter.
+            int validGuessCount; // Keeps track of  non-incorrect guesses for given letter.
 
             if(solution.contains("" + c)){             // Concat to CharSequence
                 guessedLetters[i] = new GuessedLetter(c, GuessedLetterStatus.WRONG_POS);
                 // Count number of times letter has been flagged with correct or wrong_pos
-                for (GuessedLetter g : guessedLetters){
-                    if(g == null){
-                        continue;
-                    }
-                    if(g.getLetter().equals((Character) c) && !g.getStatus().equals(GuessedLetterStatus.INCORRECT)){
-                        validGuessCount++;
-                    }
-                }
+                validGuessCount = getNumOccurrences(guessedLetters, c);
+
                 // Flag as WRONG_POS if not already guessed correctly,
                 // or WRONG_POS is set greater or equal to that char's number of occurrences.
-                if(validGuessCount <= getNumOccurrences(solution.toCharArray(), c)){
-                    guessedLetters[i] = new GuessedLetter(c, GuessedLetterStatus.WRONG_POS);
-                }
-                else{
+                if(validGuessCount > getNumOccurrences(solution.toCharArray(), c)){
                     guessedLetters[i] = (new GuessedLetter(c, GuessedLetterStatus.INCORRECT));
                 }
             }
+            // Flag incorrect and disable button if the letter is not in the word.
             else {
                 guessedLetters[i] = (new GuessedLetter(c, GuessedLetterStatus.INCORRECT));
                 this.disabledLetters.add(c);
@@ -118,8 +111,29 @@ public class WordInputHandler {
     }
 
     /**
-     * Get number of occurences of a char in an array.
-     * @return num occurences.
+     * Get number of occurrences of a non-incorrect guess.
+     * @return num non-incorrect occurrences.
+     */
+    private static int getNumOccurrences(GuessedLetter [] letters, char c){
+        int count = 0;
+        for (GuessedLetter letter : letters){
+            if(letter == null){
+                continue;
+            }
+            if(
+                    letter.getLetter().equals((Character) c)
+                    && !letter.getStatus().equals(GuessedLetterStatus.INCORRECT
+            )
+            ){
+                count++;
+            }
+        }
+        return  count;
+    }
+
+    /**
+     * Get number of occurrences of a char in an array.
+     * @return num occurrences.
      */
     private static int getNumOccurrences(char[] array, char c){
         int count = 0;
