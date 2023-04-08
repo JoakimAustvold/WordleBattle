@@ -13,7 +13,7 @@ public class Wordgrid {
         this.gridTable = new Table();
         this.gridTable.setSize(5, 6);
         //TODO: Style table
-        this.TestTable();
+        //this.TestTable();
     }
 
     public void TestTable() {

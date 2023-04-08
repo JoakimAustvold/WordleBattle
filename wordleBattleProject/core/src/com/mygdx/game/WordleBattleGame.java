@@ -5,9 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SingleplayerGameController;
+import com.mygdx.game.model.FirebaseAPI;
+import com.mygdx.game.model.highscore.HighscoreList;
 
 /**
  * App entrypoint from LibGDX.
@@ -17,30 +18,41 @@ public class WordleBattleGame extends ApplicationAdapter {
 	Texture img;
 	Wordgrid wordgrid;
 
+	FirebaseAPI firebaseAPI;
+	HighscoreList highscores;
+
+	// Do not change, it will break everything!! (wordlists only consist of 5-letter words.)
+	public static final int WORD_LENGTH = 5;
+
+    public WordleBattleGame(FirebaseAPI firebaseAPI) {
+    		this.firebaseAPI = firebaseAPI;
+			this.highscores = new HighscoreList(firebaseAPI);
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		wordgrid = new Wordgrid();
+		//System.out.println(firebaseAPI);
 
 		/* Push starting-screen to controller*/
-		// TODO:
-		ControllerManager.getInstance().push(new MainMenuController());
+		ControllerManager.getInstance().push(new SingleplayerGameController());
 	}
+
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 		ControllerManager.getInstance().handleInput();
 		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
-		ControllerManager.getInstance().render(batch);
+
 		batch.begin();
-		batch.draw(img, 0, 0);
+		ControllerManager.getInstance().render(batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }
