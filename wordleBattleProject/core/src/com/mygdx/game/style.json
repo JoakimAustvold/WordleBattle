@@ -1,0 +1,54 @@
+{
+com.badlogic.gdx.graphics.Color: {
+	RGBA_180_159_58_255: {
+		r: 0.7058824
+		g: 0.62352943
+		b: 0.22745098
+		a: 1
+	}
+	RGBA_255_255_255_255: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+	RGBA_58_58_60_255: {
+		r: 0.22745098
+		g: 0.22745098
+		b: 0.23529412
+		a: 1
+	}
+	RGBA_84_141_78_255: {
+		r: 0.32941177
+		g: 0.5529412
+		b: 0.30588236
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	Background: {
+		name: white-pixel
+		color: RGBA_58_58_60_255
+	}
+	Background-yellow: {
+		name: white-pixel
+		color: RGBA_180_159_58_255
+	}
+	Background-green: {
+		name: white-pixel
+		color: RGBA_84_141_78_255
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: Font
+		fontColor: RGBA_255_255_255_255
+		background: Background
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+}
