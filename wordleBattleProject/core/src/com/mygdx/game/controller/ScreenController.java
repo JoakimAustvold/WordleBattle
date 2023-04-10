@@ -1,11 +1,10 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.states.State;
+import com.mygdx.game.view.MainMenuView;
 import com.mygdx.game.view.SettingsScreenView;
 import com.mygdx.game.view.View;
-import com.mygdx.game.view.MainMenuView;
-import com.mygdx.game.model.State;
 
 /**
  * @author Marcus Birkeland
@@ -41,13 +40,14 @@ public class ScreenController extends Game {
                 this.setScreen(settingsScreen);
                 break;
 
-            /**
 
             case GAMESCREEN:
-                if(mainScreen == null) mainScreen = new MainScreen(this); //added (this)
-                this.setScreen(mainScreen);
-                break;
+                //if(mainScreen == null) mainScreen = new MainScreen(this); //added (this)
+                     ControllerManager.getInstance().push(new SingleplayerGameController());
 
+             break;
+
+            /**
             case ENDGAME:
                 if(endScreen == null) endScreen = new EndScreen(this);  // added (this)
                 this.setScreen(endScreen);
