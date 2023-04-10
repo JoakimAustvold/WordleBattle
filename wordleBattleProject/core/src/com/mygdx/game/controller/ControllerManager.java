@@ -39,6 +39,7 @@ public class ControllerManager{
     }
 
     public void update (float deltaTime){
+        System.err.println("Found: " + controllerStack.peek());
         controllerStack.peek().update(deltaTime);
     }
 
