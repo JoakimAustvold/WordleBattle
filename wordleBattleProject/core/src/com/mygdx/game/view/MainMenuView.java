@@ -65,7 +65,14 @@ public class MainMenuView extends View {
         singleplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.changeScreen(MainMenuController.GAMESCREEN);
+                controller.changeScreen(MainMenuController.SINGLEPLAYER);
+            }
+        });
+
+        multiplayerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.changeScreen(MainMenuController.MULTIPLAYER);
             }
         });
 
@@ -73,6 +80,13 @@ public class MainMenuView extends View {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 controller.changeScreen(MainMenuController.SETTINGS);
+            }
+        });
+
+        singleplayerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.changeScreen(MainMenuController.TUTORIAL);
             }
         });
 

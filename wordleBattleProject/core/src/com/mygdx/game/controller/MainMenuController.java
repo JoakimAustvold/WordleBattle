@@ -13,8 +13,11 @@ public class MainMenuController extends Controller {
 
     public final static int MENU = 0;
     public final static int SETTINGS = 1;
-    public final static int GAMESCREEN = 2;
-    public final static int ENDGAME = 3;
+    public final static int SINGLEPLAYER = 2;
+
+    public final static int MULTIPLAYER = 3;
+
+    public final static int TUTORIAL = 4;
 
     private final SettingsController settingsController;
 
@@ -30,20 +33,22 @@ public class MainMenuController extends Controller {
             case MENU:
                 ControllerManager.getInstance().push(this);
                 break;
+
             case SETTINGS:
                 ControllerManager.getInstance().push(settingsController);
                 break;
-            case GAMESCREEN:
+
+            case SINGLEPLAYER:
                 ControllerManager.getInstance().push(new SingleplayerGameController(this));
-
-             break;
-
-            /**
-            case ENDGAME:
-                if(endScreen == null) endScreen = new EndScreen(this);  // added (this)
-                this.setScreen(endScreen);
                 break;
-             */
+
+            //TODO implement call to Multiplayer Controller here
+            case MULTIPLAYER:
+                break;
+
+            //TODO implement call to Tutorial Controller here
+            case TUTORIAL:
+                break;
         }
     }
 
