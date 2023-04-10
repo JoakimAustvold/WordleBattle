@@ -11,13 +11,13 @@ public class Wordgrid {
     private Skin skin;
 
     public Wordgrid() {
-        //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("style.atlas"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("style.atlas"));
         skin = new Skin();
-        //skin.addRegions(atlas);
+        skin.addRegions(atlas);
         this.gridTable = new Table();
         this.gridTable.setSize(5, 6);
         //TODO: Style table
-        //this.TestTable();
+        this.TestTable();
     }
 
     public void TestTable() {
