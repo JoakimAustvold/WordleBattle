@@ -24,6 +24,8 @@ public class SingleplayerGameView extends View {
     private static final float WORD_POS_X_DIVISOR = 2.5f;
     private static final float WORD_DELTA_Y = 90.0f;
 
+    private final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
+
     private static final Color COLOR_KEY_ENABLED = Color.WHITE;
     private static final Color COLOR_KEY_DISABLED = Color.GRAY;
 
@@ -54,8 +56,6 @@ public class SingleplayerGameView extends View {
         if (!(state instanceof SingleplayerGameState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
-
-        Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
         spriteBatch.draw(texture, 200, 500 + 600);
         spriteBatch.draw(texture, 350, 500 + 600);
