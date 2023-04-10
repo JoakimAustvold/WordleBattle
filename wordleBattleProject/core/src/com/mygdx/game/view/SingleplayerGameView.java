@@ -3,6 +3,7 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -31,7 +32,6 @@ public class SingleplayerGameView extends View {
     private static final float buttonPadding = buttonWidth / 5f;
     private final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
-    private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
     private final Stage stage = new Stage();
 
@@ -54,6 +54,20 @@ public class SingleplayerGameView extends View {
         if (!(state instanceof SingleplayerGameState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
+
+        Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
+
+        spriteBatch.draw(texture, 200, 500 + 600);
+        spriteBatch.draw(texture, 350, 500 + 600);
+        spriteBatch.draw(texture, 500, 500 + 600);
+        spriteBatch.draw(texture, 650, 500 + 600);
+        spriteBatch.draw(texture, 800, 500 + 600);
+
+        spriteBatch.draw(texture, 200, 650 + 600);
+        spriteBatch.draw(texture, 200, 800 + 600);
+        spriteBatch.draw(texture, 200, 950 + 600);
+        spriteBatch.draw(texture, 200, 1100 + 600);
+
         // Draw solution word
         font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = gameState.getGuesses();
