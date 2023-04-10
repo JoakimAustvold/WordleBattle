@@ -29,11 +29,18 @@ public abstract class Controller {
      * Run the update function in the model.
      */
     public void update(float deltaTime){
-        state.update(deltaTime);
+        // TODO: should a state be able to be null?
+          if (state != null) {
+                   state.update(deltaTime);
+               }
     }
 
     /**
      * Handle input.
      */
     public abstract void handleInput();
+
+     public View getView() {
+            return view;
+        }
 }

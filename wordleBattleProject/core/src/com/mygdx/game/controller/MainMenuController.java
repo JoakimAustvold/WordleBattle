@@ -1,6 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.view.MainMenuView;
 
 /**
  * @author Marcus Birkeland
@@ -12,10 +13,11 @@ public class MainMenuController extends Controller{
 
     public MainMenuController() {
         // Set corresponding state and view here!!!
-        //this.state = new State();
-        //this.view = new View();
+        this.state = null;
+        this.view = new MainMenuView();
     }
 
+/*
     @Override
     public void render(SpriteBatch spriteBatch) {
         //super.render(spriteBatch);
@@ -25,7 +27,7 @@ public class MainMenuController extends Controller{
     public void update(float deltaTime) {
         //super.update();
     }
-
+*/
     @Override
     public void handleInput() {
 
