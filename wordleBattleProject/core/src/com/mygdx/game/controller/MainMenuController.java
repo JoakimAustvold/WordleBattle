@@ -16,12 +16,11 @@ public class MainMenuController extends Controller {
     public final static int GAMESCREEN = 2;
     public final static int ENDGAME = 3;
 
-    private final SingleplayerGameController singleplayerGameController;
     private final SettingsController settingsController;
 
     public MainMenuController() {
         settingsController = new SettingsController(this);
-        singleplayerGameController = new SingleplayerGameController(this);
+
         view = new MainMenuView(this);
         state = new MenuState();
     }
@@ -35,7 +34,7 @@ public class MainMenuController extends Controller {
                 ControllerManager.getInstance().push(settingsController);
                 break;
             case GAMESCREEN:
-                ControllerManager.getInstance().push(singleplayerGameController);
+                ControllerManager.getInstance().push(new SingleplayerGameController(this));
 
              break;
 

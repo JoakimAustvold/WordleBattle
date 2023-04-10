@@ -84,9 +84,9 @@ public class MainMenuView extends View {
     }
 
     //TODO implement the rezise function
-    public void resize(int width, int height) {
+/*    public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-    }
+    }*/
 
 
 }
