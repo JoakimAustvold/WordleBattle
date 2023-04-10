@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 import com.mygdx.game.model.highscore.Score;
+import com.mygdx.game.model.multiplayer.LobbyCode;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface FirebaseAPI {
 
     public void getHighscoreList(List<Score> dataholder);
     public void submitHighscore(Score score);
+    public void createLobby(LobbyCode lobbyCode);
+    public void removeLobby(LobbyCode lobbyCode);
 }
