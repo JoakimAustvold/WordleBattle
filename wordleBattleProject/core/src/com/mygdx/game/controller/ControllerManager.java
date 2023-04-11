@@ -1,6 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.FirebaseAPI;
 
 import java.util.Stack;
 
@@ -51,5 +52,9 @@ public class ControllerManager{
 
     public void handleInput(){
         controllerStack.peek().handleInput();
+    }
+
+    public Controller peek() {
+        return controllerStack.peek();
     }
 }

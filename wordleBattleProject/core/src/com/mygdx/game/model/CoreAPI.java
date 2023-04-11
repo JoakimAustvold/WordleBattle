@@ -9,6 +9,7 @@ import java.util.List;
  * Can be used to test the functionality
  */
 public class CoreAPI implements FirebaseAPI {
+    
 
     @Override
     public void getHighscoreList(List<Score> dataholder) {
@@ -28,5 +29,10 @@ public class CoreAPI implements FirebaseAPI {
     @Override
     public void removeLobby(LobbyCode lobbyCode) {
 
+    }
+
+    @Override
+    public void addUserToLobby(LobbyCode lobbyCode, String username) {
+        
     }
 }

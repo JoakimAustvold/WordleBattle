@@ -17,19 +17,28 @@ import com.mygdx.game.model.multiplayer.LobbyCode;
 import java.util.Collections;
 import java.util.List;
 
-public class AndriodAPI implements FirebaseAPI {
+public class AndroidAPI implements FirebaseAPI {
 
     // Write a message to the database
     FirebaseDatabase database;
     DatabaseReference highscoresRef;
     DatabaseReference lobbiesRef;
+    //private static final AndriodAPI AndriodApiInstance = new AndriodAPI();
 
-    public AndriodAPI() {
+
+    public AndroidAPI() {
         database = FirebaseDatabase.getInstance("https://tdt4240-wordlebattle-default-rtdb.europe-west1.firebasedatabase.app/");
         System.out.println(database);
         highscoresRef = database.getReference("highscores");
         lobbiesRef = database.getReference("lobbies");
     }
+
+    /*
+    @Override
+        public FirebaseAPI getInstance() {
+            return AndriodApiInstance;
+        }
+    */
 
     @Override
     /**
@@ -44,7 +53,7 @@ public class AndriodAPI implements FirebaseAPI {
      * Creates a new lobby in the database with the lobbyCode as its id
      */
     public void createLobby(LobbyCode lobbyCode) {
-        lobbiesRef.push().setValue(lobbyCode);
+        lobbiesRef.push().setValue(lobbyCode.getCode());
     }
 
     @Override
@@ -56,6 +65,14 @@ public class AndriodAPI implements FirebaseAPI {
         DatabaseReference lobbyref = database.getReference(lobbyCode.toString());
         lobbyref.removeValue();
     }
+
+    @Override
+    public void addUserToLobby(LobbyCode lobbyCode, String username) {
+        System.out.println("AndroidAPI addUserToLobby is run");
+        DatabaseReference lobbyref = database.getReference(String.valueOf(lobbyCode.getCode()));
+        lobbyref.child("player").setValue(username);
+    }
+
 
     @Override
     /**
