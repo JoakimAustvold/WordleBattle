@@ -9,20 +9,20 @@ import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.states.SingleplayerGameState;
-import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.SingleplayerGameView;
 
 import java.util.Collection;
-import java.util.EventListener;
 
 public class SingleplayerGameController extends Controller {
 
     private final KeyboardInput keyboardInput;
     private final SingleplayerGameState gameState;
 
-    public SingleplayerGameController() {
+    public SingleplayerGameController(MainMenuController mainMenuController) {
         this.state = new SingleplayerGameState();
         this.view = new SingleplayerGameView();
+
+        // TODO add back to menu button and call mainMenuController
 
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 

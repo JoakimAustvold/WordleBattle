@@ -37,6 +37,11 @@ public class AndriodAPI implements FirebaseAPI {
     }
 
     @Override
+    public void updateAPI() {
+
+    }
+
+    @Override
     /**
      * Read the highscore list from the database once.
      * This happens asynchronous. Do not expect a print statement to be correct immediately.

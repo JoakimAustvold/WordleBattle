@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface FirebaseAPI {
 
+    void updateAPI();
+
     public void getHighscoreList(List<Score> dataholder);
     public void submitHighscore(Score score);
 }
