@@ -1,89 +1,60 @@
 package com.mygdx.game.view.multiplayer;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.multiplayer.HostLobbyController;
-import com.mygdx.game.exception.StateException;
-import com.mygdx.game.model.SingletonAPI;
-import com.mygdx.game.model.multiplayer.LobbyCode;
-import com.mygdx.game.model.states.HostLobbyState;
-import com.mygdx.game.model.states.State;
-import com.mygdx.game.view.View;
 
+/**
+ * The view the player hosting a lobby sees. They will see the user joining the lobby and be able to
+ * start the game.
+ */
+public class HostLobbyView extends LobbyView {
 
-public class HostLobbyView extends View {
-
-    private Stage stage;
-    private Skin skin;
-    private BitmapFont font;
     // private LobbyCode lobbyCode;
 
     public HostLobbyView() {
-        this.stage = new Stage(new ScreenViewport());
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        font = new BitmapFont();
-        setup();
+        super();
+        createButton();
     }
 
-    @Override
-    public void setup() {
+    public void createButton() {        
         Gdx.input.setInputProcessor(stage);
-        //lobbyCode = new LobbyCode();
-        //SingletonAPI.getInstance().createLobby(lobbyCode);
 
         TextButton startGameButton = new TextButton("Start game", skin);
-        TextButton backButton = new TextButton("Back", skin);
+
+        stage.addActor(startGameButton);
 
         startGameButton.setPosition((float) (Gdx.graphics.getWidth() *0.5 -Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight()*0.1));
         startGameButton.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
 
-        backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
-        backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
-
         startGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                //TODO: Add a multiplayer game screen
 
                 //ControllerManager.getInstance().push(new HostLobbyController());
 
             }
         });
 
+        backButton.removeListener(listener);
+
         backButton.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Vi er i HostLobbyView");
+                //SingletonAPI.getInstance().removeLobby(LobbyInfo.getInstance().getCode());
 
+                // TODO: Better way to write this? Without Peeking
+                HostLobbyController controller = (HostLobbyController) ControllerManager.getInstance().peek();
+                controller.destroyLobby();
                 ControllerManager.getInstance().pop();
+
+                //ControllerManager.getInstance().push(new HostLobbyController());
             }
         });
     }
-
-    @Override
-    public void render(State state, SpriteBatch spriteBatch) {
-         HostLobbyState lobbyState = (HostLobbyState) state;
-
-         if (!(state instanceof HostLobbyState)) {
-             throw new StateException("Wrong state type! Please provide a PlayState.");
-         }
-
-         font.getData().setScale(6);
-         font.draw(spriteBatch, String.valueOf(lobbyState.getCode()), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-
-    }
-
-    @Override
-    public void dispose() {
-        font.dispose();
-        skin.dispose();
-        stage.dispose();
-    }
-
 
 }

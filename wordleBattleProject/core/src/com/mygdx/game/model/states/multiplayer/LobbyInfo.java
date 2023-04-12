@@ -1,7 +1,10 @@
-package com.mygdx.game.model.multiplayer;
+package com.mygdx.game.model.states.multiplayer;
 
 import com.mygdx.game.model.states.State;
 
+/**
+ * A state used for lobbies.
+ */
 public class LobbyInfo extends State {
 
     private static final LobbyInfo lobbyInfoInstance = new LobbyInfo();
@@ -12,10 +15,11 @@ public class LobbyInfo extends State {
 
     private String playerOne;
     private String playerTwo;
-    private int code;
+    private String code;
 
     private LobbyInfo() {
     }
+
 
     public void setPlayerOne(String playerOne) {
         this.playerOne = playerOne;
@@ -25,11 +29,11 @@ public class LobbyInfo extends State {
         this.playerTwo = playerTwo;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -41,9 +45,22 @@ public class LobbyInfo extends State {
         return playerTwo;
     }
 
+    /// Methods from other states
+     public void setUsername(String username) {
+        this.playerOne = username;
+        //SingletonAPI.getInstance().addPlayerOneToLobby(this.code, username);
+    }
+
+    public void setPlayerTwo(String code, String username) {
+       // SingletonAPI.getInstance().addPlayerTwoToLobby(code, username);
+        this.code = code;
+        this.playerTwo = username;
+    }
 
     @Override
     public void update(float deltaTime) {
 
     }
+
+
 }

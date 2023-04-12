@@ -16,6 +16,9 @@ import com.mygdx.game.model.multiplayer.LobbyCode;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 
+/**
+ * The view a user will see when starting a hosted game.
+ */
 public class HostGameView extends View {
 
     private Stage stage;
@@ -53,8 +56,13 @@ public class HostGameView extends View {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println(usernameTextField.getText());
-                HostLobbyController hostLobbyController = new HostLobbyController();
-                hostLobbyController.setUsername(usernameTextField.getText());
+                HostLobbyController hostLobbyController = null;
+                try {
+                    hostLobbyController = new HostLobbyController();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                hostLobbyController.createLobby(usernameTextField.getText());
                 ControllerManager.getInstance().push(hostLobbyController);
                // ControllerManager.getInstance().push(new HostLobbyController(usernameTextField.getText()));
 

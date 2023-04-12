@@ -49,12 +49,42 @@ public class DesktopAPI implements FirebaseAPI {
     }
 
     @Override
-    public void removeLobby(LobbyCode lobbyCode) {
+    public void removeLobby(String code) {
 
     }
 
     @Override
     public void addUserToLobby(LobbyCode lobbyCode, String username) {
+        
+    }
+
+    @Override
+    public void addPlayerTwoToLobby(String code, String username) {
+        
+    }
+
+    @Override
+    public void addPlayerOneToLobby(String code, String username) {
+
+    }
+
+    @Override
+    public void createPlayerTwoListener(String code) {
+
+    }
+
+    @Override
+    public void createPlayerOneListener(String code) {
+        
+    }
+
+    @Override
+    public void removePlayerTwoFromLobby(String code) {
+        
+    }
+
+    @Override
+    public void viewAllLobbies() {
         
     }
 }

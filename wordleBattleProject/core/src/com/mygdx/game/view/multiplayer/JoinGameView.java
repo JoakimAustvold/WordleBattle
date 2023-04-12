@@ -5,26 +5,28 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 import com.mygdx.game.controller.ControllerManager;
 
-
+/**
+ * The view a user sees when attempting to join another player's game.
+ */
 public class JoinGameView extends View {
 
     private Stage stage;
     private Skin skin;
-      public JoinGameView() {
-            this.stage = new Stage(new ScreenViewport());
-            this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-            this.skin.getFont("default-font").getData().setScale(4f,4f);
-            setup();
-        }
+    public JoinGameView() {
+        this.stage = new Stage(new ScreenViewport());
+        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        this.skin.getFont("default-font").getData().setScale(4f,4f);
+        setup();
+    }
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
@@ -76,6 +78,14 @@ public class JoinGameView extends View {
                 System.out.println(inviteCodeTextField.getText());
                 System.out.println(usernameTextField.getText());
 
+                /*
+                JoinGameController controller = (JoinGameController) ControllerManager.getInstance().peek();
+                controller.addPlayerTwoToLobby(Integer.parseInt(inviteCodeTextField.getText()), usernameTextField.getText());
+                */
+
+                JoinLobbyController controller = new JoinLobbyController();
+                controller.addPlayerTwoToLobby(inviteCodeTextField.getText(), usernameTextField.getText());
+                ControllerManager.getInstance().push(controller);
             }
         });
 
