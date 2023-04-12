@@ -30,7 +30,11 @@ public class ControllerManager{
     }
 
     public void pop() {
+         // TODO: Add dispose and setup to all methods in a correct manner
+        //controllerStack.peek().getView().dispose();
         controllerStack.pop();
+       // controllerStack.peek().getView().setup();
+
     }
 
     public void set (Controller controller){

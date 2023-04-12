@@ -10,7 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SettingsController;
+import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
 
 public class MainMenuView extends View {
@@ -19,8 +22,7 @@ public class MainMenuView extends View {
     private int height;
     private Stage stage;
     private Skin skin;
-    public MainMenuView(MainMenuController mainMenuController){
-        this.controller = mainMenuController;
+    public MainMenuView(){
         this.width = Gdx.graphics.getWidth();
         this.height = Gdx.graphics.getHeight();
         this.stage = new Stage(new ScreenViewport());
@@ -65,31 +67,31 @@ public class MainMenuView extends View {
         singleplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.changeScreen(MainMenuController.SINGLEPLAYER);
+                ControllerManager.getInstance().push(new SingleplayerGameController());
             }
         });
 
         multiplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.changeScreen(MainMenuController.MULTIPLAYER);
+               // ControllerManager.getInstance().push(new MultiplayerController());
             }
         });
 
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.changeScreen(MainMenuController.SETTINGS);
+                ControllerManager.getInstance().push(new SettingsController());
             }
         });
 
         singleplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                controller.changeScreen(MainMenuController.TUTORIAL);
+                //TODO: Add a tutorial page
+                //ControllerManager.getInstance().push(new TutorialController());
             }
         });
-
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -9,51 +9,15 @@ import com.mygdx.game.view.MainMenuView;
  * Empty example implementation of a Controller.
  */
 public class MainMenuController extends Controller {
-
-
-    public final static int MENU = 0;
-    public final static int SETTINGS = 1;
-    public final static int SINGLEPLAYER = 2;
-
-    public final static int MULTIPLAYER = 3;
-
-    public final static int TUTORIAL = 4;
-
-    private final SettingsController settingsController;
-
-    public MainMenuController() {
-        settingsController = new SettingsController(this);
-
-        view = new MainMenuView(this);
-        state = new MenuState();
-    }
-
-    public void changeScreen(int screen) {
-        switch (screen) {
-            case MENU:
-                ControllerManager.getInstance().push(this);
-                break;
-
-            case SETTINGS:
-                ControllerManager.getInstance().push(settingsController);
-                break;
-
-            case SINGLEPLAYER:
-                ControllerManager.getInstance().push(new SingleplayerGameController(this));
-                break;
-
-            //TODO implement call to Multiplayer Controller here
-            case MULTIPLAYER:
-                break;
-
-            //TODO implement call to Tutorial Controller here
-            case TUTORIAL:
-                break;
+    
+     public MainMenuController() {
+            // Set corresponding state and view here!!!
+            this.state = null;
+            this.view = new MainMenuView();
         }
-    }
-
-    @Override
-    public void handleInput() {
-
-    }
+        
+        @Override
+        public void handleInput() {
+    
+        }
 }

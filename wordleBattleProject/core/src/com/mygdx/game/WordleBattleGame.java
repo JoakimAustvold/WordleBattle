@@ -33,6 +33,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 
 		/* Push starting-screen to controller*/
 		ControllerManager.getInstance().push(new MainMenuController());
+
 	}
 
 	@Override
