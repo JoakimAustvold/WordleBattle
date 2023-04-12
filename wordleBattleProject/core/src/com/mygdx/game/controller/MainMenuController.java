@@ -46,8 +46,8 @@ public class MainMenuController extends Controller {
             case MULTIPLAYER:
                 break;
 
-            //TODO implement call to Tutorial Controller here
             case TUTORIAL:
+                ControllerManager.getInstance().push(new TutorialController(this));
                 break;
         }
     }
