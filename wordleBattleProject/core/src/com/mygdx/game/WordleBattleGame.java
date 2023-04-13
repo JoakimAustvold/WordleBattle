@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
-import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.highscore.HighscoreList;
@@ -30,16 +29,14 @@ public class WordleBattleGame extends ApplicationAdapter {
 		this.firebaseAPI = firebaseAPI;
 		SingletonAPI.getInstance().setFirebaseAPI(firebaseAPI);
 		this.highscores = new HighscoreList(firebaseAPI);
-
 	}
+
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		//System.out.println(firebaseAPI);
 
 		/* Push starting-screen to controller*/
-		//ControllerManager.getInstance().push(new SingleplayerGameController());
 		ControllerManager.getInstance().push(new MainMenuController());
 	}
 
@@ -53,7 +50,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 		ControllerManager.getInstance().render(batch);
 		batch.end();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();

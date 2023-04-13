@@ -14,7 +14,6 @@ import java.util.Stack;
  * To change a game-screen, push a new controller to the stack!
  */
 public class ControllerManager{
-
     private static final ControllerManager controllerManagerInstance = new ControllerManager();
     private Stack<Controller> controllerStack;
 
@@ -35,6 +34,7 @@ public class ControllerManager{
         controllerStack.peek().getView().dispose();
         controllerStack.pop();
         controllerStack.peek().getView().setup();
+
     }
 
     public void set (Controller controller){

@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface FirebaseAPI {
 
-    // public FirebaseAPI getInstance();
     public void getHighscoreList(List<Score> dataholder);
     public void submitHighscore(Score score);
     public void createLobby(LobbyCode lobbyCode);

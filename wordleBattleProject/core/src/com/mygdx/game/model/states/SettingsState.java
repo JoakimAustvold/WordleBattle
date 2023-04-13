@@ -4,7 +4,7 @@ public class SettingsState extends State {
     private int volume;
     private boolean isDarkMode;
 
-    private SettingsState() {
+    public SettingsState() {
 
     }
 
