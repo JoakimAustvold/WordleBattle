@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.model.states.State;
@@ -44,19 +45,25 @@ public class TutorialScreenView extends View {
         table.setFillParent(true);
         table.setDebug(true);
 
+        // Set the maximum width of the text
+        float textWidth = Gdx.graphics.getWidth() - 20;
+
+        // Use font.drawWrapped() to automatically wrap the text
         font.draw(spriteBatch,
-                ("Tutorial \n You have six chances to guess a five-letter word.\n" +
-                        "After each guess, the game colors each letter in one of three ways:\n" +
+                "Tutorial\n" +
+                        "You have six chances to guess a five-letter word.\n" +
+                        "After each guess, the game colours each letter in one of three ways:\n" +
                         "\n" +
-                        "Green =  correct letter in the right position.\n" +
+                        "Green = correct letter in the right position.\n" +
                         "Yellow = correct letter in the wrong position.\n" +
                         "Grey = the letter is not in the word at all.\n" +
                         "\n" +
-                        "Use the feedback to guess the word in as few attempts as possible.\n)"),
-                Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - 10), Gdx.graphics.getHeight() - 10);
+                        "Use the feedback to guess the word in as few attempts as possible.",
+                10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
         stage.addActor(table);
     }
+
 
     //TODO implement the resize function
     public void resize(int width, int height) {
