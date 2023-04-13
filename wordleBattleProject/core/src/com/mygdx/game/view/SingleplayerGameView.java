@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
+import com.mygdx.game.model.input.CharToTextureMap;
 import com.mygdx.game.model.input.GuessedLetter;
 import com.mygdx.game.model.input.GuessedLetterStatus;
 import com.mygdx.game.model.input.GuessedWord;
@@ -84,11 +85,17 @@ public class SingleplayerGameView extends View {
 
         if(gameState.getGameStatus().equals(GameStatus.ONGOING)){
             // Draw keyboardinput
+            /*
             font.draw(
                     spriteBatch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(),
                     Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR,
                     (Gdx.graphics.getHeight() - 100.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y
             );
+            */
+            String currentText = ((SingleplayerGameState) state).getKeyboardInput().getCurrentText();
+            for (int i = 0; i < currentText.length(); i++) {
+                spriteBatch.draw(new Texture(Gdx.files.internal(CharToTextureMap.CharToTexture(currentText.charAt(i)))), 100, 100);
+            }
             // Draw keyboard
             stage.act(Gdx.graphics.getDeltaTime());
             stage.draw();
