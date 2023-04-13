@@ -15,6 +15,7 @@ public class SingletonAPI implements FirebaseAPI{
     private FirebaseAPI firebaseAPI;
    // static Semaphore semaphore = new Semaphore(10);
 
+    // TODO: Why is this information here? what about LobbyInfo??
     private String code;
     private String playerOne;
     private String playerTwo;
@@ -31,6 +32,7 @@ public class SingletonAPI implements FirebaseAPI{
         return playerTwo;
     }
 
+
     public static SingletonAPI getInstance() {
         return SingletonAPIInstance;
     }
@@ -41,12 +43,16 @@ public class SingletonAPI implements FirebaseAPI{
 
     @Override
     public void getHighscoreList(List<Score> dataholder) {
-
+        if(firebaseAPI != null ) {
+            firebaseAPI.getHighscoreList(dataholder);
+        }
     }
 
     @Override
     public void submitHighscore(Score score) {
-
+        if(firebaseAPI != null ) {
+            firebaseAPI.submitHighscore(score);
+        }
     }
 
     public void createLobby(LobbyCode lobbyCode) {

@@ -17,17 +17,19 @@ import com.mygdx.game.model.states.State;
 public class SettingsScreenView extends View {
     private int width;
     private int height;
-    private Stage stage;
-    private Skin skin;
+   // private Stage stage;
+    // private Skin skin;
     
     public SettingsScreenView() {
+        super();
         this.width = Gdx.graphics.getWidth();
         this.height = Gdx.graphics.getHeight();
-        this.stage = new Stage(new ScreenViewport());
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+       // this.stage = new Stage(new ScreenViewport());
+        //this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         setup();
     }
-    
+
+    /*
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -35,11 +37,13 @@ public class SettingsScreenView extends View {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
         stage.draw();
     }
+    */
 
     @Override
     public void setup() {
       Gdx.input.setInputProcessor(stage);
 
+        /*
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
@@ -61,13 +65,17 @@ public class SettingsScreenView extends View {
                 ControllerManager.getInstance().pop();
             }
         });
+        */
+        createBackButtonWithDefaultListener();
     }
 
+    /*
     @Override
     public void dispose() {
         skin.dispose();
         stage.dispose();
     }
+    */
 
     //TODO implement the rezise function
     /*

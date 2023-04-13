@@ -4,6 +4,7 @@ package com.mygdx.game.model.states;
 import static com.mygdx.game.model.words.Language.ENGLISH;
 
 import com.mygdx.game.model.GameStatus;
+import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
@@ -13,6 +14,7 @@ import com.mygdx.game.model.words.WordGenerator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 public class SingleplayerGameState extends State {
 
@@ -41,6 +43,8 @@ public class SingleplayerGameState extends State {
         disabledChars = new ArrayList<>();
         wordInputHandler = new WordInputHandler(solution, language, guesses, disabledChars);
         gameStatus= GameStatus.ONGOING;
+
+        Date start = new Date();
     }
 
     public KeyboardInput getKeyboardInput(){
@@ -57,14 +61,19 @@ public class SingleplayerGameState extends State {
         }
 
         if(wordStatus.equals(WordStatus.SOLUTION)){
+            Date winDate = new Date();
+
+
+            SingletonAPI.getInstance().submitHighscore();
             gameStatus = GameStatus.WIN;
         }
 
         else if(guesses.size() >= MAX_GUESSES){
             gameStatus = GameStatus.LOSS;
         }
-
     }
+
+
 
     @Override
     public void update(float dt) {

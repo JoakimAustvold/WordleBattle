@@ -9,7 +9,7 @@ import com.mygdx.game.view.multiplayer.HostLobbyView;
 public class HostLobbyController extends Controller {
     private LobbyCode lobbyCode;
 
-    public HostLobbyController() throws InterruptedException {
+    public HostLobbyController() {
         this.state = LobbyInfo.getInstance();
         this.view = new HostLobbyView();
         lobbyCode = new LobbyCode();

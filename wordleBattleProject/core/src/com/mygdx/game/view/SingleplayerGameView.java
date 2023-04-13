@@ -16,7 +16,9 @@ import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
 
+import java.time.LocalTime;
 import java.util.Collection;
+import java.util.Date;
 
 public class SingleplayerGameView extends View {
 
@@ -42,6 +44,10 @@ public class SingleplayerGameView extends View {
         Gdx.input.setInputProcessor(stage);
 
         setupKeyboard();
+
+        //LocalTime start = LocalTime.now();
+        
+
     }
 
     @Override
@@ -84,6 +90,7 @@ public class SingleplayerGameView extends View {
             font.draw(spriteBatch, "You win!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
             font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
             font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 600);
+            
         }
         else if(gameState.getGameStatus().equals(GameStatus.LOSS)){
             font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
@@ -100,7 +107,9 @@ public class SingleplayerGameView extends View {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        skin.dispose();
+        font.dispose();
     }
 
     public TextButton[][] getButtons() {

@@ -17,12 +17,13 @@ import com.mygdx.game.view.View;
 
 public class MultiplayerMenuView extends View {
 
-      private Stage stage;
-      private Skin skin;
+    //  private Stage stage;
+      //private Skin skin;
 
        public MultiplayerMenuView() {
-          this.stage = new Stage(new ScreenViewport());
-          this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+           super();
+         // this.stage = new Stage(new ScreenViewport());
+          //this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
           setup();
       }
 
@@ -36,22 +37,24 @@ public class MultiplayerMenuView extends View {
 
              TextButton hostGameButton = new TextButton("Host Game", skin);
              TextButton joinGameButton = new TextButton("Join Game", skin);
-             TextButton backButton = new TextButton("Back", skin);
+            // TextButton backButton = new TextButton("Back", skin);
 
+            /*
              hostGameButton.setTransform(true);
              hostGameButton.setScale(4);
              joinGameButton.setTransform(true);
              joinGameButton.setScale(4);
-             backButton.setTransform(true);
-             backButton.setScale(4);
+             */
+            // backButton.setTransform(true);
+              //backButton.setScale(4);
 
              // Add the buttons to the table
              table.row().pad(50, 0, 50, 0);
              table.add(hostGameButton).fill().uniform();
              table.row().pad(50, 0, 50, 0);
              table.add(joinGameButton).fill().uniform();
-             table.row().pad(50, 0, 50, 0);
-             table.add(backButton).fill().uniform();
+            // table.row().pad(50, 0, 50, 0);
+             //table.add(backButton).fill().uniform();
 
            hostGameButton.addListener(new ChangeListener() {
                  @Override
@@ -67,27 +70,33 @@ public class MultiplayerMenuView extends View {
                        }
                    });
 
+             /*
              backButton.addListener(new ChangeListener() {
                        @Override
                        public void changed(ChangeEvent event, Actor actor) {
                            ControllerManager.getInstance().pop();
                        }
                    });
+             */
+             createBackButtonWithDefaultListener();
          }
 
+    /*
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
          stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
          stage.draw();
         }
+    */
 
 
-
+    /*
     @Override
     public void dispose() {
         stage.dispose();
         skin.dispose();
     }
+    */
 
 
 }

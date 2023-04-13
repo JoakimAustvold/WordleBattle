@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.controller.HighscoreController;
 import com.mygdx.game.controller.multiplayer.MultiplayerMenuController;
 import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.states.State;
@@ -23,19 +25,21 @@ import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
 
 public class MainMenuView extends View {
-    
+
+    /*
     private Stage stage;
     private Skin skin;
-    
+    */
     public MainMenuView() {
-        this.stage = new Stage(new ScreenViewport());
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        super();
+       // this.stage = new Stage(new ScreenViewport());
+        //this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         setup();
     }
 
     public void setup() {
         Gdx.input.setInputProcessor(stage);
-        
+
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
@@ -46,7 +50,9 @@ public class MainMenuView extends View {
         TextButton multiplayerButton = new TextButton("Multiplayer", skin);
         TextButton settingsButton = new TextButton("Settings", skin);
         TextButton tutorialButton = new TextButton("Tutorial", skin);
+        TextButton highscoreButton = new TextButton("Highscores", skin);
 
+        /*
         singleplayerButton.setTransform(true);
         singleplayerButton.setScale(4);
         multiplayerButton.setTransform(true);
@@ -55,8 +61,19 @@ public class MainMenuView extends View {
         settingsButton.setScale(4);
         tutorialButton.setTransform(true);
         tutorialButton.setScale(4);
+        highscoreButton.setTransform(true);
+        highscoreButton.setScale(4);
+        */
+
+        Label titleLabel = new Label("WordleBattle", skin);
+        titleLabel.setFontScale(8, 8);
+        stage.addActor(titleLabel);
+        titleLabel.setPosition((float) (Gdx.graphics.getWidth() * 0.5 - titleLabel.getWidth()), (float) (Gdx.graphics.getHeight() * 0.8));
+
 
         // Add the buttons to the table
+        //table.row().pad(100, 0, 150, 0);
+        //table.add(titleLabel);
         table.row().pad(50, 0, 50, 0);
         table.add(singleplayerButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
@@ -65,14 +82,16 @@ public class MainMenuView extends View {
         table.add(settingsButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
         table.add(tutorialButton).fill().uniform();
-        
+        table.row().pad(50, 0, 50, 0);
+        table.add(highscoreButton).fill().uniform();
+
         singleplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ControllerManager.getInstance().push(new SingleplayerGameController());
             }
         });
-        
+
         multiplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -86,15 +105,21 @@ public class MainMenuView extends View {
                 ControllerManager.getInstance().push(new SettingsController());
             }
         });
+        highscoreButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().push(new HighscoreController());
+            }
+        });
 
-        
+
     }
-    
 
+    /*
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+       // Gdx.gl.glClearColor(0, 0, 0, 1);
+       // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
         stage.draw();
     }
@@ -103,6 +128,7 @@ public class MainMenuView extends View {
         stage.dispose();
         skin.dispose();
     }
+    */
 
     //TODO implement the rezise function
 /*    public void resize(int width, int height) {

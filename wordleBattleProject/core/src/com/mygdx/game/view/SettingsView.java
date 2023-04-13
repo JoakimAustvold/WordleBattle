@@ -18,19 +18,25 @@ import com.mygdx.game.model.states.State;
 public class SettingsView extends View {
 
     //private BitmapFont font;
+    /*
     private Stage stage;
     private Skin skin;
+    */
 
     public SettingsView() {
        // font = new BitmapFont();
+       super();
+       /*
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         setup();
+        */
     }
 
     public void setup() {
         Gdx.input.setInputProcessor(stage);
 
+        /*
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
@@ -51,20 +57,24 @@ public class SettingsView extends View {
                 ControllerManager.getInstance().pop();
             }
         });
-
+        */
+        createBackButtonWithDefaultListener();
     }
 
+    /*
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
        // font.draw(spriteBatch, "Settings view", Gdx.graphics.getWidth()/2 , Gdx.graphics.getWidth()/2);
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
         stage.draw();
-
     }
+    */
 
+    /*
     public void dispose() {
         stage.dispose();
         skin.dispose();
     }
+    */
 }
