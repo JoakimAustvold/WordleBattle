@@ -44,7 +44,16 @@ public class TutorialScreenView extends View {
         table.setFillParent(true);
         table.setDebug(true);
 
-        font.draw(spriteBatch, "Tutorial \n 1. Start guessing\nthe word \n", Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - 10), Gdx.graphics.getHeight() - 10);
+        font.draw(spriteBatch,
+                ("Tutorial \n You have six chances to guess a five-letter word.\n" +
+                        "After each guess, the game colors each letter in one of three ways:\n" +
+                        "\n" +
+                        "Green =  correct letter in the right position.\n" +
+                        "Yellow = correct letter in the wrong position.\n" +
+                        "Grey = the letter is not in the word at all.\n" +
+                        "\n" +
+                        "Use the feedback to guess the word in as few attempts as possible.\n)"),
+                Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - 10), Gdx.graphics.getHeight() - 10);
 
         stage.addActor(table);
     }
