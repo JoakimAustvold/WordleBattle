@@ -27,7 +27,6 @@ public class AndroidAPI implements FirebaseAPI {
     FirebaseDatabase database;
     DatabaseReference highscoresRef;
     DatabaseReference lobbiesRef;
-    //private static final AndriodAPI AndriodApiInstance = new AndriodAPI();
 
 
     public AndroidAPI() {
@@ -66,7 +65,6 @@ public class AndroidAPI implements FirebaseAPI {
     public void addUserToLobby(LobbyCode lobbyCode, String username) {
         System.out.println("AndroidAPI addUserToLobby is run");
         lobbiesRef.child(String.valueOf(lobbyCode.getCode())).child("playerOne").setValue(username);
-        //lobbiesRef.child(String.valueOf(lobbyCode.getCode())).child("playerTwo").setValue("Trudy");
     }
 
     /**

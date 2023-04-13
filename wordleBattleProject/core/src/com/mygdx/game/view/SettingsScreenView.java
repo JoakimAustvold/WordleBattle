@@ -25,11 +25,20 @@ public class SettingsScreenView extends View {
         this.height = Gdx.graphics.getHeight();
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        setup();
     }
     
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
+        stage.draw();
+    }
+
+    @Override
+    public void setup() {
+      Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -52,15 +61,18 @@ public class SettingsScreenView extends View {
                 ControllerManager.getInstance().pop();
             }
         });
+    }
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
-        stage.draw();
+    @Override
+    public void dispose() {
+        skin.dispose();
+        stage.dispose();
     }
 
     //TODO implement the rezise function
+    /*
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
+    */
 }

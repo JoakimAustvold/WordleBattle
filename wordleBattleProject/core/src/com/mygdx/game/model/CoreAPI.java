@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class CoreAPI implements FirebaseAPI {
 
-
-    @Override
-    public void updateAPI() {
-
-    }
-
     @Override
     public void getHighscoreList(List<Score> dataholder) {
 
