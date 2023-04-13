@@ -99,4 +99,3 @@ char id=96   x=108     y=66     width=8     height=6     xoffset=0     yoffset=2
 char id=45   x=116     y=66     width=9     height=5     xoffset=-3     yoffset=10    xadvance=5     page=0  chnl=0 
 char id=95   x=125     y=66     width=13     height=4     xoffset=-4     yoffset=17    xadvance=6     page=0  chnl=0 
 kernings count=-1
-

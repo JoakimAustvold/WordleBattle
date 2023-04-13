@@ -1,6 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.FirebaseAPI;
 
 import java.util.Stack;
 
@@ -13,7 +14,6 @@ import java.util.Stack;
  * To change a game-screen, push a new controller to the stack!
  */
 public class ControllerManager{
-
     private static final ControllerManager controllerManagerInstance = new ControllerManager();
     private Stack<Controller> controllerStack;
 
@@ -31,9 +31,9 @@ public class ControllerManager{
 
     public void pop() {
          // TODO: Add dispose and setup to all methods in a correct manner
-        //controllerStack.peek().getView().dispose();
+        controllerStack.peek().getView().dispose();
         controllerStack.pop();
-       // controllerStack.peek().getView().setup();
+        controllerStack.peek().getView().setup();
 
     }
 
@@ -52,5 +52,9 @@ public class ControllerManager{
 
     public void handleInput(){
         controllerStack.peek().handleInput();
+    }
+
+    public Controller peek() {
+        return controllerStack.peek();
     }
 }

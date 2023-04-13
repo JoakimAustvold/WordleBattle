@@ -1,12 +1,9 @@
 package com.mygdx.game.controller;
 
-import com.mygdx.game.model.states.MenuState;
 import com.mygdx.game.view.MainMenuView;
 
 /**
- * @author Marcus Birkeland
- * @version 13.03.2023
- * Empty example implementation of a Controller.
+ * Sets the corresponding view for the main menu
  */
 public class MainMenuController extends Controller {
     

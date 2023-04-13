@@ -93,6 +93,16 @@ public class SingleplayerGameView extends View {
 
     }
 
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
     public TextButton[][] getButtons() {
         return buttons;
     }
