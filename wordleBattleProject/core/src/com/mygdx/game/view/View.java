@@ -16,4 +16,9 @@ public abstract class View {
      * Render the view based on state.
      */
     public abstract void render(State state, SpriteBatch spriteBatch);
+
+    public abstract void setup();
+
+    public abstract void dispose();
+
 }
