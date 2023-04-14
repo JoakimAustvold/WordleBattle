@@ -18,7 +18,7 @@ public class SingleplayerGameController extends Controller {
     private final KeyboardInput keyboardInput;
     private final SingleplayerGameState gameState;
 
-    public SingleplayerGameController(MainMenuController mainMenuController) {
+    public SingleplayerGameController() {
         this.state = new SingleplayerGameState();
         this.view = new SingleplayerGameView();
 

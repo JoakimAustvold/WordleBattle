@@ -1,6 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 
@@ -29,11 +30,18 @@ public abstract class Controller {
      * Run the update function in the model.
      */
     public void update(float deltaTime){
-        state.update(deltaTime);
+      // TODO: should a state be able to be null?
+        if (state != null) {
+            state.update(deltaTime);
+        }
     }
 
     /**
      * Handle input.
      */
     public abstract void handleInput();
+
+     public View getView() {
+            return view;
+        }
 }

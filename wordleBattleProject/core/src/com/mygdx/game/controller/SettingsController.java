@@ -5,8 +5,8 @@ import com.mygdx.game.view.SettingsScreenView;
 
 public class SettingsController extends Controller {
 
-    public SettingsController(MainMenuController mainMenuController) {
-        view = new SettingsScreenView(mainMenuController);
+    public SettingsController() {
+        view = new SettingsScreenView();
         state = new SettingsState();
     }
 

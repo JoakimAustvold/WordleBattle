@@ -1,7 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,33 +12,24 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.states.State;
 
-public class SettingsScreenView extends View {
-    private int width;
-    private int height;
+public class SettingsView extends View {
+
+    //private BitmapFont font;
     private Stage stage;
     private Skin skin;
-    
-    public SettingsScreenView() {
-        this.width = Gdx.graphics.getWidth();
-        this.height = Gdx.graphics.getHeight();
+
+    public SettingsView() {
+       // font = new BitmapFont();
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         setup();
     }
-    
-    @Override
-    public void render(State state, SpriteBatch spriteBatch) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
-        stage.draw();
-    }
 
-    @Override
     public void setup() {
-      Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -46,33 +37,34 @@ public class SettingsScreenView extends View {
         stage.addActor(table);
 
         // Create menu buttons
-        TextButton backToMainButton = new TextButton("Back", skin);
-
-        backToMainButton.setTransform(true);
-        backToMainButton.setScale(4);
+        TextButton backButton = new TextButton("Back", skin);
+        backButton.setTransform(true);
+        backButton.setScale(4);
 
         // Add the buttons to the table
-        table.row().pad(50, 0, 50, 0);
-        table.add(backToMainButton).fill().uniform();
+        //table.row().pad(50, 0, 50, 0);
+        table.add(backButton).fill().uniform();
 
-        backToMainButton.addListener(new ChangeListener() {
+        backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ControllerManager.getInstance().pop();
             }
         });
+
     }
 
     @Override
-    public void dispose() {
-        skin.dispose();
-        stage.dispose();
+    public void render(State state, SpriteBatch spriteBatch) {
+       // font.draw(spriteBatch, "Settings view", Gdx.graphics.getWidth()/2 , Gdx.graphics.getWidth()/2);
+
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
+        stage.draw();
+
     }
 
-    //TODO implement the rezise function
-    /*
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
     }
-    */
 }
