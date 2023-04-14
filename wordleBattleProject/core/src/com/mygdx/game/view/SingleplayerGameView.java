@@ -93,7 +93,8 @@ public class SingleplayerGameView extends View {
             */
             String currentText = ((SingleplayerGameState) state).getKeyboardInput().getCurrentText();
             for (int i = 0; i < currentText.length(); i++) {
-                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")), 100, 100);
+                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")),
+                        (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 200.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
             // Draw keyboard
             stage.act(Gdx.graphics.getDeltaTime());
