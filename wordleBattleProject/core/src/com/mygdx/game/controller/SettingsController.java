@@ -14,4 +14,9 @@ public class SettingsController extends Controller {
     public void handleInput() {
 
     }
+
+    @Override
+    public void resetView() {
+
+    }
 }
