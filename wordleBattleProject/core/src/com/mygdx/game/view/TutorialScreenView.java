@@ -13,10 +13,10 @@ import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.model.states.State;
 
 public class TutorialScreenView extends View {
-    private MainMenuController controller;
-    private Stage stage;
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
+    private MainMenuController controller;
+    private Stage stage;
     private Texture tutorialTexture;
 
     public TutorialScreenView(MainMenuController mainMenuController) {
@@ -47,8 +47,9 @@ public class TutorialScreenView extends View {
         // Set the maximum width of the text
         float textWidth = Gdx.graphics.getWidth() - 20;
 
-        // Use font.draw() to wrap the text
-        font.draw(spriteBatch,
+        // Use stage.getBatch() to draw the text using the same batch as the stage
+        stage.getBatch().begin();
+        font.draw(stage.getBatch(),
                 "Tutorial\n" +
                         "You have six chances to guess a five-letter word.\n" +
                         "After each guess, the game colours each letter in one of three ways:\n" +
@@ -60,13 +61,15 @@ public class TutorialScreenView extends View {
                         "Use the feedback to guess the word in as few attempts as possible.",
                 10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
+        stage.getBatch().end();
+
         // Add the tutorial image to the table
         Image tutorialImage = new Image(tutorialTexture);
+        tutorialImage.setScale(2); // Double the size of the image
         table.add(tutorialImage).padTop(10);
 
         stage.addActor(table);
         stage.draw();
-
     }
 
 
