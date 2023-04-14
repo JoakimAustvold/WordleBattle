@@ -22,13 +22,16 @@ import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
+import com.mygdx.game.model.states.TutorialState;
 
 public class MainMenuView extends View {
     
     private Stage stage;
     private Skin skin;
+    private TutorialState ts;
     
-    public MainMenuView() {
+    public MainMenuView(TutorialState ts) {
+        this.ts = ts;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         setup();
@@ -90,6 +93,7 @@ public class MainMenuView extends View {
         tutorialButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("1: " + ts.getHasPlayed());
                 ControllerManager.getInstance().push(new TutorialController());
             }
         });

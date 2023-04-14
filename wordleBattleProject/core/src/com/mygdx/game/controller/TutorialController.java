@@ -6,7 +6,7 @@ import com.mygdx.game.view.TutorialScreenView;
 public class TutorialController extends Controller {
 
     public TutorialController() {
-        view = new TutorialScreenView();
+        view = new TutorialScreenView(new TutorialState());
         state = new TutorialState();
     }
 

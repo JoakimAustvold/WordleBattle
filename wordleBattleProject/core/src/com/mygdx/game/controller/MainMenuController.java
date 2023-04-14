@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+import com.mygdx.game.model.states.TutorialState;
 import com.mygdx.game.view.MainMenuView;
 
 /**
@@ -10,7 +11,7 @@ public class MainMenuController extends Controller {
      public MainMenuController() {
             // Set corresponding state and view here!!!
             this.state = null;
-            this.view = new MainMenuView();
+            this.view = new MainMenuView(new TutorialState());
         }
         
         @Override

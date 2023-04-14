@@ -6,23 +6,21 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.controller.TutorialController;
-import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.TutorialState;
 
 public class TutorialScreenView extends View {
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
-    private TutorialController controller;
     private Stage stage;
     private Texture tutorialTexture;
+    private TutorialState ts;
 
-    public TutorialScreenView() {
+    public TutorialScreenView(TutorialState ts) {
+        this.ts = ts;
         // Fontsizing and scaling
         float fontSize = 3f; // Change this to the desired font size
 
@@ -35,6 +33,9 @@ public class TutorialScreenView extends View {
 
         this.stage = new Stage(new ScreenViewport());
         setup();
+        System.out.println("2: " + ts.getHasPlayed());
+        ts.setHasPlayed(true);
+        System.out.println("3: " + ts.getHasPlayed());
     }
 
 
