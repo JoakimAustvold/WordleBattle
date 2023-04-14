@@ -5,9 +5,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.PauseMenuController;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.input.GuessedLetter;
@@ -35,11 +40,15 @@ public class SingleplayerGameView extends View {
     private final BitmapFont font = new BitmapFont();
     private final Stage stage = new Stage();
 
+    private Skin skin;
+
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
         font.setColor(COLOR_KEY_ENABLED);
 
         Gdx.input.setInputProcessor(stage);
+
+        setUpPauseButton();
 
         setupKeyboard();
     }
@@ -186,5 +195,26 @@ public class SingleplayerGameView extends View {
             table.row();
         }
         table.setY(-Gdx.graphics.getHeight()/3.5f);
+    }
+
+    private void setUpPauseButton() {
+        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+
+        TextButton pauseButton = new TextButton("Pause Game", skin);
+
+        pauseButton.setTransform(true);
+        pauseButton.setScale(3);
+
+        pauseButton.setPosition(30,Gdx.graphics.getHeight() - 110);
+
+        pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().push(new PauseMenuController());
+            }
+        });
+
+        stage.addActor(pauseButton);
+
     }
 }
