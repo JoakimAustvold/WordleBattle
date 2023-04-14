@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.controller.TutorialController;
 import com.mygdx.game.controller.multiplayer.MultiplayerMenuController;
 import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.states.State;
@@ -38,7 +39,6 @@ public class MainMenuView extends View {
         
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         // Create menu buttons
@@ -87,6 +87,12 @@ public class MainMenuView extends View {
             }
         });
 
+        tutorialButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().push(new TutorialController());
+            }
+        });
         
     }
     

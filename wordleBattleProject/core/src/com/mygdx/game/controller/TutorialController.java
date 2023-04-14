@@ -5,8 +5,8 @@ import com.mygdx.game.view.TutorialScreenView;
 
 public class TutorialController extends Controller {
 
-    public TutorialController(MainMenuController mainMenuController) {
-        view = new TutorialScreenView(mainMenuController);
+    public TutorialController() {
+        view = new TutorialScreenView();
         state = new TutorialState();
     }
 

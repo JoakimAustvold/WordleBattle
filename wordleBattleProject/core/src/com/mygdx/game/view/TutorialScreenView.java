@@ -6,23 +6,23 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.TutorialController;
+import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
+import com.mygdx.game.model.states.TutorialState;
 
 public class TutorialScreenView extends View {
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
-    private MainMenuController controller;
+    private TutorialController controller;
     private Stage stage;
     private Texture tutorialTexture;
 
-    public TutorialScreenView(MainMenuController mainMenuController) {
-        this.controller = mainMenuController;
-        this.stage = new Stage(new ScreenViewport());
-
+    public TutorialScreenView() {
         // Fontsizing and scaling
         float fontSize = 3f; // Change this to the desired font size
 
@@ -32,18 +32,14 @@ public class TutorialScreenView extends View {
 
         // Load the tutorial image from the assets folder
         tutorialTexture = new Texture("tutorial.png");
+
+        this.stage = new Stage(new ScreenViewport());
+        setup();
     }
 
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        // Ensure that the user gets a new "site", so the buttons in the main menu aren't clickable
-        Gdx.input.setInputProcessor(stage);
-
-        Table table = new Table();
-        table.setFillParent(true);
-        table.setDebug(true);
-
         // Set the maximum width of the text
         float textWidth = Gdx.graphics.getWidth() - 20;
 
@@ -62,6 +58,16 @@ public class TutorialScreenView extends View {
                 10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
         stage.getBatch().end();
+        stage.draw();
+    }
+
+    @Override
+    public void setup() {
+        // Ensure that the user gets a new "site", so the buttons in the main menu aren't clickable
+        Gdx.input.setInputProcessor(stage);
+
+        Table table = new Table();
+        table.setFillParent(true);
 
         // Set the size and position of the tutorial image
         Image tutorialImage = new Image(tutorialTexture);
@@ -69,12 +75,13 @@ public class TutorialScreenView extends View {
         tutorialImage.setPosition(Gdx.graphics.getWidth()/3, 10);
 
         stage.addActor(tutorialImage);
-
         stage.addActor(table);
-        stage.draw();
     }
 
+    @Override
+    public void dispose() {
 
+    }
 
 
     //TODO implement the resize function
