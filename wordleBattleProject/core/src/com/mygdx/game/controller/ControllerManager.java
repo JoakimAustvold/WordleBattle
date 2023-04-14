@@ -22,19 +22,21 @@ public class ControllerManager{
     }
 
     public ControllerManager(){
-        controllerStack = new Stack<Controller>();
+        controllerStack = new Stack<>();
     }
 
     public void push(Controller controller){
         controllerStack.push(controller);
+        controllerStack.peek().getView().setup();
+
     }
 
     public void pop() {
          // TODO: Add dispose and setup to all methods in a correct manner
         controllerStack.peek().getView().dispose();
         controllerStack.pop();
+        controllerStack.peek().resetView();
         controllerStack.peek().getView().setup();
-
     }
 
     public void set (Controller controller){

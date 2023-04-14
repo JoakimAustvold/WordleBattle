@@ -45,6 +45,10 @@ public class SingleplayerGameView extends View {
     }
 
     @Override
+    public void setup() {
+    }
+
+    @Override
     public void render(State state, SpriteBatch spriteBatch) {
         SingleplayerGameState gameState = (SingleplayerGameState) state;
 
@@ -90,11 +94,6 @@ public class SingleplayerGameView extends View {
             font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
             font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
         }
-
-    }
-
-    @Override
-    public void setup() {
 
     }
 

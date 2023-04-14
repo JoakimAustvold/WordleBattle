@@ -41,4 +41,9 @@ public class JoinLobbyController extends Controller {
     public void handleInput() {
 
     }
+
+    @Override
+    public void resetView() {
+
+    }
 }

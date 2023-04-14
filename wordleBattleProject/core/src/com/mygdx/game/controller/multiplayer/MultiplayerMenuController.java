@@ -15,4 +15,9 @@ public class MultiplayerMenuController extends Controller {
     public void handleInput() {
 
     }
+
+    @Override
+    public void resetView() {
+
+    }
 }
