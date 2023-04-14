@@ -63,20 +63,6 @@ public class TutorialScreenView extends View {
 
         stage.getBatch().end();
 
-        // Get the dimensions of the screen
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
-
-        // Load the tutorial image from the assets folder
-        tutorialTexture = new Texture("tutorial.png");
-
-        // Get the dimensions of the tutorial image
-        float tutorialWidth = tutorialTexture.getWidth();
-        float tutorialHeight = tutorialTexture.getHeight();
-
-        // Calculate the scale factor for the tutorial image
-        float scaleFactor = Math.min(screenWidth / tutorialWidth, screenHeight / tutorialHeight);
-
         // Set the size and position of the tutorial image
         Image tutorialImage = new Image(tutorialTexture);
         tutorialImage.setScale(2); // Double the size of the image
