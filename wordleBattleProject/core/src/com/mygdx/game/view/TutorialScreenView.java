@@ -14,21 +14,15 @@ import com.mygdx.game.model.states.State;
 public class TutorialScreenView extends View {
     private MainMenuController controller;
     private Stage stage;
-    private Skin skin;
-    private int width;
-    private int height;
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
 
     public TutorialScreenView(MainMenuController mainMenuController) {
         this.controller = mainMenuController;
-        this.width = Gdx.graphics.getWidth();
-        this.height = Gdx.graphics.getHeight();
         this.stage = new Stage(new ScreenViewport());
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
 
         // Fontsizing and scaling
-        float fontSize = 4.5f; // Change this to the desired font size
+        float fontSize = 3f; // Change this to the desired font size
 
         // Set the scale factor based on the desired font size and the original font size
         float scaleFactor = fontSize / font.getData().scaleX;
@@ -48,7 +42,7 @@ public class TutorialScreenView extends View {
         // Set the maximum width of the text
         float textWidth = Gdx.graphics.getWidth() - 20;
 
-        // Use font.drawWrapped() to automatically wrap the text
+        // Use font.draw() to wrap the text
         font.draw(spriteBatch,
                 "Tutorial\n" +
                         "You have six chances to guess a five-letter word.\n" +
