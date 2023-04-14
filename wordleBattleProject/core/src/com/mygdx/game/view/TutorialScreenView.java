@@ -1,10 +1,11 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -16,6 +17,7 @@ public class TutorialScreenView extends View {
     private Stage stage;
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
+    private Texture tutorialTexture;
 
     public TutorialScreenView(MainMenuController mainMenuController) {
         this.controller = mainMenuController;
@@ -27,6 +29,9 @@ public class TutorialScreenView extends View {
         // Set the scale factor based on the desired font size and the original font size
         float scaleFactor = fontSize / font.getData().scaleX;
         font.getData().setScale(scaleFactor);
+
+        // Load the tutorial image from the assets folder
+        tutorialTexture = new Texture("tutorial.png");
     }
 
 
@@ -55,7 +60,13 @@ public class TutorialScreenView extends View {
                         "Use the feedback to guess the word in as few attempts as possible.",
                 10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
+        // Add the tutorial image to the table
+        Image tutorialImage = new Image(tutorialTexture);
+        table.add(tutorialImage).padTop(10);
+
         stage.addActor(table);
+        stage.draw();
+
     }
 
 
