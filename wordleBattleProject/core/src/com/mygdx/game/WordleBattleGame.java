@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.ControllerManager;
@@ -39,7 +40,13 @@ public class WordleBattleGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		ControllerManager.getInstance().push(new TutorialController());
+		Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
+		boolean hasPlayed = prefs.getBoolean("hasPlayed");
+		if (hasPlayed) {
+			ControllerManager.getInstance().push(new MainMenuController());
+		} else {
+			ControllerManager.getInstance().push(new TutorialController());
+		}
 	}
 
 	@Override
