@@ -4,11 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.TutorialState;
 
@@ -18,6 +24,7 @@ public class TutorialScreenView extends View {
     private Stage stage;
     private Texture tutorialTexture;
     private TutorialState ts;
+    private Skin skin;
 
     public TutorialScreenView(TutorialState ts) {
         this.ts = ts;
@@ -31,6 +38,9 @@ public class TutorialScreenView extends View {
         // Load the tutorial image from the assets folder
         tutorialTexture = new Texture("tutorial.png");
 
+
+
+        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         this.stage = new Stage(new ScreenViewport());
         setup();
         System.out.println("2: " + ts.getHasPlayed());
@@ -58,6 +68,20 @@ public class TutorialScreenView extends View {
                         "Use the feedback to guess the word in as few attempts as possible.",
                 10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
+        // Create back button
+        TextButton backButton = new TextButton("Back", skin);
+        backButton.setTransform(true);
+        backButton.setScale(4);
+
+        // Add the button to the stage
+        stage.addActor(backButton);
+
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().push(new MainMenuController());
+            }
+        });
         stage.getBatch().end();
         stage.draw();
     }

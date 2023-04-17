@@ -1,10 +1,17 @@
 package com.mygdx.game.model.states;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+
+
 public class TutorialState extends State{
-    private boolean hasPlayed;
+    private boolean hasPlayed = false;
+    Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
+
 
     public TutorialState() {
-        this.hasPlayed = false;
+        prefs.putBoolean("hasPlayed", hasPlayed);
+        prefs.flush();
     }
 
     @Override
