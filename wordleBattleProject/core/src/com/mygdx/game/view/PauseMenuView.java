@@ -19,13 +19,22 @@ public class PauseMenuView extends View {
     private int height;
     private Stage stage;
     private Skin skin;
+
+    public TextButton backToGameButton;
+    public TextButton newGameButton;
+    public TextButton backToMainButton;
+    public TextButton tutorialButton;
     
     public PauseMenuView() {
         this.width = Gdx.graphics.getWidth();
         this.height = Gdx.graphics.getHeight();
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        setup();
+        // Create menu buttons
+        backToGameButton = new TextButton("Back to Game", skin);
+        tutorialButton = new TextButton("Tutorial", skin);
+        backToMainButton = new TextButton("End Game", skin);
+        newGameButton = new TextButton("Restart Game", skin);
     }
     
     @Override
@@ -44,13 +53,6 @@ public class PauseMenuView extends View {
         table.setFillParent(true);
         stage.addActor(table);
 
-        // Create menu buttons
-        TextButton backToMainButton = new TextButton("End Game", skin);
-        TextButton backToGameButton = new TextButton("Back to Game", skin);
-        TextButton tutorialButton = new TextButton("Tutorial", skin);
-        TextButton newGameButton = new TextButton("Restart Game", skin);
-
-
         backToMainButton.setTransform(true);
         backToMainButton.setScale(4);
         
@@ -65,50 +67,13 @@ public class PauseMenuView extends View {
 
         // Add the buttons to the table
         table.row().pad(50, 0, 50, 0);
-        table.add(backToMainButton).fill().uniform();
-        table.row().pad(50, 0, 50, 0);
         table.add(backToGameButton).fill().uniform();
+        table.row().pad(50, 0, 50, 0);
+        table.add(tutorialButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
         table.add(newGameButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
-        table.add(tutorialButton).fill().uniform();
-
-
-        backToMainButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
-                ControllerManager.getInstance().pop();
-            }
-        });
-
-        backToGameButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
-            }
-        });
-
-        newGameButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
-                ControllerManager.getInstance().pop();
-                ControllerManager.getInstance().push(new SingleplayerGameController());
-
-            }
-        });
-
-
-        tutorialButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-
-                //TODO add call to controllermanager to add tutorial to stack
-
-            }
-        });
-
+        table.add(backToMainButton).fill().uniform();
     }
 
     @Override

@@ -28,7 +28,6 @@ public class ControllerManager{
     public void push(Controller controller){
         controllerStack.push(controller);
         controllerStack.peek().getView().setup();
-
     }
 
     public void pop() {

@@ -29,8 +29,6 @@ public class SingleplayerGameView extends View {
     private static final float WORD_POS_X_DIVISOR = 2.5f;
     private static final float WORD_DELTA_Y = 150.0f;
 
-    private final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
-
     private static final Color COLOR_KEY_ENABLED = Color.WHITE;
     private static final Color COLOR_KEY_DISABLED = Color.GRAY;
 
