@@ -57,17 +57,6 @@ public class SingleplayerGameView extends View {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
-        spriteBatch.draw(texture, 200, 500 + 600);
-        spriteBatch.draw(texture, 350, 500 + 600);
-        spriteBatch.draw(texture, 500, 500 + 600);
-        spriteBatch.draw(texture, 650, 500 + 600);
-        spriteBatch.draw(texture, 800, 500 + 600);
-
-        spriteBatch.draw(texture, 200, 650 + 600);
-        spriteBatch.draw(texture, 200, 800 + 600);
-        spriteBatch.draw(texture, 200, 950 + 600);
-        spriteBatch.draw(texture, 200, 1100 + 600);
-
         // Draw solution word
         font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = gameState.getGuesses();
@@ -75,12 +64,22 @@ public class SingleplayerGameView extends View {
         // Draw guessed words
         int c = 0;
         for (GuessedWord word : guessedWords){
-            float height = (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y*2;
-            //TODO: color code letters
-            //font.getData().markupEnabled = true;
-            String wordToDraw = createColoredWord(word);
-            //font.draw(spriteBatch, wordToDraw, Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
+            String[] colourToDraw = createColoredList(word);
             for (int i = 0; i < word.getWord().length(); i++) {
+                switch(colourToDraw[i]) {
+                    case "[GRAY]":
+                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/gray.png")),
+                                (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
+                        break;
+                    case "[ORANGE]":
+                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/orange.png")),
+                                (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
+                        break;
+                    case "[GREEN]":
+                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/green.png")),
+                                (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
+                        break;
+                }
                 spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+word.getWord().charAt(i)+".png")),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
@@ -88,14 +87,6 @@ public class SingleplayerGameView extends View {
         }
 
         if(gameState.getGameStatus().equals(GameStatus.ONGOING)){
-            // Draw keyboardinput
-            /*
-            font.draw(
-                    spriteBatch, ((SingleplayerGameState) state).getKeyboardInput().getCurrentText(),
-                    Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR,
-                    (Gdx.graphics.getHeight() - 100.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y
-            );
-            */
             String currentText = ((SingleplayerGameState) state).getKeyboardInput().getCurrentText();
             for (int i = 0; i < currentText.length(); i++) {
                 spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")),
@@ -136,10 +127,12 @@ public class SingleplayerGameView extends View {
      * @param guessedWord to color letters for
      * @return string with libgdx markup to color letters.
      */
-    private String createColoredWord(GuessedWord guessedWord){
-        String word = "";
+    private String[] createColoredList(GuessedWord guessedWord){
+        String[] word = {"", "", "", "", ""};
+        int i = 0;
         for(GuessedLetter letter : guessedWord.getLetters()){
-            word += getColorFromLetter(letter) + letter.getLetter();
+            word[i] = getColorFromLetter(letter);
+            i++;
         }
         return word;
     }
