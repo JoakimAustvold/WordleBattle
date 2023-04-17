@@ -38,7 +38,7 @@ public class TutorialScreenView extends View {
         font.getData().setScale(scaleFactor);
 
         // Load the tutorial image from the assets folder
-        tutorialTexture = new Texture("tutorial.png");
+        tutorialTexture = new Texture("tutorial2.png");
 
 
 
@@ -102,7 +102,7 @@ public class TutorialScreenView extends View {
 
         // Set the size and position of the tutorial image
         Image tutorialImage = new Image(tutorialTexture);
-        tutorialImage.setScale(2); // Double the size of the image
+        tutorialImage.setScale(1.75f); // Set the image size
         tutorialImage.setPosition(Gdx.graphics.getWidth()/3, 10);
 
         stage.addActor(tutorialImage);
