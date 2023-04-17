@@ -85,7 +85,6 @@ public class MainMenuView extends View {
         tutorialButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("1: " + ts.getHasPlayed());
                 ControllerManager.getInstance().push(new TutorialController());
             }
         });

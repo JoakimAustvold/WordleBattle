@@ -16,8 +16,7 @@ public class PauseMenuController extends Controller {
         pauseMenuView.backToMainButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
-                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new MainMenuController());
             }
         });
 
@@ -41,9 +40,7 @@ public class PauseMenuController extends Controller {
         pauseMenuView.tutorialButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
-                //TODO add call to controllermanager to add tutorial to stack
-
+                ControllerManager.getInstance().pop();
             }
         });
     }
