@@ -2,9 +2,11 @@ package com.mygdx.game.controller;
 
 import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordStatus;
@@ -20,24 +22,12 @@ public class SingleplayerGameController extends Controller {
 
     public SingleplayerGameController() {
         this.state = new SingleplayerGameState();
-        this.view = new SingleplayerGameView();
-
-        SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
-
         if(!(this.state instanceof SingleplayerGameState)){
             throw new StateException("Please provide a SingleplayerGameState to this controller");
         }
         this.gameState = ((SingleplayerGameState) this.state);
 
-        keyboardInput = gameState.getKeyboardInput();
-        TextButton[][] buttons = singleplayerView.getButtons();
-        for (TextButton[] rowButtons : buttons) {
-            for (TextButton button : rowButtons) {
-                button.addListener(new KeyboardInputListener(
-                       button
-                ));
-            }
-        }
+        setupView();
     }
 
     /**
@@ -45,6 +35,10 @@ public class SingleplayerGameController extends Controller {
      */
     @Override
     public void resetView() {
+        setupView();
+    }
+
+    private void setupView(){
         this.view = new SingleplayerGameView();
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
@@ -57,6 +51,13 @@ public class SingleplayerGameController extends Controller {
                 ));
             }
         }
+
+        singleplayerView.pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().push(new PauseMenuController());
+            }
+        });
     }
 
     private void disableButtons(Collection<Character> disabledLetters){

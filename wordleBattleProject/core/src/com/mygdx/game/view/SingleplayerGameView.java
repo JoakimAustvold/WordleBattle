@@ -6,14 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.PauseMenuController;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.input.GuessedLetter;
@@ -26,6 +22,7 @@ import java.util.Collection;
 
 public class SingleplayerGameView extends View {
 
+    public TextButton pauseButton;
     private static final float WORD_POS_X_DIVISOR = 2.5f;
     private static final float WORD_DELTA_Y = 150.0f;
 
@@ -47,9 +44,9 @@ public class SingleplayerGameView extends View {
         font.setColor(COLOR_KEY_ENABLED);
 
         Gdx.input.setInputProcessor(stage);
-
-        setUpPauseButton();
-
+        skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        pauseButton = new TextButton("Pause Game", skin);
+        setupPauseButton();
         setupKeyboard();
     }
 
@@ -214,22 +211,11 @@ public class SingleplayerGameView extends View {
         table.setY(-Gdx.graphics.getHeight()/3.5f);
     }
 
-    private void setUpPauseButton() {
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-
-        TextButton pauseButton = new TextButton("Pause Game", skin);
-
+    private void setupPauseButton() {
         pauseButton.setTransform(true);
         pauseButton.setScale(3);
 
         pauseButton.setPosition(30,Gdx.graphics.getHeight() - 110);
-
-        pauseButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new PauseMenuController());
-            }
-        });
 
         stage.addActor(pauseButton);
 
