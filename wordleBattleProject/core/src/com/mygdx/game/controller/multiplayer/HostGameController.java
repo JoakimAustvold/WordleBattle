@@ -15,4 +15,9 @@ public class HostGameController extends Controller {
     public void handleInput() {
 
     }
+
+    @Override
+    public void resetView() {
+
+    }
 }

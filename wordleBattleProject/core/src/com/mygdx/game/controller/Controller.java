@@ -1,7 +1,6 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 
@@ -41,7 +40,12 @@ public abstract class Controller {
      */
     public abstract void handleInput();
 
-     public View getView() {
+
+    public abstract  void resetView();
+
+    public View getView() {
             return view;
         }
+
+
 }

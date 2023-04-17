@@ -15,7 +15,7 @@ import java.util.Collection;
 
 public class SingleplayerGameController extends Controller {
 
-    private final KeyboardInput keyboardInput;
+    private KeyboardInput keyboardInput;
     private final SingleplayerGameState gameState;
 
     public SingleplayerGameController() {
@@ -37,6 +37,25 @@ public class SingleplayerGameController extends Controller {
             for (TextButton button : rowButtons) {
                 button.addListener(new KeyboardInputListener(
                        button
+                ));
+            }
+        }
+    }
+
+    /**
+     * Needs to reset view in order to be responsive after a stack-pop.
+     */
+    @Override
+    public void resetView() {
+        this.view = new SingleplayerGameView();
+        SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
+
+        keyboardInput = gameState.getKeyboardInput();
+        TextButton[][] buttons = singleplayerView.getButtons();
+        for (TextButton[] rowButtons : buttons) {
+            for (TextButton button : rowButtons) {
+                button.addListener(new KeyboardInputListener(
+                        button
                 ));
             }
         }
