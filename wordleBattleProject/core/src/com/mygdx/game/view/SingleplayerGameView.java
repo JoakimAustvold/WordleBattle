@@ -22,7 +22,7 @@ import java.util.Collection;
 public class SingleplayerGameView extends View {
 
     private static final float WORD_POS_X_DIVISOR = 2.5f;
-    private static final float WORD_DELTA_Y = 90.0f;
+    private static final float WORD_DELTA_Y = 150.0f;
 
     private final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
@@ -76,9 +76,14 @@ public class SingleplayerGameView extends View {
         int c = 0;
         for (GuessedWord word : guessedWords){
             float height = (Gdx.graphics.getHeight() - 100.0f - c*WORD_DELTA_Y) - WORD_DELTA_Y*2;
-            font.getData().markupEnabled = true;
+            //TODO: color code letters
+            //font.getData().markupEnabled = true;
             String wordToDraw = createColoredWord(word);
-            font.draw(spriteBatch, wordToDraw, Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
+            //font.draw(spriteBatch, wordToDraw, Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, height);
+            for (int i = 0; i < word.getWord().length(); i++) {
+                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+word.getWord().charAt(i)+".png")),
+                        (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
+            }
             c++;
         }
 
@@ -94,7 +99,7 @@ public class SingleplayerGameView extends View {
             String currentText = ((SingleplayerGameState) state).getKeyboardInput().getCurrentText();
             for (int i = 0; i < currentText.length(); i++) {
                 spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")),
-                        (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 200.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
+                        (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
             // Draw keyboard
             stage.act(Gdx.graphics.getDeltaTime());
