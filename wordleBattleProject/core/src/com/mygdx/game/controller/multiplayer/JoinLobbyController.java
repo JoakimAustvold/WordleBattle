@@ -11,11 +11,16 @@ public class JoinLobbyController extends Controller {
     public JoinLobbyController() {
         this.state = LobbyInfo.getInstance();
         this.view = new LobbyView();
+
+        LobbyView lobbyView = ((LobbyView) view);
     }
+
+
 
     /**
      * Adds the second player to the lobby
      */
+    /*
     public void addPlayerTwoToLobby(String code, String username) {
         //TODO: Does the lobby exists?
         //TODO: Are there available space in the lobby?
@@ -27,6 +32,8 @@ public class JoinLobbyController extends Controller {
         // Adds player one locally from firebase
         SingletonAPI.getInstance().createPlayerOneListener(code);
     }
+    */
+
 
     /**
      * Removes the second player from the lobby.

@@ -85,7 +85,7 @@ public class MainMenuView extends View {
         skin.dispose();
     }
 
-    //TODO implement the rezise function
+    //TODO implement the resize function
 /*    public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }*/

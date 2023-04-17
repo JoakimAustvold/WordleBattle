@@ -15,6 +15,7 @@ public class SingletonAPI implements FirebaseAPI{
     private FirebaseAPI firebaseAPI;
    // static Semaphore semaphore = new Semaphore(10);
 
+    //TODO: Remove these fields???
     private String code;
     private String playerOne;
     private String playerTwo;
@@ -63,6 +64,7 @@ public class SingletonAPI implements FirebaseAPI{
         }
     }
 
+    @Override
     public void addUserToLobby(LobbyCode lobbyCode, String username) {
         if(firebaseAPI != null ) {
             code = String.valueOf(lobbyCode.getCode());
@@ -71,6 +73,7 @@ public class SingletonAPI implements FirebaseAPI{
         }
     }
 
+    @Override
     public void addPlayerTwoToLobby(String code, String username) {
         if(firebaseAPI != null ) {
             playerTwo = username;

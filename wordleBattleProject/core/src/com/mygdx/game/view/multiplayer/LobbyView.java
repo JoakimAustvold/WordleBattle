@@ -63,18 +63,20 @@ public class LobbyView extends View {
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-          LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfo lobbyState = (LobbyInfo) state;
 
-         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
-         stage.draw();
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
+        stage.draw();
 
-         font.getData().setScale(6);
-         font.draw(spriteBatch, lobbyState.getCode(),  (float) Gdx.graphics.getWidth()/2,  (float) (Gdx.graphics.getHeight()*0.8));
+        font.getData().setScale(6);
+        if (lobbyState.getCode() != null) {
+            font.draw(spriteBatch, lobbyState.getCode(),  (float) Gdx.graphics.getWidth()/2,  (float) (Gdx.graphics.getHeight()*0.8));
+        }
         font.draw(spriteBatch, "Users:",(float) Gdx.graphics.getWidth()/2, (float) (Gdx.graphics.getHeight() *0.6));
         if (lobbyState.getPlayerOne() != null) {
             font.draw(spriteBatch, lobbyState.getPlayerOne(), (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.55));
         }
-            if (lobbyState.getPlayerTwo() != null) {
+        if (lobbyState.getPlayerTwo() != null) {
             font.draw(spriteBatch, lobbyState.getPlayerTwo(), (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.5));
         }
     }
