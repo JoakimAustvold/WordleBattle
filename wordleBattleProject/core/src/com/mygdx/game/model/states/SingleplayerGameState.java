@@ -5,6 +5,7 @@ import static com.mygdx.game.model.words.Language.ENGLISH;
 
 import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.SingletonAPI;
+import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
@@ -27,6 +28,10 @@ public class SingleplayerGameState extends State {
     private final WordInputHandler wordInputHandler;
     private final KeyboardInput keyboardInput;
     private final Language language = ENGLISH;
+    // highscore fields
+    private Date startTime;
+    private Score score;
+
 
 
     public static final String[][] buttonValues = {
@@ -43,8 +48,8 @@ public class SingleplayerGameState extends State {
         disabledChars = new ArrayList<>();
         wordInputHandler = new WordInputHandler(solution, language, guesses, disabledChars);
         gameStatus= GameStatus.ONGOING;
-
-        Date start = new Date();
+        startTime = new Date();
+        score = new Score("Filler", 10);
     }
 
     public KeyboardInput getKeyboardInput(){
@@ -61,10 +66,11 @@ public class SingleplayerGameState extends State {
         }
 
         if(wordStatus.equals(WordStatus.SOLUTION)){
-            Date winDate = new Date();
+            // Create the score
+            this.score = new Score(startTime, new Date(), getGuesses());
 
+          //  SingletonAPI.getInstance().submitHighscore(score);
 
-            SingletonAPI.getInstance().submitHighscore();
             gameStatus = GameStatus.WIN;
         }
 
@@ -98,5 +104,9 @@ public class SingleplayerGameState extends State {
 
     public Collection<Character> getDisabledChars() {
         return disabledChars;
+    }
+
+    public Score getScore() {
+        return score;
     }
 }

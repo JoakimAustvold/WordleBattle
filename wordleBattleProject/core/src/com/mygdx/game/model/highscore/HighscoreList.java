@@ -59,13 +59,5 @@ public class HighscoreList extends State {
     public void update(float deltaTime) {
 
     }
-    // TODO: Finish this logic
-    public long calculateHighscore(Date start, Date end, Collection<GuessedWord> guesses) {
-        long startScore = 10000000l;
-        long timeUsed = end.getTime() - start.getTime();
-        startScore -= timeUsed;
-        startScore -= guesses.size() * (50000);
 
-        return startScore;
-    }
 }

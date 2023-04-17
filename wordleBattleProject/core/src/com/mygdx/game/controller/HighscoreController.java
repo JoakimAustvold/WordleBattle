@@ -17,6 +17,11 @@ public class HighscoreController extends Controller{
     public void handleInput() {
         
     }
-    
-    
+
+    @Override
+    public void resetView() {
+
+    }
+
+
 }

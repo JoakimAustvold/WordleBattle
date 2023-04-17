@@ -25,7 +25,7 @@ public class LobbyView extends View {
    // protected Stage stage;
     //protected Skin skin;
     private BitmapFont font;
-    protected TextButton backButton;
+    //protected TextButton backButton;
     protected EventListener listener;
 
     public LobbyView() {

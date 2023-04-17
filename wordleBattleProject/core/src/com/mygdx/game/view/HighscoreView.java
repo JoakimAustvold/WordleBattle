@@ -53,7 +53,7 @@ public class HighscoreView extends View{
 
         for(int i = 0; i < highscores.size(); i++) {
              Score score = highscores.get(i);
-             Label scoreLabel = new Label(score.getName() + ":  " + score.getHighscore() , skin);
+             Label scoreLabel = new Label(score.getUsername() + ":  " + score.getHighscore() , skin);
              scoreLabel.setFontScale(4, 4);
 
              table.row().pad(50, 0, 50, 0);

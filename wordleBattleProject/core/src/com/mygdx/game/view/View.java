@@ -23,7 +23,7 @@ public abstract class View {
 
     protected Stage stage;
     protected Skin skin;
-    private TextButton backButton;
+    protected TextButton backButton;
     //protected Table table;
 
     public View() {

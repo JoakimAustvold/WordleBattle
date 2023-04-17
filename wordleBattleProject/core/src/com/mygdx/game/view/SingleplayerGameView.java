@@ -6,11 +6,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
+import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.input.GuessedLetter;
 import com.mygdx.game.model.input.GuessedLetterStatus;
 import com.mygdx.game.model.input.GuessedWord;
@@ -38,27 +44,79 @@ public class SingleplayerGameView extends View {
 
     private final BitmapFont font = new BitmapFont();
     private final Stage stage = new Stage();
+    private final Stage stage2 = new Stage();
+
+    private TextField usernameTextField;
+    private TextButton addHighscore;
 
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
         font.setColor(COLOR_KEY_ENABLED);
 
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage2);
 
         setupKeyboard();
+        setup();
 
         //LocalTime start = LocalTime.now();
-        
-
     }
 
     @Override
     public void setup() {
+        // input field for username
+        usernameTextField = new TextField("", skin);
+        usernameTextField.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 300), 400);
+        usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+        usernameTextField.setMessageText("Username: ");
+
+
+         // button add high (also restarts game)
+
+        addHighscore = new TextButton("Add highscore", skin);
+        addHighscore.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR + 100), 400);
+        addHighscore.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+
+        addHighscore.addListener(new ChangeListener() {
+        @Override
+        public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+               // System.out.println(usernameTextField.getText());
+                // add highscore to firebase
+                //SingletonAPI...
+               // gameState.getScore().setUsername(usernameTextField.getText());
+
+               // SingletonAPI.getInstance().submitHighscore(gameState.getScore());
+
+               System.out.println("I am adding the highscore!!!!!");
+
+                // new game
+                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new SingleplayerGameController());
+            }
+        });
+
+        // skip / new game
+        TextButton newGame = new TextButton("New Game", skin);
+        newGame.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 100);
+        newGame.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+
+        newGame.addListener(new ChangeListener() {
+        @Override
+        public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+            ControllerManager.getInstance().pop();
+            ControllerManager.getInstance().push(new SingleplayerGameController());
+        }
+        });
+
+        stage2.addActor(usernameTextField);
+        stage2.addActor(addHighscore);
+        stage2.addActor(newGame);
+
     }
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        SingleplayerGameState gameState = (SingleplayerGameState) state;
+        final SingleplayerGameState gameState = (SingleplayerGameState) state;
 
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -108,10 +166,22 @@ public class SingleplayerGameView extends View {
         }
 
         if(gameState.getGameStatus().equals(GameStatus.WIN)){
+
+            // Removes keyboard from the stage
+            /*
+            for (Actor actor: stage.getActors()) {
+                actor.remove();
+            }*/
+
             font.draw(spriteBatch, "You win!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
-            font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
-            font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 600);
-            
+            //font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
+           // font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 600);
+
+           // your score
+            font.draw(spriteBatch, "Your score is: " + gameState.getScore().getHighscore(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
+
+            stage2.act(Gdx.graphics.getDeltaTime());
+            stage2.draw();
         }
         else if(gameState.getGameStatus().equals(GameStatus.LOSS)){
             font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
