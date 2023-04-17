@@ -2,10 +2,13 @@ package com.mygdx.game.controller;
 
 import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.exception.StateException;
+import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.states.SingleplayerGameState;
@@ -24,7 +27,7 @@ public class SingleplayerGameController extends Controller {
 
         // TODO add back to menu button and call mainMenuController
 
-        SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
+        final SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
         if(!(this.state instanceof SingleplayerGameState)){
             throw new StateException("Please provide a SingleplayerGameState to this controller");
@@ -40,6 +43,36 @@ public class SingleplayerGameController extends Controller {
                 ));
             }
         }
+
+        // add listeners to the buttons
+        singleplayerView.addHighscore.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                // System.out.println(usernameTextField.getText());
+                // add highscore to firebase
+                //SingletonAPI...
+
+                // update username
+                gameState.getScore().setUsername(singleplayerView.usernameTextField.getText());
+                // register the highscore in the firebase database
+                SingletonAPI.getInstance().submitHighscore(gameState.getScore());
+
+                System.out.println("I am adding the highscore!!!!!");
+
+                // new game
+                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new SingleplayerGameController());
+            }
+        });
+
+        singleplayerView.newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new SingleplayerGameController());
+            }
+        });
+
     }
 
     /**

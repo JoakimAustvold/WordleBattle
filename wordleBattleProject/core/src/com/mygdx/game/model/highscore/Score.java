@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Score implements Comparable<Score> {
 
-    private long highscore;
+    private int highscore;
     private String username;
 
     public Score() {
@@ -19,25 +19,28 @@ public class Score implements Comparable<Score> {
     }
 
     public Score(Date start, Date end, Collection<GuessedWord> guesses) {
-        long startScore = 10000000l;
-        System.out.println(startScore);
-        long timeUsed = end.getTime() - start.getTime();
-        System.out.println(startScore);
+        int startScore = 2500;
+        System.out.println("Start score: " + startScore);
+        // difference of 1000 = 1 second
+        int timeUsed = Math.round(end.getTime() - start.getTime())/1000;
+        System.out.println("timeused " + timeUsed);
         startScore -= timeUsed;
-        startScore -= guesses.size() * (50000);
         System.out.println(startScore);
+        // 5*300 = 1500
+        startScore -= (guesses.size()-1) * (300);
+        System.out.println("highscore: " + startScore);
 
         this.highscore = startScore;
         this.username = null;
     }
 
-    public Score(String name, long highscore)
+    public Score(String name, int highscore)
     {
         this.highscore = highscore;
         this.username = name;
     }
 
-    public long getHighscore() {
+    public int getHighscore() {
         return highscore;
     }
 
@@ -45,7 +48,7 @@ public class Score implements Comparable<Score> {
         return username;
     }
 
-    public void setHighscore(long highscore) {
+    public void setHighscore(int highscore) {
         this.highscore = highscore;
     }
 
@@ -54,7 +57,7 @@ public class Score implements Comparable<Score> {
     }
 
     public String toString() {
-        return String.format("(name: %s, score: %s)", username, highscore);
+        return String.format("(username: %s, score: %s)", username, highscore);
     }
 
     @Override
@@ -70,9 +73,12 @@ public class Score implements Comparable<Score> {
         }
     }
 
+    /*
        // TODO: Finish this logic
         public long calculateHighscore(Date start, Date end, Collection<GuessedWord> guesses) {
+
             long startScore = 10000000l;
+            // difference of 1000 = 1 second
             long timeUsed = end.getTime() - start.getTime();
             startScore -= timeUsed;
             startScore -= guesses.size() * (50000);
@@ -80,5 +86,5 @@ public class Score implements Comparable<Score> {
             return startScore;
 
         }
-
+*/
 }
