@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.GL20;
@@ -72,7 +73,13 @@ public class MainMenuView extends View {
         singleplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new SingleplayerGameController());
+                Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
+                boolean hasPlayed = prefs.getBoolean("hasPlayed");
+                if (hasPlayed) {
+                    ControllerManager.getInstance().push(new SingleplayerGameController());
+                } else {
+                    ControllerManager.getInstance().push(new TutorialController());
+                }
             }
         });
         

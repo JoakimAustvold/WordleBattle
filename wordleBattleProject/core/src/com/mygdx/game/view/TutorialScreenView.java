@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.TutorialState;
 
@@ -43,9 +45,7 @@ public class TutorialScreenView extends View {
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         this.stage = new Stage(new ScreenViewport());
         setup();
-        System.out.println("2: " + ts.getHasPlayed());
         ts.setHasPlayed(true);
-        System.out.println("3: " + ts.getHasPlayed());
     }
 
 
@@ -79,7 +79,13 @@ public class TutorialScreenView extends View {
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new MainMenuController());
+                Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
+                boolean hasPlayed = prefs.getBoolean("hasPlayed");
+                if (hasPlayed) {
+                    ControllerManager.getInstance().push(new MainMenuController());
+                } else {
+                    ControllerManager.getInstance().push(new SingleplayerGameController());
+                }
             }
         });
         stage.getBatch().end();

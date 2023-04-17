@@ -40,13 +40,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
-		boolean hasPlayed = prefs.getBoolean("hasPlayed");
-		if (hasPlayed) {
-			ControllerManager.getInstance().push(new MainMenuController());
-		} else {
-			ControllerManager.getInstance().push(new TutorialController());
-		}
+		ControllerManager.getInstance().push(new MainMenuController());
 	}
 
 	@Override
