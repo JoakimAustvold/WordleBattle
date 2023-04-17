@@ -41,4 +41,9 @@ public class HostLobbyController extends Controller {
     public void handleInput() {
 
     }
+
+    @Override
+    public void resetView() {
+
+    }
 }

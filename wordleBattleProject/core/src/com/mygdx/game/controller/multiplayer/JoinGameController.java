@@ -17,4 +17,9 @@ public class JoinGameController extends Controller {
 
     }
 
+    @Override
+    public void resetView() {
+
+    }
+
 }
