@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
-import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.TutorialState;
 
@@ -69,15 +68,12 @@ public class TutorialScreenView extends View {
                         "Use the feedback to guess the word in as few attempts as possible.",
                 10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
-        // Create menu buttons
+        // Create back button
         TextButton backButton = new TextButton("Back", skin);
         backButton.setTransform(true);
         backButton.setScale(4);
 
-        // Add the buttons to the table
-        //table.row().pad(50, 0, 50, 0);
-        //table.add(backButton).fill().uniform();
-
+        // Add the button to the stage
         stage.addActor(backButton);
 
         backButton.addListener(new ChangeListener() {
