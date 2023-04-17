@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
@@ -21,10 +22,9 @@ import java.util.Collection;
 
 public class SingleplayerGameView extends View {
 
+    public TextButton pauseButton;
     private static final float WORD_POS_X_DIVISOR = 2.5f;
     private static final float WORD_DELTA_Y = 150.0f;
-
-    private final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
     private static final Color COLOR_KEY_ENABLED = Color.WHITE;
     private static final Color COLOR_KEY_DISABLED = Color.GRAY;
@@ -37,12 +37,16 @@ public class SingleplayerGameView extends View {
     private final BitmapFont font = new BitmapFont();
     private final Stage stage = new Stage();
 
+    private Skin skin;
+
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
         font.setColor(COLOR_KEY_ENABLED);
 
         Gdx.input.setInputProcessor(stage);
-
+        skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        pauseButton = new TextButton("Pause Game", skin);
+        setupPauseButton();
         setupKeyboard();
     }
 
@@ -205,5 +209,15 @@ public class SingleplayerGameView extends View {
             table.row();
         }
         table.setY(-Gdx.graphics.getHeight()/3.5f);
+    }
+
+    private void setupPauseButton() {
+        pauseButton.setTransform(true);
+        pauseButton.setScale(3);
+
+        pauseButton.setPosition(30,Gdx.graphics.getHeight() - 110);
+
+        stage.addActor(pauseButton);
+
     }
 }
