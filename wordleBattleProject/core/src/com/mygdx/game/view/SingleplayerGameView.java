@@ -21,21 +21,21 @@ import java.util.Collection;
 
 public class SingleplayerGameView extends View {
 
-    private static final float WORD_POS_X_DIVISOR = 2.5f;
-    private static final float WORD_DELTA_Y = 150.0f;
+    protected static final float WORD_POS_X_DIVISOR = 2.5f;
+    protected static final float WORD_DELTA_Y = 150.0f;
 
-    private final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
+    protected final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
-    private static final Color COLOR_KEY_ENABLED = Color.WHITE;
-    private static final Color COLOR_KEY_DISABLED = Color.GRAY;
+    protected static final Color COLOR_KEY_ENABLED = Color.WHITE;
+    protected static final Color COLOR_KEY_DISABLED = Color.GRAY;
 
-    private static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
-    private static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
-    private static final float buttonPadding = buttonWidth / 5f;
-    private final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
+    protected static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
+    protected static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
+    protected static final float buttonPadding = buttonWidth / 5f;
+    protected final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
-    private final BitmapFont font = new BitmapFont();
-    private final Stage stage = new Stage();
+    protected final BitmapFont font = new BitmapFont();
+    protected final Stage stage = new Stage();
 
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
@@ -178,7 +178,7 @@ public class SingleplayerGameView extends View {
         return style;
     }
 
-    private void setupKeyboard(){
+    protected void setupKeyboard(){
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
