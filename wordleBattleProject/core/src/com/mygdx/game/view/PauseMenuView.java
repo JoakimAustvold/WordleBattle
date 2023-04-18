@@ -11,21 +11,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
 
-public class SettingsScreenView extends View {
+public class PauseMenuView extends View {
     private int width;
     private int height;
     private Stage stage;
     private Skin skin;
+
+    public TextButton backToGameButton;
+    public TextButton newGameButton;
+    public TextButton backToMainButton;
+    public TextButton tutorialButton;
     
-    public SettingsScreenView() {
+    public PauseMenuView() {
         this.width = Gdx.graphics.getWidth();
         this.height = Gdx.graphics.getHeight();
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        setup();
+        // Create menu buttons
+        backToGameButton = new TextButton("Back to Game", skin);
+        tutorialButton = new TextButton("Tutorial", skin);
+        backToMainButton = new TextButton("End Game", skin);
+        newGameButton = new TextButton("Restart Game", skin);
     }
     
     @Override
@@ -42,25 +51,29 @@ public class SettingsScreenView extends View {
 
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
-
-        // Create menu buttons
-        TextButton backToMainButton = new TextButton("Back", skin);
 
         backToMainButton.setTransform(true);
         backToMainButton.setScale(4);
+        
+        backToGameButton.setTransform(true);
+        backToGameButton.setScale(4);
+
+        newGameButton.setTransform(true);
+        newGameButton.setScale(4);
+
+        tutorialButton.setTransform(true);
+        tutorialButton.setScale(4);
 
         // Add the buttons to the table
         table.row().pad(50, 0, 50, 0);
+        table.add(backToGameButton).fill().uniform();
+        table.row().pad(50, 0, 50, 0);
+        table.add(tutorialButton).fill().uniform();
+        table.row().pad(50, 0, 50, 0);
+        table.add(newGameButton).fill().uniform();
+        table.row().pad(50, 0, 50, 0);
         table.add(backToMainButton).fill().uniform();
-
-        backToMainButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
-            }
-        });
     }
 
     @Override

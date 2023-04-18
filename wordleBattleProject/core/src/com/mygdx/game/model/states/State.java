@@ -9,5 +9,4 @@ package com.mygdx.game.model.states;
  */
 public abstract class State {
 
-    public abstract void update(float deltaTime);
 }

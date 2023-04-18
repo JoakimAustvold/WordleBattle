@@ -31,7 +31,6 @@ public class MultiplayerMenuView extends View {
 
              Table table = new Table();
              table.setFillParent(true);
-             table.setDebug(true);
              stage.addActor(table);
 
              TextButton hostGameButton = new TextButton("Host Game", skin);

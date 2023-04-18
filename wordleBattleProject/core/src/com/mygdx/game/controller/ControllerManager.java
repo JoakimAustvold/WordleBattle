@@ -28,7 +28,6 @@ public class ControllerManager{
     public void push(Controller controller){
         controllerStack.push(controller);
         controllerStack.peek().getView().setup();
-
     }
 
     public void pop() {
@@ -44,16 +43,9 @@ public class ControllerManager{
         controllerStack.push(controller);
     }
 
-    public void update (float deltaTime){
-        controllerStack.peek().update(deltaTime);
-    }
 
     public void render(SpriteBatch spriteBatch){
         controllerStack.peek().render(spriteBatch);
-    }
-
-    public void handleInput(){
-        controllerStack.peek().handleInput();
     }
 
     public Controller peek() {

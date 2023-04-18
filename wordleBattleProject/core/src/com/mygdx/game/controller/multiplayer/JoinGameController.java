@@ -11,11 +11,6 @@ public class JoinGameController extends Controller {
         this.state = LobbyInfo.getInstance();
         this.view = new JoinGameView();
     }
-    
-    @Override
-    public void handleInput() {
-
-    }
 
     @Override
     public void resetView() {

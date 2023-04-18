@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,23 +14,31 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.controller.ControllerManager;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.controller.TutorialController;
 import com.mygdx.game.controller.multiplayer.MultiplayerMenuController;
-import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.controller.MainMenuController;
-import com.mygdx.game.controller.SettingsController;
 import com.mygdx.game.controller.SingleplayerGameController;
-import com.mygdx.game.model.states.State;
+import com.mygdx.game.model.states.TutorialState;
 
 public class MainMenuView extends View {
     
     private Stage stage;
     private Skin skin;
+    private TutorialState ts;
+
+    public TextButton singleplayerButton;
+    public TextButton multiplayerButton;
+    public TextButton tutorialButton;
     
-    public MainMenuView() {
+    public MainMenuView(TutorialState ts) {
+        this.ts = ts;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        // Create menu buttons
+         singleplayerButton = new TextButton("Singleplayer", skin);
+         multiplayerButton = new TextButton("Multiplayer", skin);
+         tutorialButton = new TextButton("Tutorial", skin);
+
         setup();
     }
 
@@ -38,21 +47,12 @@ public class MainMenuView extends View {
         
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
-
-        // Create menu buttons
-        TextButton singleplayerButton = new TextButton("Singleplayer", skin);
-        TextButton multiplayerButton = new TextButton("Multiplayer", skin);
-        TextButton settingsButton = new TextButton("Settings", skin);
-        TextButton tutorialButton = new TextButton("Tutorial", skin);
 
         singleplayerButton.setTransform(true);
         singleplayerButton.setScale(4);
         multiplayerButton.setTransform(true);
         multiplayerButton.setScale(4);
-        settingsButton.setTransform(true);
-        settingsButton.setScale(4);
         tutorialButton.setTransform(true);
         tutorialButton.setScale(4);
 
@@ -62,31 +62,8 @@ public class MainMenuView extends View {
         table.row().pad(50, 0, 50, 0);
         table.add(multiplayerButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
-        table.add(settingsButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
         table.add(tutorialButton).fill().uniform();
-        
-        singleplayerButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new SingleplayerGameController());
-            }
-        });
-        
-        multiplayerButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new MultiplayerMenuController());
-            }
-        });
-
-        settingsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new SettingsController());
-            }
-        });
-
         
     }
     

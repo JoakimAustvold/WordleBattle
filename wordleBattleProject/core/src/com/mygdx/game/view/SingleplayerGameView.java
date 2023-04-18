@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
@@ -16,6 +17,7 @@ import com.mygdx.game.model.input.GuessedLetterStatus;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
+import com.mygdx.game.view.letters.LetterMap;
 
 import java.util.Collection;
 
@@ -34,15 +36,29 @@ public class SingleplayerGameView extends View {
     protected static final float buttonPadding = buttonWidth / 5f;
     protected final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
+    protected Texture graySquareTexture;
+    protected Texture orangeSquareTexture;
+    protected Texture greenSquareTexture;
+
+    protected final LetterMap letterMap;
+
     protected final BitmapFont font = new BitmapFont();
     protected final Stage stage = new Stage();
+
+    protected Skin skin;
 
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
         font.setColor(COLOR_KEY_ENABLED);
 
         Gdx.input.setInputProcessor(stage);
-
+        skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        graySquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/gray.png"));
+        orangeSquareTexture= new Texture(Gdx.files.internal("textures/backgrounds/orange.png"));
+        greenSquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/green.png"));
+        pauseButton = new TextButton("Settings", skin);
+        letterMap = new LetterMap();
+        setupPauseButton();
         setupKeyboard();
     }
 
@@ -72,19 +88,19 @@ public class SingleplayerGameView extends View {
             for (int i = 0; i < word.getWord().length(); i++) {
                 switch(colourToDraw[i]) {
                     case "[GRAY]":
-                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/gray.png")),
+                        spriteBatch.draw(graySquareTexture,
                                 (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
                         break;
                     case "[ORANGE]":
-                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/orange.png")),
+                        spriteBatch.draw(orangeSquareTexture,
                                 (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
                         break;
                     case "[GREEN]":
-                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/green.png")),
+                        spriteBatch.draw(greenSquareTexture,
                                 (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
                         break;
                 }
-                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+word.getWord().charAt(i)+".png")),
+                spriteBatch.draw(letterMap.getTexture(word.getWord().charAt(i)+""),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
             c++;
@@ -93,7 +109,7 @@ public class SingleplayerGameView extends View {
         if(gameState.getGameStatus().equals(GameStatus.ONGOING)){
             String currentText = ((SingleplayerGameState) state).getKeyboardInput().getCurrentText();
             for (int i = 0; i < currentText.length(); i++) {
-                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")),
+                spriteBatch.draw(letterMap.getTexture(currentText.charAt(i)+""),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
             // Draw keyboard
@@ -205,5 +221,15 @@ public class SingleplayerGameView extends View {
             table.row();
         }
         table.setY(-Gdx.graphics.getHeight()/3.5f);
+    }
+
+    private void setupPauseButton() {
+        pauseButton.setTransform(true);
+        pauseButton.setScale(3);
+
+        pauseButton.setPosition(30,Gdx.graphics.getHeight() - 110);
+
+        stage.addActor(pauseButton);
+
     }
 }

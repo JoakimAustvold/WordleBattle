@@ -35,12 +35,6 @@ public class MultiplayerGameState extends State {
         return this.keyboardInput;
     }
 
-
-    @Override
-    public void update(float dt) {
-
-    }
-
     public String getWord(){
         return this.word;
     }
