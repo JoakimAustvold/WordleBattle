@@ -26,6 +26,7 @@ public class SingleplayerGameController extends Controller {
         this.view = new SingleplayerGameView();
 
         // TODO add back to menu button and call mainMenuController
+        addBackButtonListener();
 
         final SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 

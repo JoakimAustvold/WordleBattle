@@ -15,7 +15,7 @@ import com.mygdx.game.model.states.State;
 /**
  * @author Marcus Birkeland
  * @version 13.03.2023
- *
+ * <p>
  * Abstract template for views.
  * A view-subclass should only handle rendering and visual elements of a given screen.
  */
@@ -23,16 +23,13 @@ public abstract class View {
 
     protected Stage stage;
     protected Skin skin;
-    protected TextButton backButton;
-    //protected Table table;
+    public TextButton backButton;
 
     public View() {
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        this.skin.getFont("default-font").getData().setScale(4f,4f);
-
-        //table = new Table();
-        //setup();
+        this.skin.getFont("default-font").getData().setScale(4f, 4f);
+        backButton = new TextButton("Back", skin);
     }
 
     public abstract void setup();
@@ -41,17 +38,18 @@ public abstract class View {
      * Render the view based on state.
      */
     public void render(State state, SpriteBatch spriteBatch) {
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-    };
-
-    public void createBackButton() {
-        backButton = new TextButton("Back", skin);
-        stage.addActor(backButton);
-        backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
-        backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
     }
 
+    public void createBackButton() {
+        stage.addActor(backButton);
+        backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
+        backButton.setSize((float) (Gdx.graphics.getWidth() * 0.2), (float) (Gdx.graphics.getHeight() * 0.05));
+    }
+
+
+    /*
     public void createBackButtonWithDefaultListener() {
         createBackButton();
         backButton.addListener(new ChangeListener() {
@@ -61,6 +59,8 @@ public abstract class View {
             }
         });
     }
+    */
+
 
     public void dispose() {
         stage.dispose();

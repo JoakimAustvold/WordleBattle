@@ -17,69 +17,63 @@ import com.mygdx.game.view.View;
 
 public class MultiplayerMenuView extends View {
 
+    public TextButton hostGameButton;
+    public TextButton joinGameButton;
+
     //  private Stage stage;
       //private Skin skin;
 
-       public MultiplayerMenuView() {
-           super();
-         // this.stage = new Stage(new ScreenViewport());
-          //this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-          setup();
-      }
+    public MultiplayerMenuView() {
+        super();
+        // this.stage = new Stage(new ScreenViewport());
+        //this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        hostGameButton = new TextButton("Host Game", skin);
+        joinGameButton = new TextButton("Join Game", skin);
 
-       public void setup() {
-             Gdx.input.setInputProcessor(stage);
+        setup();
+    }
 
-             Table table = new Table();
-             table.setFillParent(true);
-             table.setDebug(true);
-             stage.addActor(table);
+    public void setup() {
+        Gdx.input.setInputProcessor(stage);
+        createBackButton();
 
-             TextButton hostGameButton = new TextButton("Host Game", skin);
-             TextButton joinGameButton = new TextButton("Join Game", skin);
-            // TextButton backButton = new TextButton("Back", skin);
+        Table table = new Table();
+        table.setFillParent(true);
+        table.setDebug(true);
+        stage.addActor(table);
 
-            /*
-             hostGameButton.setTransform(true);
-             hostGameButton.setScale(4);
-             joinGameButton.setTransform(true);
-             joinGameButton.setScale(4);
-             */
-            // backButton.setTransform(true);
-              //backButton.setScale(4);
 
-             // Add the buttons to the table
-             table.row().pad(50, 0, 50, 0);
-             table.add(hostGameButton).fill().uniform();
-             table.row().pad(50, 0, 50, 0);
-             table.add(joinGameButton).fill().uniform();
-            // table.row().pad(50, 0, 50, 0);
-             //table.add(backButton).fill().uniform();
+        // TextButton backButton = new TextButton("Back", skin);
 
-           hostGameButton.addListener(new ChangeListener() {
-                 @Override
-                 public void changed(ChangeEvent event, Actor actor) {
-                       ControllerManager.getInstance().push(new HostGameController());
-                 }
-             });
+        /*
+        hostGameButton.setTransform(true);
+        hostGameButton.setScale(4);
+        joinGameButton.setTransform(true);
+        joinGameButton.setScale(4);
+        */
+        // backButton.setTransform(true);
+        //backButton.setScale(4);
 
-           joinGameButton.addListener(new ChangeListener() {
-                       @Override
-                       public void changed(ChangeEvent event, Actor actor) {
-                           ControllerManager.getInstance().push(new JoinGameController());
-                       }
-                   });
+        // Add the buttons to the table
+        table.row().pad(50, 0, 50, 0);
+        table.add(hostGameButton).fill().uniform();
+        table.row().pad(50, 0, 50, 0);
+        table.add(joinGameButton).fill().uniform();
+        // table.row().pad(50, 0, 50, 0);
+        //table.add(backButton).fill().uniform();
 
-             /*
-             backButton.addListener(new ChangeListener() {
-                       @Override
-                       public void changed(ChangeEvent event, Actor actor) {
-                           ControllerManager.getInstance().pop();
-                       }
-                   });
-             */
-             createBackButtonWithDefaultListener();
-         }
+
+
+        /*
+        backButton.addListener(new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+        ControllerManager.getInstance().pop();
+        }
+        });
+        */
+
+    }
 
     /*
     @Override

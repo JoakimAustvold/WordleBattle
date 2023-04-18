@@ -8,6 +8,8 @@ public class SettingsController extends Controller {
     public SettingsController() {
         view = new SettingsScreenView();
         state = new SettingsState();
+
+        addBackButtonListener();
     }
 
     @Override

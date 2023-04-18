@@ -29,7 +29,7 @@ public class HighscoreView extends View{
     @Override
     public void setup() {
         Gdx.input.setInputProcessor(stage);
-        createBackButtonWithDefaultListener();
+        createBackButton();
 
         Label titleLabel = new Label("Highscores", skin);
         titleLabel.setFontScale(5, 5);

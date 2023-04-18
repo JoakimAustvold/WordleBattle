@@ -42,6 +42,7 @@ public class SettingsScreenView extends View {
     @Override
     public void setup() {
       Gdx.input.setInputProcessor(stage);
+      createBackButton();
 
         /*
         Table table = new Table();
@@ -66,7 +67,7 @@ public class SettingsScreenView extends View {
             }
         });
         */
-        createBackButtonWithDefaultListener();
+        //createBackButtonWithDefaultListener();
     }
 
     /*

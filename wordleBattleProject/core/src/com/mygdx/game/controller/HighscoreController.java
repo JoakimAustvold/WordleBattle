@@ -11,6 +11,8 @@ public class HighscoreController extends Controller{
     public HighscoreController() {
         this.state = new HighscoreList();
         this.view = new HighscoreView();
+
+        addBackButtonListener();
     }
 
     @Override

@@ -39,7 +39,7 @@ public class LobbyView extends View {
 
     @Override
     public void setup() {
-        Gdx.input.setInputProcessor(stage);
+        createBackButton();
 
         /*
         backButton = new TextButton("Leave", skin);
@@ -48,19 +48,7 @@ public class LobbyView extends View {
         backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
         backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
         */
-        createBackButton();
 
-        backButton.addListener(listener = new ChangeListener() {
-            @Override
-            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                System.out.println("Vi er i lobbyView");
-
-                // TODO: Better way to write this? Without Peeking
-                JoinLobbyController controller = (JoinLobbyController) ControllerManager.getInstance().peek();
-                controller.removePlayerTwoFromLobby();
-                ControllerManager.getInstance().pop();
-            }
-        });
     }
 
 
@@ -85,8 +73,7 @@ public class LobbyView extends View {
 
     @Override
     public void dispose() {
-        skin.dispose();
+        super.dispose();
         font.dispose();
-        stage.dispose();
     }
 }

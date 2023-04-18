@@ -18,6 +18,11 @@ import com.mygdx.game.controller.ControllerManager;
  * The view a user sees when attempting to join another player's game.
  */
 public class JoinGameView extends View {
+
+    public TextField inviteCodeTextField;
+    public TextField usernameTextField;
+    public TextButton joinButton;
+
     /*
     private Stage stage;
     private Skin skin;
@@ -27,6 +32,11 @@ public class JoinGameView extends View {
         //this.stage = new Stage(new ScreenViewport());
         //this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         //this.skin.getFont("default-font").getData().setScale(4f,4f);
+
+        inviteCodeTextField = new TextField("", skin);
+        usernameTextField = new TextField("", skin);
+        joinButton = new TextButton("Join lobby", skin);
+
         setup();
     }
 
@@ -42,6 +52,7 @@ public class JoinGameView extends View {
     @Override
     public void setup() {
         Gdx.input.setInputProcessor(stage);
+        createBackButton();
         /*
         Table table = new Table();
         table.setFillParent(true);
@@ -49,9 +60,7 @@ public class JoinGameView extends View {
         stage.addActor(table);*/
 
 
-        final TextField inviteCodeTextField = new TextField("", skin);
-        final TextField usernameTextField = new TextField("", skin);
-        TextButton joinButton = new TextButton("Join lobby", skin);
+
        // TextButton backButton = new TextButton("Back", skin);
 
         stage.addActor(inviteCodeTextField);
@@ -76,22 +85,7 @@ public class JoinGameView extends View {
         //table.row().pad(50, 0, 50, 0);
         // table.add(inviteCodeTextField).fill().uniform();
 
-         joinButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println(inviteCodeTextField.getText());
-                System.out.println(usernameTextField.getText());
 
-                /*
-                JoinGameController controller = (JoinGameController) ControllerManager.getInstance().peek();
-                controller.addPlayerTwoToLobby(Integer.parseInt(inviteCodeTextField.getText()), usernameTextField.getText());
-                */
-
-                JoinLobbyController controller = new JoinLobbyController();
-                controller.addPlayerTwoToLobby(inviteCodeTextField.getText(), usernameTextField.getText());
-                ControllerManager.getInstance().push(controller);
-            }
-        });
         /*
       backButton.addListener(new ChangeListener() {
             @Override
@@ -100,7 +94,7 @@ public class JoinGameView extends View {
             }
         });
         */
-        createBackButtonWithDefaultListener();
+        //createBackButtonWithDefaultListener();
     }
 
     /*

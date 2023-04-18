@@ -21,6 +21,9 @@ import com.mygdx.game.view.View;
  */
 public class HostGameView extends View {
 
+    public TextField usernameTextField;
+    public TextButton createLobbyButton;
+
     /*
     private Stage stage;
     private Skin skin;
@@ -30,14 +33,16 @@ public class HostGameView extends View {
        // this.stage = new Stage(new ScreenViewport());
        // this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
        // this.skin.getFont("default-font").getData().setScale(4f,4f);
+        usernameTextField = new TextField("", skin);
+        createLobbyButton = new TextButton("Create lobby", skin);
+
         setup();
     }
 
      public void setup() {
         Gdx.input.setInputProcessor(stage);
+        createBackButton();
 
-        final TextField usernameTextField = new TextField("", skin);
-        TextButton createLobbyButton = new TextButton("Create lobby", skin);
         //TextButton backButton = new TextButton("Back", skin);
 
         stage.addActor(usernameTextField);
@@ -54,17 +59,7 @@ public class HostGameView extends View {
         //backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
         //backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
 
-        createLobbyButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println(usernameTextField.getText());
-                HostLobbyController hostLobbyController = new HostLobbyController();
-                hostLobbyController.createLobby(usernameTextField.getText());
-                ControllerManager.getInstance().push(hostLobbyController);
-               // ControllerManager.getInstance().push(new HostLobbyController(usernameTextField.getText()));
 
-            }
-        });
 
         /*
         backButton.addListener(new ChangeListener() {
@@ -75,7 +70,7 @@ public class HostGameView extends View {
         });
         */
 
-        createBackButtonWithDefaultListener();
+        //createBackButtonWithDefaultListener();
     }
 
     /*

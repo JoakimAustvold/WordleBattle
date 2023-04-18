@@ -60,6 +60,12 @@ public class SingleplayerGameView extends View {
 
     @Override
     public void setup() {
+        //createBackButton(); wrong stage
+        keyboardStage.addActor(backButton);
+        backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
+        backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
+
+
         usernameTextField.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 300), 400);
         usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
         usernameTextField.setMessageText("Username: ");
@@ -155,9 +161,9 @@ public class SingleplayerGameView extends View {
 
     @Override
     public void dispose() {
+        super.dispose();
         keyboardStage.dispose();
         endgameStage.dispose();
-        skin.dispose();
         font.dispose();
     }
 
