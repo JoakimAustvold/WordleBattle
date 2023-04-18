@@ -17,6 +17,7 @@ import com.mygdx.game.model.input.GuessedLetterStatus;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
+import com.mygdx.game.view.letters.LetterMap;
 
 import java.util.Collection;
 
@@ -34,6 +35,12 @@ public class SingleplayerGameView extends View {
     private static final float buttonPadding = buttonWidth / 5f;
     private final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
+    private Texture graySquareTexture;
+    private Texture orangeSquareTexture;
+    private Texture greenSquareTexture;
+
+    private final LetterMap letterMap;
+
     private final BitmapFont font = new BitmapFont();
     private final Stage stage = new Stage();
 
@@ -45,7 +52,11 @@ public class SingleplayerGameView extends View {
 
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        pauseButton = new TextButton("Pause Game", skin);
+        graySquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/gray.png"));
+        orangeSquareTexture= new Texture(Gdx.files.internal("textures/backgrounds/orange.png"));
+        greenSquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/green.png"));
+        pauseButton = new TextButton("Settings", skin);
+        letterMap = new LetterMap();
         setupPauseButton();
         setupKeyboard();
     }
@@ -76,19 +87,19 @@ public class SingleplayerGameView extends View {
             for (int i = 0; i < word.getWord().length(); i++) {
                 switch(colourToDraw[i]) {
                     case "[GRAY]":
-                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/gray.png")),
+                        spriteBatch.draw(graySquareTexture,
                                 (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
                         break;
                     case "[ORANGE]":
-                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/orange.png")),
+                        spriteBatch.draw(orangeSquareTexture,
                                 (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
                         break;
                     case "[GREEN]":
-                        spriteBatch.draw(new Texture(Gdx.files.internal("textures/backgrounds/green.png")),
+                        spriteBatch.draw(greenSquareTexture,
                                 (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
                         break;
                 }
-                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+word.getWord().charAt(i)+".png")),
+                spriteBatch.draw(letterMap.getTexture(word.getWord().charAt(i)+""),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
             c++;
@@ -97,7 +108,7 @@ public class SingleplayerGameView extends View {
         if(gameState.getGameStatus().equals(GameStatus.ONGOING)){
             String currentText = ((SingleplayerGameState) state).getKeyboardInput().getCurrentText();
             for (int i = 0; i < currentText.length(); i++) {
-                spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")),
+                spriteBatch.draw(letterMap.getTexture(currentText.charAt(i)+""),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
             // Draw keyboard

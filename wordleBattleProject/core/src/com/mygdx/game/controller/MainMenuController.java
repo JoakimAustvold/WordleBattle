@@ -49,11 +49,6 @@ public class MainMenuController extends Controller {
      }
 
 
-     @Override
-     public void handleInput() {
-    
-     }
-
     @Override
     public void resetView() {
 

@@ -7,10 +7,4 @@ public class HighScoreState extends State {
 
     }
 
-    @Override
-    public void update(float dt) {
-
-    }
-
-
 }

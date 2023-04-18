@@ -66,11 +66,6 @@ public class SingleplayerGameState extends State {
 
     }
 
-    @Override
-    public void update(float dt) {
-
-    }
-
     public GameStatus getGameStatus() {
         return gameStatus;
     }
