@@ -23,6 +23,7 @@ import java.util.Collection;
 
 public class SingleplayerGameView extends View {
 
+    public TextButton pauseButton;
     protected static final float WORD_POS_X_DIVISOR = 2.5f;
     protected static final float WORD_DELTA_Y = 150.0f;
 
