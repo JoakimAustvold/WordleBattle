@@ -40,7 +40,7 @@ public class PauseMenuController extends Controller {
         pauseMenuView.tutorialButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new TutorialController(false));
             }
         });
     }
