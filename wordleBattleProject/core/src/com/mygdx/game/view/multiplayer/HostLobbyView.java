@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.multiplayer.HostLobbyController;
+import com.mygdx.game.controller.multiplayer.JoinGameController;
+import com.mygdx.game.controller.multiplayer.MultiplayerWordInputController;
 
 /**
  * The view the player hosting a lobby sees. They will see the user joining the lobby and be able to
@@ -35,6 +37,8 @@ public class HostLobbyView extends LobbyView {
                 //TODO: Add a multiplayer game screen
 
                 //ControllerManager.getInstance().push(new HostLobbyController());
+
+                ControllerManager.getInstance().push(new MultiplayerWordInputController());
 
             }
         });
