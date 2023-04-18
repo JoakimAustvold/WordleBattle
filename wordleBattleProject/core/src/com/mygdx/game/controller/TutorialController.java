@@ -28,13 +28,10 @@ public class TutorialController extends Controller {
 
         System.out.println("HASPLAYED: " + hasPlayed);
 
-        // Skip if setup if allready played
+        // Skip if setup if already played
         if(hasPlayed && checkPrefs){
             ControllerManager.getInstance().push(new SingleplayerGameController());
-        } else if (checkPrefs){
-            ControllerManager.getInstance().pop();
         }
-
 
 
         ((TutorialState) state).setHasPlayed();

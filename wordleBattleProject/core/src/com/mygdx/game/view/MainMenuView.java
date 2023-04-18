@@ -25,11 +25,20 @@ public class MainMenuView extends View {
     private Stage stage;
     private Skin skin;
     private TutorialState ts;
+
+    public TextButton singleplayerButton;
+    public TextButton multiplayerButton;
+    public TextButton tutorialButton;
     
     public MainMenuView(TutorialState ts) {
         this.ts = ts;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        // Create menu buttons
+         singleplayerButton = new TextButton("Singleplayer", skin);
+         multiplayerButton = new TextButton("Multiplayer", skin);
+         tutorialButton = new TextButton("Tutorial", skin);
+
         setup();
     }
 
@@ -39,11 +48,6 @@ public class MainMenuView extends View {
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-
-        // Create menu buttons
-        TextButton singleplayerButton = new TextButton("Singleplayer", skin);
-        TextButton multiplayerButton = new TextButton("Multiplayer", skin);
-        TextButton tutorialButton = new TextButton("Tutorial", skin);
 
         singleplayerButton.setTransform(true);
         singleplayerButton.setScale(4);
@@ -60,28 +64,6 @@ public class MainMenuView extends View {
         table.row().pad(50, 0, 50, 0);
         table.row().pad(50, 0, 50, 0);
         table.add(tutorialButton).fill().uniform();
-        
-        singleplayerButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new TutorialController(true));
-            }
-        });
-        
-        multiplayerButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new MultiplayerMenuController());
-            }
-        });
-
-
-        tutorialButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new TutorialController(false));
-            }
-        });
         
     }
     
