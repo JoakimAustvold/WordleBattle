@@ -1,5 +1,7 @@
 package com.mygdx.game.model.states.multiplayer;
 
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.states.State;
 
 /**
@@ -16,6 +18,7 @@ public class LobbyInfo extends State {
     private String playerOne;
     private String playerTwo;
     private String code;
+    public LobbyStatus lobbyStatusP2 = LobbyStatus.UNKNOWN;
 
     private LobbyInfo() {
     }
@@ -55,11 +58,18 @@ public class LobbyInfo extends State {
        // SingletonAPI.getInstance().addPlayerTwoToLobby(code, username);
         this.code = code;
         this.playerTwo = username;
+
+        //ControllerManager.getInstance().push(new JoinLobbyController());
     }
 
     @Override
     public void update(float deltaTime) {
 
+    }
+
+    public void setLobbyStatus(LobbyStatus lobbyStatus) {
+        this.lobbyStatusP2 = lobbyStatus;
+        // notify controller
     }
 
 

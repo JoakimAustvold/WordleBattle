@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.mygdx.game.controller.Controller;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.multiplayer.LobbyCode;
 
@@ -37,6 +38,11 @@ public class CoreAPI implements FirebaseAPI {
 
     @Override
     public void addPlayerTwoToLobby(String code, String username) {
+
+    }
+
+    @Override
+    public void addPlayerTwoToLobby(String code, String username, Controller controller) {
 
     }
 

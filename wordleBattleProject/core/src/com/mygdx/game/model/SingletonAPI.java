@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.mygdx.game.controller.Controller;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.multiplayer.LobbyCode;
 
@@ -16,6 +17,7 @@ public class SingletonAPI implements FirebaseAPI{
    // static Semaphore semaphore = new Semaphore(10);
 
     //TODO: Remove these fields???
+    /*
     private String code;
     private String playerOne;
     private String playerTwo;
@@ -31,6 +33,7 @@ public class SingletonAPI implements FirebaseAPI{
     public String getPlayerTwo() {
         return playerTwo;
     }
+     */
 
     public static SingletonAPI getInstance() {
         return SingletonAPIInstance;
@@ -52,7 +55,7 @@ public class SingletonAPI implements FirebaseAPI{
 
     public void createLobby(LobbyCode lobbyCode) {
         if(firebaseAPI != null ) {
-            code = String.valueOf(lobbyCode.getCode());
+//            code = String.valueOf(lobbyCode.getCode());
             firebaseAPI.createLobby(lobbyCode);
         }
     }
@@ -67,8 +70,8 @@ public class SingletonAPI implements FirebaseAPI{
     @Override
     public void addUserToLobby(LobbyCode lobbyCode, String username) {
         if(firebaseAPI != null ) {
-            code = String.valueOf(lobbyCode.getCode());
-            playerOne = username;
+//            code = String.valueOf(lobbyCode.getCode());
+//            playerOne = username;
             firebaseAPI.addUserToLobby(lobbyCode, username);
         }
     }
@@ -76,16 +79,24 @@ public class SingletonAPI implements FirebaseAPI{
     @Override
     public void addPlayerTwoToLobby(String code, String username) {
         if(firebaseAPI != null ) {
-            playerTwo = username;
+//            playerTwo = username;
             firebaseAPI.addPlayerTwoToLobby(code, username);
+        }
+    }
+
+    @Override
+    public void addPlayerTwoToLobby(String code, String username, Controller controller) {
+        if(firebaseAPI != null ) {
+//            playerTwo = username;
+            firebaseAPI.addPlayerTwoToLobby(code, username, controller);
         }
     }
 
     @Override
     public void addPlayerOneToLobby(String code, String username) {
         if(firebaseAPI != null ) {
-            this.code = code;
-            playerOne = username;
+//            this.code = code;
+//            playerOne = username;
             firebaseAPI.addPlayerOneToLobby(code, username);
         }
     }

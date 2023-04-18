@@ -1,4 +1,4 @@
-package     com.mygdx.game.view.multiplayer;
+package com.mygdx.game.view.multiplayer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -31,7 +31,7 @@ public class LobbyView extends View {
     public LobbyView() {
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        this.skin.getFont("default-font").getData().setScale(4f,4f);
+        this.skin.getFont("default-font").getData().setScale(4f, 4f);
         font = new BitmapFont();
         setup();
     }
@@ -44,7 +44,7 @@ public class LobbyView extends View {
         stage.addActor(backButton);
 
         backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
-        backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
+        backButton.setSize((float) (Gdx.graphics.getWidth() * 0.2), (float) (Gdx.graphics.getHeight() * 0.05));
 
 
         backButton.addListener(listener = new ChangeListener() {
@@ -65,14 +65,14 @@ public class LobbyView extends View {
     public void render(State state, SpriteBatch spriteBatch) {
         LobbyInfo lobbyState = (LobbyInfo) state;
 
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
         font.getData().setScale(6);
         if (lobbyState.getCode() != null) {
-            font.draw(spriteBatch, lobbyState.getCode(),  (float) Gdx.graphics.getWidth()/2,  (float) (Gdx.graphics.getHeight()*0.8));
+            font.draw(spriteBatch, lobbyState.getCode(), (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.8));
         }
-        font.draw(spriteBatch, "Users:",(float) Gdx.graphics.getWidth()/2, (float) (Gdx.graphics.getHeight() *0.6));
+        font.draw(spriteBatch, "Users:", (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.6));
         if (lobbyState.getPlayerOne() != null) {
             font.draw(spriteBatch, lobbyState.getPlayerOne(), (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.55));
         }
