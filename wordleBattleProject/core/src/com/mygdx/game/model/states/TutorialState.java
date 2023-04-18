@@ -5,25 +5,15 @@ import com.badlogic.gdx.Preferences;
 
 
 public class TutorialState extends State{
-    private boolean hasPlayed = false;
-    Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
-
-
-    public TutorialState() {
-        prefs.putBoolean("hasPlayed", hasPlayed);
-        prefs.flush();
-    }
 
     @Override
     public void update(float dt) {
 
     }
 
-    public boolean getHasPlayed() {
-        return hasPlayed;
-    }
-
-    public void setHasPlayed(boolean hasPlayed) {
-        this.hasPlayed = hasPlayed;
+    public void setHasPlayed() {
+        Preferences prefs = Gdx.app.getPreferences("wordleBattle");
+        prefs.putBoolean("hasPlayed", true);
+        prefs.flush();
     }
 }

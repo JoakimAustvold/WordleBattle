@@ -20,7 +20,7 @@ import com.mygdx.game.controller.SingleplayerGameController;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.TutorialState;
 
-public class TutorialScreenView extends View {
+public class TutorialView extends View {
     private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
     private Stage stage;
@@ -28,7 +28,10 @@ public class TutorialScreenView extends View {
     private TutorialState ts;
     private Skin skin;
 
-    public TutorialScreenView(TutorialState ts) {
+    public TextButton backButton;
+
+
+    public TutorialView(TutorialState ts) {
         this.ts = ts;
         // Fontsizing and scaling
         float fontSize = 3f; // Change this to the desired font size
@@ -39,13 +42,10 @@ public class TutorialScreenView extends View {
 
         // Load the tutorial image from the assets folder
         tutorialTexture = new Texture("tutorial2.png");
-
-
-
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        backButton = new TextButton("Back", skin);
         this.stage = new Stage(new ScreenViewport());
         setup();
-        ts.setHasPlayed(true);
     }
 
 
@@ -69,25 +69,11 @@ public class TutorialScreenView extends View {
                 10, Gdx.graphics.getHeight() - 10, textWidth, Align.left, true);
 
         // Create back button
-        TextButton backButton = new TextButton("Back", skin);
         backButton.setTransform(true);
         backButton.setScale(4);
 
         // Add the button to the stage
         stage.addActor(backButton);
-
-        backButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
-                boolean hasPlayed = prefs.getBoolean("hasPlayed");
-                if (hasPlayed) {
-                    ControllerManager.getInstance().push(new MainMenuController());
-                } else {
-                    ControllerManager.getInstance().push(new SingleplayerGameController());
-                }
-            }
-        });
         stage.getBatch().end();
         stage.draw();
     }

@@ -64,13 +64,7 @@ public class MainMenuView extends View {
         singleplayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Preferences prefs = Gdx.app.getPreferences("WordleBattleGame Preferences");
-                boolean hasPlayed = prefs.getBoolean("hasPlayed");
-                if (hasPlayed) {
-                    ControllerManager.getInstance().push(new SingleplayerGameController());
-                } else {
-                    ControllerManager.getInstance().push(new TutorialController());
-                }
+                ControllerManager.getInstance().push(new TutorialController(true));
             }
         });
         
@@ -85,7 +79,7 @@ public class MainMenuView extends View {
         tutorialButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().push(new TutorialController());
+                ControllerManager.getInstance().push(new TutorialController(false));
             }
         });
         
