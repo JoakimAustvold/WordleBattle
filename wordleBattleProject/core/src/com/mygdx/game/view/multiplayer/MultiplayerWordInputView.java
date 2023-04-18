@@ -13,7 +13,8 @@ public class MultiplayerWordInputView extends SingleplayerGameView {
     }
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     @Override

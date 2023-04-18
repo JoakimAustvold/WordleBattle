@@ -36,8 +36,8 @@ public class HostLobbyView extends LobbyView {
             public void changed(ChangeEvent event, Actor actor) {
                 //TODO: Add a multiplayer game screen
 
-                //ControllerManager.getInstance().push(new HostLobbyController());
 
+                //ControllerManager.getInstance().push(new HostLobbyController());
                 ControllerManager.getInstance().push(new MultiplayerWordInputController());
 
             }
