@@ -33,14 +33,7 @@ public class TutorialController extends Controller {
             ControllerManager.getInstance().push(new SingleplayerGameController());
         }
 
-
         ((TutorialState) state).setHasPlayed();
-    }
-
-
-    @Override
-    public void handleInput() {
-
     }
 
     @Override

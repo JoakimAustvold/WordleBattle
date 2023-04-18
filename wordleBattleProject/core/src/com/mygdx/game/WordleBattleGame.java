@@ -46,8 +46,6 @@ public class WordleBattleGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
-		ControllerManager.getInstance().handleInput();
-		ControllerManager.getInstance().update(Gdx.graphics.getDeltaTime());
 
 		batch.begin();
 		ControllerManager.getInstance().render(batch);

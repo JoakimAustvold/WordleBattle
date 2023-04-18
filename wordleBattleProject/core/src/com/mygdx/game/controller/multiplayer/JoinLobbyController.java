@@ -36,12 +36,6 @@ public class JoinLobbyController extends Controller {
         SingletonAPI.getInstance().removePlayerTwoFromLobby(lobbystate.getCode());
     }
 
-
-    @Override
-    public void handleInput() {
-
-    }
-
     @Override
     public void resetView() {
 

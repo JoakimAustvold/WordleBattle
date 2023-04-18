@@ -17,29 +17,12 @@ public abstract class Controller {
     protected State state;
     protected View view;
 
-
     /**
      * Run the render function on the view.
      */
     public void render(SpriteBatch spriteBatch){
         view.render(state, spriteBatch);
     }
-
-    /**
-     * Run the update function in the model.
-     */
-    public void update(float deltaTime){
-      // TODO: should a state be able to be null?
-        if (state != null) {
-            state.update(deltaTime);
-        }
-    }
-
-    /**
-     * Handle input.
-     */
-    public abstract void handleInput();
-
 
     public abstract  void resetView();
 

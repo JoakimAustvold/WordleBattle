@@ -75,10 +75,6 @@ public class SingleplayerGameController extends Controller {
         singleplayerView.updateKeyboardStyle();
     }
 
-    @Override
-    public void handleInput() {
-        // This method is empty because input is handled by the KeyboardInputListener class
-    }
 
     /**
      * Handles input events for the keyboard-view.
