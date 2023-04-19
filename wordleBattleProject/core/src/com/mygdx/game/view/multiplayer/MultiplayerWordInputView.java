@@ -2,35 +2,44 @@ package com.mygdx.game.view.multiplayer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.model.states.multiplayer.MultiplayerWordInputState;
-import com.mygdx.game.view.SingleplayerGameView;
+import com.mygdx.game.view.View;
 
-public class MultiplayerWordInputView extends SingleplayerGameView {
+public class MultiplayerWordInputView extends View {
+
+    private Stage stage;
+    private Skin skin;
 
     public MultiplayerWordInputView() {
-        Gdx.input.setInputProcessor(stage);
-        setupKeyboard();
+        this.stage = new Stage(new ScreenViewport());
+        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        this.skin.getFont("default-font").getData().setScale(4f,4f);
+        setup();
     }
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        //TODO: render word
-        MultiplayerWordInputState currentState = (MultiplayerWordInputState) state;
-        String currentText = currentState.getKeyboardInput().getCurrentText();
-        for (int i = 0; i < currentText.length(); i++) {
-            spriteBatch.draw(letterMap.getTexture(currentText.charAt(i)+""),
-                    (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - WORD_DELTA_Y) - WORD_DELTA_Y);
-        }
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
         stage.draw();
     }
 
     @Override
     public void setup() {
-
+        Gdx.input.setInputProcessor(stage);
+        final TextField wordField = new TextField("", skin);
+        stage.addActor(wordField);
+        wordField.setPosition((float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.6));
+        wordField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+        wordField.setMessageText("word:");
+        wordField.setMaxLength(5);
     }
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        skin.dispose();
     }
 }
