@@ -144,7 +144,7 @@ public class SingleplayerGameView extends View {
             for (TextButton button : rowButtons) {
                 Character buttonChar =  new Character(button.getText().toString().charAt(0)) ;
                 if(disabledLetters.contains(buttonChar)){
-                    System.out.println("disabling");
+                    //System.out.println("disabling");
                     button.setStyle(getButtonGuessedStyle());
                 }
             }
