@@ -1,6 +1,9 @@
 package com.mygdx.game.view.multiplayer;
 
+import static com.badlogic.gdx.net.HttpRequestBuilder.json;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,26 +12,33 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.states.State;
+import com.mygdx.game.model.words.Words;
 import com.mygdx.game.view.View;
+
+import java.util.Arrays;
 
 public class MultiplayerWordInputView extends View {
 
     private Stage stage;
     private Skin skin;
+    private BitmapFont font;
+    private String errormessage;
 
     public MultiplayerWordInputView() {
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         this.skin.getFont("default-font").getData().setScale(4f,4f);
+        font = new BitmapFont();
+        errormessage = "Enter your word";
         setup();
     }
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
         stage.draw();
+        font.getData().setScale(6);
+        font.draw(spriteBatch, errormessage,(float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.5));
     }
 
     @Override
@@ -48,6 +58,15 @@ public class MultiplayerWordInputView extends View {
         submitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                String submittedword = wordField.getText();
+                Words words = json.fromJson(Words.class, Gdx.files.internal("words/wordle_answers_eng.json"));
+                String[] wordList = words.getWords();
+                if (submittedword.length() != 5) {
+                    errormessage = "Error: word is too short";
+                }
+                else if (!Arrays.asList(wordList).contains(submittedword)) {
+                    errormessage = "Error: word is not valid";
+                }
                 //TODO: Submit word to firebase and open the Multiplayer Game View
             }
         });
