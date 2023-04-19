@@ -44,9 +44,11 @@ public abstract class View {
      */
     public void render(State state, SpriteBatch spriteBatch) {
         // Draws the background
+
         stage.getBatch().begin();
         stage.getBatch().draw(backgroundTexture, 0, 0 ,  (int)  (Gdx.graphics.getWidth()), (int)  (Gdx.graphics.getHeight()));
         stage.getBatch().end();
+
 
         // Renders the rest of the stage
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
