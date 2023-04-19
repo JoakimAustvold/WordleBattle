@@ -2,7 +2,6 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.input.GuessedLetter;
@@ -18,6 +18,7 @@ import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.letters.LetterMap;
+
 
 import java.util.Collection;
 
@@ -40,44 +41,67 @@ public class SingleplayerGameView extends View {
     protected Texture graySquareTexture;
     protected Texture orangeSquareTexture;
     protected Texture greenSquareTexture;
+    private LetterMap letterMap;
 
-    protected final LetterMap letterMap;
+    private final BitmapFont font = new BitmapFont();
+    private final Stage keyboardStage = new Stage();
+    private final Stage endgameStage = new Stage();
 
-    protected final BitmapFont font = new BitmapFont();
-    protected final Stage stage = new Stage();
+    public TextField usernameTextField;
+    public TextButton addHighscore;
+    public TextButton newGame;
 
-    protected Skin skin;
 
     public SingleplayerGameView() {
+        super();
         font.getData().setScale(6, 6);
         font.setColor(COLOR_KEY_ENABLED);
 
-        Gdx.input.setInputProcessor(stage);
-        skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        Gdx.input.setInputProcessor(keyboardStage);
+        // all buttons
+        usernameTextField = new TextField("", skin);
+        addHighscore = new TextButton("Add highscore", skin);
+        newGame = new TextButton("New Game", skin);
+
         graySquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/gray.png"));
         orangeSquareTexture= new Texture(Gdx.files.internal("textures/backgrounds/orange.png"));
         greenSquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/green.png"));
-        pauseButton = new TextButton("Settings", skin);
+        pauseButton = new TextButton("Options", skin);
         letterMap = new LetterMap();
         setupPauseButton();
         setupKeyboard();
+        setup();
     }
 
     @Override
     public void setup() {
+        usernameTextField.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 300), 400);
+        usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+        usernameTextField.setMessageText("Username: ");
+
+        addHighscore.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR + 100), 400);
+        addHighscore.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+
+        newGame.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 100);
+        newGame.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+
+        endgameStage.addActor(usernameTextField);
+        endgameStage.addActor(addHighscore);
+        endgameStage.addActor(newGame);
     }
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        SingleplayerGameState gameState = (SingleplayerGameState) state;
-
-        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        final SingleplayerGameState gameState = (SingleplayerGameState) state;
 
         if (!(state instanceof SingleplayerGameState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
 
+        spriteBatch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+
+
+        // TODO: Remove the solution
         // Draw solution word
         font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = gameState.getGuesses();
@@ -113,37 +137,64 @@ public class SingleplayerGameView extends View {
                 spriteBatch.draw(letterMap.getTexture(currentText.charAt(i)+""),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
+
             // Draw keyboard
-            stage.act(Gdx.graphics.getDeltaTime());
-            stage.draw();
+            keyboardStage.act(Gdx.graphics.getDeltaTime());
+            keyboardStage.draw();
         }
 
         if(gameState.getGameStatus().equals(GameStatus.WIN)){
             font.draw(spriteBatch, "You win!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
-            font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
-            font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 600);
+            // your score
+            font.draw(spriteBatch, "Your score is: " + gameState.getScore().getHighscore(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
+
+            // display input field for username + add highscore button + new game button
+            if (Gdx.input.getInputProcessor() != endgameStage) {
+                Gdx.input.setInputProcessor(endgameStage);
+            }
+            endgameStage.act(Gdx.graphics.getDeltaTime());
+            endgameStage.draw();
         }
         else if(gameState.getGameStatus().equals(GameStatus.LOSS)){
             font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
             font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
             font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
+
+
+            // display a new game-button
+            addHighscore.remove();
+            usernameTextField.remove();
+
+            if (Gdx.input.getInputProcessor() != endgameStage) {
+                Gdx.input.setInputProcessor(endgameStage);
+            }
+            endgameStage.act(Gdx.graphics.getDeltaTime());
+            endgameStage.draw();
         }
+
 
     }
 
     @Override
     public void dispose() {
-
+        super.dispose();
+        keyboardStage.dispose();
+        endgameStage.dispose();
+        font.dispose();
     }
 
     public TextButton[][] getButtons() {
         return buttons;
     }
 
-    public void updateKeyboardStyle(){
+    public void updateKeyboardStyle(Collection<Character> disabledLetters){
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
-                button.setStyle(getButtonStyle(button));
+                Character buttonChar =  new Character(button.getText().toString().charAt(0)) ;
+                if(disabledLetters.contains(buttonChar)){
+                    //System.out.println("disabling");
+                    button.setStyle(getButtonGuessedStyle());
+                }
             }
         }
     }
@@ -184,21 +235,18 @@ public class SingleplayerGameView extends View {
         return style;
     }
 
-    private TextButton.TextButtonStyle getButtonStyle(TextButton button) {
+    private TextButton.TextButtonStyle getButtonGuessedStyle() {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
-        if(!button.isDisabled())
-            style.fontColor = COLOR_KEY_ENABLED;
-        else
-            style.fontColor = COLOR_KEY_DISABLED;
 
+        style.fontColor = COLOR_KEY_DISABLED;
         return style;
     }
 
     protected void setupKeyboard(){
         Table table = new Table();
         table.setFillParent(true);
-        stage.addActor(table);
+        keyboardStage.addActor(table);
 
         int rowCounter = 0;
         for (String [] buttonValueRow :  SingleplayerGameState.buttonValues) {
@@ -225,12 +273,7 @@ public class SingleplayerGameView extends View {
     }
 
     private void setupPauseButton() {
-        pauseButton.setTransform(true);
-        pauseButton.setScale(3);
-
-        pauseButton.setPosition(30,Gdx.graphics.getHeight() - 110);
-
-        stage.addActor(pauseButton);
-
+        pauseButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
+        keyboardStage.addActor(pauseButton);
     }
 }

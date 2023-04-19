@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.exception.StateException;
+import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.states.SingleplayerGameState;
@@ -22,12 +23,15 @@ public class SingleplayerGameController extends Controller {
 
     public SingleplayerGameController() {
         this.state = new SingleplayerGameState();
-        if(!(this.state instanceof SingleplayerGameState)){
+        this.view = new SingleplayerGameView();
+
+        if (!(this.state instanceof SingleplayerGameState)) {
             throw new StateException("Please provide a SingleplayerGameState to this controller");
         }
         this.gameState = ((SingleplayerGameState) this.state);
 
         setupView();
+
     }
 
     /**
@@ -38,9 +42,9 @@ public class SingleplayerGameController extends Controller {
         setupView();
     }
 
-    private void setupView(){
+    private void setupView() {
         this.view = new SingleplayerGameView();
-        SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
+        final SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
         keyboardInput = gameState.getKeyboardInput();
         TextButton[][] buttons = singleplayerView.getButtons();
@@ -58,21 +62,35 @@ public class SingleplayerGameController extends Controller {
                 ControllerManager.getInstance().push(new PauseMenuController());
             }
         });
+
+        // add listeners to the buttons
+        singleplayerView.addHighscore.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                // update username
+                gameState.getScore().setUsername(singleplayerView.usernameTextField.getText());
+                // register the highscore in the firebase database
+                SingletonAPI.getInstance().submitHighscore(gameState.getScore());
+
+                // new game
+                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new SingleplayerGameController());
+            }
+        });
+
+        singleplayerView.newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                ControllerManager.getInstance().pop();
+                ControllerManager.getInstance().push(new SingleplayerGameController());
+            }
+        });
+
     }
 
-    private void disableButtons(Collection<Character> disabledLetters){
+    private void disableButtons(Collection<Character> disabledLetters) {
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
-
-        TextButton[][] buttons = singleplayerView.getButtons();
-        for (TextButton[] rowButtons : buttons) {
-            for (TextButton button : rowButtons) {
-                if(disabledLetters.contains((Character)button.getLabel().getText().toString().charAt(0))){
-                    //System.out.println("Disabling button: " + button.getLabel().getText());
-                    button.setDisabled(true);
-                }
-            }
-        }
-        singleplayerView.updateKeyboardStyle();
+        singleplayerView.updateKeyboardStyle(disabledLetters);
     }
 
 
@@ -85,7 +103,7 @@ public class SingleplayerGameController extends Controller {
 
         public KeyboardInputListener(TextButton button) {
             this.textButton = button;
-            this.buttonValue =  button.getLabel().getText().toString();
+            this.buttonValue = button.getLabel().getText().toString();
         }
 
         @Override
@@ -101,7 +119,7 @@ public class SingleplayerGameController extends Controller {
                     keyboardInput.deleteLastChar();
                     break;
                 default:
-                    if(keyboardInput.getCurrentText().length() < WORD_LENGTH)
+                    if (keyboardInput.getCurrentText().length() < WORD_LENGTH)
                         keyboardInput.appendChar(buttonValue);
                     break;
             }
@@ -112,14 +130,14 @@ public class SingleplayerGameController extends Controller {
          * Handle input word in state. Clear input and disable incorrectly guessed letters if input
          * word was valid.
          */
-        private void handleEnter(){
-           WordStatus wordStatus = gameState.getWordInputHandler().handleInput(keyboardInput);
-           if (!wordStatus.equals(WordStatus.INVALID)){
-               keyboardInput.clear();
-               disableButtons(gameState.getDisabledChars());
-               // Pass control back to state
-               gameState.handleSubmit(wordStatus);
-           }
+        private void handleEnter() {
+            WordStatus wordStatus = gameState.getWordInputHandler().handleInput(keyboardInput);
+            if (!wordStatus.equals(WordStatus.INVALID)) {
+                keyboardInput.clear();
+                disableButtons(gameState.getDisabledChars());
+                // Pass control back to state
+                gameState.handleSubmit(wordStatus);
+            }
         }
     }
 }

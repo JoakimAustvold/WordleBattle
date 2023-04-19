@@ -3,85 +3,52 @@ package     com.mygdx.game.view.multiplayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 
 /**
- * The view a player joining a lobby will see. They will see the other user's username, but
- * will not see the start game button that the host of the lobby sees.
+ * The super class for a game lobby
+ * Both playerOne/host and player two/joiner sees this view
+ * Displays the game lobby code, and all users that has joined
+ * Contains a back button
  */
 public class LobbyView extends View {
 
-    protected Stage stage;
-    protected Skin skin;
     private BitmapFont font;
-    protected TextButton backButton;
-    protected EventListener listener;
 
     public LobbyView() {
-        this.stage = new Stage(new ScreenViewport());
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        this.skin.getFont("default-font").getData().setScale(4f,4f);
+        super();
         font = new BitmapFont();
         setup();
     }
 
     @Override
     public void setup() {
-        Gdx.input.setInputProcessor(stage);
-
-        backButton = new TextButton("Leave", skin);
-        stage.addActor(backButton);
-
-        backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
-        backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
-
-
-        backButton.addListener(listener = new ChangeListener() {
-            @Override
-            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                System.out.println("Vi er i lobbyView");
-
-                // TODO: Better way to write this? Without Peeking
-                JoinLobbyController controller = (JoinLobbyController) ControllerManager.getInstance().peek();
-                controller.removePlayerTwoFromLobby();
-                ControllerManager.getInstance().pop();
-            }
-        });
+        createBackButton();
     }
-
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-          LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfo lobbyState = (LobbyInfo) state;
 
-         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
-         stage.draw();
-
-         font.getData().setScale(6);
-         font.draw(spriteBatch, lobbyState.getCode(),  (float) Gdx.graphics.getWidth()/2,  (float) (Gdx.graphics.getHeight()*0.8));
-        font.draw(spriteBatch, "Users:",(float) Gdx.graphics.getWidth()/2, (float) (Gdx.graphics.getHeight() *0.6));
+        font.getData().setScale(6);
+        font.draw(spriteBatch, "Game code: " + lobbyState.getCode(),  (float) Gdx.graphics.getWidth()/2 - 400,  (float) (Gdx.graphics.getHeight()*0.8));
+        font.draw(spriteBatch, "Users: (max 2)", (float) Gdx.graphics.getWidth()/2 - 400, (float) (Gdx.graphics.getHeight() *0.6));
         if (lobbyState.getPlayerOne() != null) {
-            font.draw(spriteBatch, lobbyState.getPlayerOne(), (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.55));
+            font.draw(spriteBatch, lobbyState.getPlayerOne(), (float) Gdx.graphics.getWidth() / 2 - 400, (float) (Gdx.graphics.getHeight() * 0.55));
         }
-            if (lobbyState.getPlayerTwo() != null) {
-            font.draw(spriteBatch, lobbyState.getPlayerTwo(), (float) Gdx.graphics.getWidth() / 2, (float) (Gdx.graphics.getHeight() * 0.5));
-        }
+        if (lobbyState.getPlayerTwo() != null) {
+            font.draw(spriteBatch, lobbyState.getPlayerTwo(), (float) Gdx.graphics.getWidth() / 2 - 400, (float) (Gdx.graphics.getHeight() * 0.5));
+        } 
+
+        super.render(state, spriteBatch);
     }
 
 
     @Override
     public void dispose() {
-
+        super.dispose();
+        font.dispose();
     }
 }

@@ -17,7 +17,7 @@ public class LobbyCode {
     /**
      * Generates a five digit number using the Random class.
      */
-    public LobbyCode() throws InterruptedException {
+    public LobbyCode() {
         Random random = new Random();
         int max = 1000000;
         int min = 100000;

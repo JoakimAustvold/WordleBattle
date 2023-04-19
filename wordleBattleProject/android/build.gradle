@@ -85,4 +85,8 @@ task run(type: Exec) {
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.mygdx.game/com.mygdx.game.AndroidLauncher'
 }
 
+dependencies {
+    implementation 'com.google.android.gms:play-services-tasks:18.0.1'
+}
+
 eclipse.project.name = appName + "-android"
