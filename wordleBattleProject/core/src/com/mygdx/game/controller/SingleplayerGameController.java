@@ -49,16 +49,10 @@ public class SingleplayerGameController extends Controller {
         singleplayerView.addHighscore.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                // System.out.println(usernameTextField.getText());
-                // add highscore to firebase
-                //SingletonAPI...
-
                 // update username
                 gameState.getScore().setUsername(singleplayerView.usernameTextField.getText());
                 // register the highscore in the firebase database
                 SingletonAPI.getInstance().submitHighscore(gameState.getScore());
-
-                System.out.println("I am adding the highscore!!!!!");
 
                 // new game
                 ControllerManager.getInstance().pop();

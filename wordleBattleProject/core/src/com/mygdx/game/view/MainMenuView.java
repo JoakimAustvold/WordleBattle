@@ -5,8 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+/**
+ * The first view you see when you open the application
+ * Contains menu buttons that will take you to other views
+ */
 public class MainMenuView extends View {
 
+    // Buttons are be public so that event listeners easily can be added in the corresponding controller
+    // TODO: should the buttons be public, or should it be private with getters???
     public TextButton singleplayerButton;
     public TextButton multiplayerButton;
     public TextButton settingsButton;
@@ -50,6 +56,4 @@ public class MainMenuView extends View {
         table.row().pad(50, 0, 50, 0);
         table.add(highscoreButton).fill().uniform();
     }
-
-
 }

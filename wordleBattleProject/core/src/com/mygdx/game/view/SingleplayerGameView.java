@@ -64,8 +64,7 @@ public class SingleplayerGameView extends View {
         keyboardStage.addActor(backButton);
         backButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
         backButton.setSize((float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.05));
-
-
+        
         usernameTextField.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 300), 400);
         usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
         usernameTextField.setMessageText("Username: ");
@@ -88,6 +87,9 @@ public class SingleplayerGameView extends View {
         if (!(state instanceof SingleplayerGameState)) {
             throw new StateException("Wrong state type! Please provide a PlayState.");
         }
+
+        spriteBatch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+
 
         // TODO: Remove the solution
         // Draw solution word
@@ -125,6 +127,7 @@ public class SingleplayerGameView extends View {
                 spriteBatch.draw(new Texture(Gdx.files.internal("textures/letters/"+currentText.charAt(i)+".png")),
                         (Gdx.graphics.getWidth() / (WORD_POS_X_DIVISOR + 1.5f)) + (i * 150), (Gdx.graphics.getHeight() - 110.0f - (c+1)*WORD_DELTA_Y) - WORD_DELTA_Y);
             }
+
             // Draw keyboard
             keyboardStage.act(Gdx.graphics.getDeltaTime());
             keyboardStage.draw();
@@ -132,7 +135,7 @@ public class SingleplayerGameView extends View {
 
         if(gameState.getGameStatus().equals(GameStatus.WIN)){
             font.draw(spriteBatch, "You win!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
-           // your score
+            // your score
             font.draw(spriteBatch, "Your score is: " + gameState.getScore().getHighscore(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
 
             // display input field for username + add highscore button + new game button
@@ -147,6 +150,7 @@ public class SingleplayerGameView extends View {
             font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
             font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
 
+
             // display a new game-button
             addHighscore.remove();
             usernameTextField.remove();
@@ -157,6 +161,8 @@ public class SingleplayerGameView extends View {
             endgameStage.act(Gdx.graphics.getDeltaTime());
             endgameStage.draw();
         }
+
+
     }
 
     @Override

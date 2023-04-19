@@ -21,7 +21,7 @@ public class CoreAPI implements FirebaseAPI {
     }
 
     @Override
-    public void createLobby(LobbyCode lobbyCode) {
+    public void createLobby(String code) {
 
     }
 
@@ -29,11 +29,7 @@ public class CoreAPI implements FirebaseAPI {
     public void removeLobby(String code) {
 
     }
-
-    @Override
-    public void addUserToLobby(LobbyCode lobbyCode, String username) {
-
-    }
+    
 
     @Override
     public void addPlayerTwoToLobby(String code, String username) {

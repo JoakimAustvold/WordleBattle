@@ -1,13 +1,9 @@
 package com.mygdx.game.model.highscore;
 
-import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.SingletonAPI;
-import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.states.State;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,14 +34,8 @@ public class HighscoreList extends State {
     }
 
     /**
-     * Add a new score to the highscore list in the database
-     * @param name
-     * @param highscore
-     */
-    public void submitHighscore(String name, int highscore) {
-        SingletonAPI.getInstance().submitHighscore(new Score(name, highscore));
-    }
-
+    *   Creates a string with the information from this class in a readable manner
+    */
     @Override
     public String toString() {
         String output = "";
@@ -55,9 +45,9 @@ public class HighscoreList extends State {
         return output;
     }
 
+
     @Override
     public void update(float deltaTime) {
 
     }
-
 }

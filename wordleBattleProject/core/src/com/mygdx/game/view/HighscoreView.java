@@ -2,27 +2,39 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.HighscoreController;
-import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.highscore.HighscoreList;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.states.State;
 
 import java.util.List;
 
-public class HighscoreView extends View{
+/**
+ * Shows a list of all the scores in descending order
+ * You can scroll up and down with the help of a scroll pane
+ * Contains a back button
+ */public class HighscoreView extends View{
 
     private Table table;
+    private Table container;
+    final private ScrollPane scrollPane;
 
     public HighscoreView() {
         super();
+
+        table = new Table();
+        container = new Table();
+        container.setFillParent(true);
+        stage.addActor(container);
+
+        // Allowing scrolling through the highscore list
+        scrollPane = new ScrollPane(table, skin);
+        scrollPane.setScrollingDisabled(true,false); // Disables scrolling in the x-direction
+
+        container.add(scrollPane).expand().fill();
+
         setup();
     }
 
@@ -30,47 +42,35 @@ public class HighscoreView extends View{
     public void setup() {
         Gdx.input.setInputProcessor(stage);
         createBackButton();
-
-        Label titleLabel = new Label("Highscores", skin);
-        titleLabel.setFontScale(5, 5);
-        stage.addActor(titleLabel);
-        titleLabel.setPosition((float) (Gdx.graphics.getWidth() * 0.5 - titleLabel.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.8));
     }
 
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
+        // The following code is placed in render because it takes time
+        // for the highscore list to be updated (firebase is asynchronous)
 
-        // subclass specific code
         HighscoreList highscoreState = (HighscoreList) state;
-        // display highscores
         List<Score> highscores = highscoreState.getLocalHighscores();
 
-        table = new Table();
-        table.setFillParent(true);
-        table.setDebug(true);
-        stage.addActor(table);
+        table.reset();
 
+        // Adds the title to the page
+        table.pad(100).defaults().expandX().space(4);
+        Label titleLabel = new Label("Highscores", skin);
+        titleLabel.setFontScale(5, 5);
+        table.add(titleLabel);
 
+        // Adds all the higschore entries to the table to be displayed
         for(int i = 0; i < highscores.size(); i++) {
              Score score = highscores.get(i);
-             Label scoreLabel = new Label(score.getUsername() + ":  " + score.getHighscore() , skin);
+             Label scoreLabel = new Label(i+1 + ". " +score.getUsername() + ":  " + score.getHighscore() , skin);
              scoreLabel.setFontScale(4, 4);
 
              table.row().pad(50, 0, 50, 0);
              table.add(scoreLabel);
         }
-         //TODO: how to use supers render method while overriding it
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1/30f));
-        stage.draw();
+
+        super.render(state, spriteBatch);
     }
-
-
-
-    /*
-    @Override
-    public void dispose() {
-
-    }
-    */
 }

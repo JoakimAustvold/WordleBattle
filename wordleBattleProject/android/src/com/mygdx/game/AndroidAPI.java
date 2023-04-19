@@ -1,11 +1,7 @@
 package com.mygdx.game;
 
-
 import android.util.Log;
-
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -17,18 +13,13 @@ import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.multiplayer.LobbyCode;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
-
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class AndroidAPI implements FirebaseAPI {
-
-    // Write a message to the database
     FirebaseDatabase database;
     DatabaseReference highscoresRef;
     DatabaseReference lobbiesRef;
-
 
     public AndroidAPI() {
         database = FirebaseDatabase.getInstance("https://tdt4240-wordlebattle-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -44,32 +35,26 @@ public class AndroidAPI implements FirebaseAPI {
     public void submitHighscore(Score score) {
         highscoresRef.push().setValue(score);
     }
-
+    
+    
     /**
-     * Creates a new lobby in the database with the lobbyCode as its id
-     */
+    * Creates a new lobby in the database with the lobbyCode as its id
+    */
     @Override
-    public void createLobby(LobbyCode lobbyCode) {
-        lobbiesRef.child(String.valueOf(lobbyCode.getCode())).setValue("empty");
-        //lobbiesRef.push().setValue(lobbyCode.getCode());
+    public void createLobby(String code) {
+        lobbiesRef.child(code).setValue("empty");
     }
 
     /**
-     * Removes a finished lobby from the database
+     * Removes a lobby no longer in use from the database
      */
     @Override
     public void removeLobby(String code) {
         lobbiesRef.child(code).removeValue();
     }
 
-    @Override
-    public void addUserToLobby(LobbyCode lobbyCode, String username) {
-        System.out.println("AndroidAPI addUserToLobby is run");
-        lobbiesRef.child(String.valueOf(lobbyCode.getCode())).child("playerOne").setValue(username);
-    }
-
     /**
-     *
+     *  Adds player one to the lobby specified
      */
     @Override
     public void addPlayerOneToLobby(String code, String username) {
@@ -120,6 +105,7 @@ public class AndroidAPI implements FirebaseAPI {
         });
     }
 
+    @Override
     public void createPlayerTwoListener(String code) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -139,6 +125,7 @@ public class AndroidAPI implements FirebaseAPI {
         lobbiesRef.child(code).child("playerTwo").addValueEventListener(postListener);
     }
 
+    @Override
     public void createPlayerOneListener(String code) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -165,8 +152,6 @@ public class AndroidAPI implements FirebaseAPI {
 
     @Override
     public void viewAllLobbies(List<String> dataholder) {
-        //lobbiesRef.get();
-
         System.out.println("Getting lobbies");
         lobbiesRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

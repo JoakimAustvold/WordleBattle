@@ -7,9 +7,6 @@ import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 
 /**
- * @author Marcus Birkeland
- * @version 13.03.2023
- *
  * Template abstract class for a controller.
  * A controller should only handle user-input, and pass between state and view.
  * Controller contains a state and a view responsible for update() and render() methods respectively.
@@ -28,7 +25,6 @@ public abstract class Controller {
         });
     }
 
-
     /**
      * Run the render function on the view.
      */
@@ -36,6 +32,8 @@ public abstract class Controller {
         view.render(state, spriteBatch);
     }
 
+
+    // TODO: Consider removeing update, handleInput. which methods does the super controller need?
     /**
      * Run the update function in the model.
      */

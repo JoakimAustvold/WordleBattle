@@ -4,7 +4,6 @@ package com.mygdx.game.model.states;
 import static com.mygdx.game.model.words.Language.ENGLISH;
 
 import com.mygdx.game.model.GameStatus;
-import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
@@ -31,7 +30,6 @@ public class SingleplayerGameState extends State {
     // highscore fields
     private Date startTime;
     private Score score;
-
 
 
     public static final String[][] buttonValues = {
@@ -68,9 +66,6 @@ public class SingleplayerGameState extends State {
         if(wordStatus.equals(WordStatus.SOLUTION)){
             // Create the score
             this.score = new Score(startTime, new Date(), getGuesses());
-
-          //  SingletonAPI.getInstance().submitHighscore(score);
-
             gameStatus = GameStatus.WIN;
         }
 

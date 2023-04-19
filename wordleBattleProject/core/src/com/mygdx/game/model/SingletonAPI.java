@@ -4,7 +4,6 @@ import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.multiplayer.LobbyCode;
 
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 /**
  * Makes AndroidAPI methods accessible.
@@ -13,26 +12,7 @@ public class SingletonAPI implements FirebaseAPI{
 
     private static final SingletonAPI SingletonAPIInstance = new SingletonAPI();
     private FirebaseAPI firebaseAPI;
-   // static Semaphore semaphore = new Semaphore(10);
-
-    // TODO: Why is this information here? what about LobbyInfo??
-    private String code;
-    private String playerOne;
-    private String playerTwo;
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getPlayerOne() {
-        return playerOne;
-    }
-
-    public String getPlayerTwo() {
-        return playerTwo;
-    }
-
-
+    
     public static SingletonAPI getInstance() {
         return SingletonAPIInstance;
     }
@@ -55,10 +35,9 @@ public class SingletonAPI implements FirebaseAPI{
         }
     }
 
-    public void createLobby(LobbyCode lobbyCode) {
+    public void createLobby(String code) {
         if(firebaseAPI != null ) {
-            code = String.valueOf(lobbyCode.getCode());
-            firebaseAPI.createLobby(lobbyCode);
+            firebaseAPI.createLobby(code);
         }
     }
 
@@ -68,18 +47,10 @@ public class SingletonAPI implements FirebaseAPI{
             firebaseAPI.removeLobby(code);
         }
     }
-
-    public void addUserToLobby(LobbyCode lobbyCode, String username) {
-        if(firebaseAPI != null ) {
-            code = String.valueOf(lobbyCode.getCode());
-            playerOne = username;
-            firebaseAPI.addUserToLobby(lobbyCode, username);
-        }
-    }
+    
 
     public void addPlayerTwoToLobby(String code, String username) {
         if(firebaseAPI != null ) {
-            playerTwo = username;
             firebaseAPI.addPlayerTwoToLobby(code, username);
         }
     }
@@ -87,8 +58,6 @@ public class SingletonAPI implements FirebaseAPI{
     @Override
     public void addPlayerOneToLobby(String code, String username) {
         if(firebaseAPI != null ) {
-            this.code = code;
-            playerOne = username;
             firebaseAPI.addPlayerOneToLobby(code, username);
         }
     }
@@ -116,11 +85,9 @@ public class SingletonAPI implements FirebaseAPI{
 
     @Override
     public void viewAllLobbies(List<String> dataholder) {
-       // semaphore.tryAcquire();
         if (firebaseAPI != null) {
             firebaseAPI.viewAllLobbies(dataholder);
         }
-        //semaphore.release();
     }
 
 

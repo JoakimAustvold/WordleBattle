@@ -4,18 +4,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.controller.multiplayer.MultiplayerMenuController;
 import com.mygdx.game.view.MainMenuView;
-import com.mygdx.game.view.View;
 
 /**
- * Sets the corresponding view for the main menu
+ * Sets the corresponding view for the main menu and sets up listeners for the buttons
  */
 public class MainMenuController extends Controller {
     
      public MainMenuController() {
-        // Set corresponding state and view here!!!
         this.state = null;
         this.view = new MainMenuView();
-
         MainMenuView mainMenuView = (MainMenuView) view;
 
         mainMenuView.singleplayerButton.addListener(new ChangeListener() {
@@ -44,8 +41,6 @@ public class MainMenuController extends Controller {
                 ControllerManager.getInstance().push(new HighscoreController());
             }
         });
-
-
     }
         
     @Override

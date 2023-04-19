@@ -18,6 +18,12 @@ public class Score implements Comparable<Score> {
         username = "";
     }
 
+    /**
+     * Calculate a players score based on time played and number of guesses
+     * @param start the time when a game begins
+     * @param end the time when a word is guessed
+     * @param guesses number of guesses used
+     */
     public Score(Date start, Date end, Collection<GuessedWord> guesses) {
         int startScore = 2500;
         System.out.println("Start score: " + startScore);
@@ -29,6 +35,11 @@ public class Score implements Comparable<Score> {
         // 5*300 = 1500
         startScore -= (guesses.size()-1) * (300);
         System.out.println("highscore: " + startScore);
+
+        // Don't allow negative scores
+        if (startScore < 0) {
+            startScore = 0;
+        }
 
         this.highscore = startScore;
         this.username = null;
@@ -72,19 +83,5 @@ public class Score implements Comparable<Score> {
             return username.compareTo(o.username);
         }
     }
-
-    /*
-       // TODO: Finish this logic
-        public long calculateHighscore(Date start, Date end, Collection<GuessedWord> guesses) {
-
-            long startScore = 10000000l;
-            // difference of 1000 = 1 second
-            long timeUsed = end.getTime() - start.getTime();
-            startScore -= timeUsed;
-            startScore -= guesses.size() * (50000);
-
-            return startScore;
-
-        }
-*/
+    
 }
