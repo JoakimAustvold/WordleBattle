@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  * A the host will not see what is displayed on this page
  */
 public class JoinLobbyView extends LobbyView {
-    
+
     public JoinLobbyView() {
         super();
         setup();
@@ -18,4 +18,6 @@ public class JoinLobbyView extends LobbyView {
         super.setup();
         Gdx.input.setInputProcessor(stage);
     }
+
+   
 }

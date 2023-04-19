@@ -6,6 +6,7 @@ import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.JoinGameView;
 
 public class JoinGameController extends Controller {
@@ -17,13 +18,18 @@ public class JoinGameController extends Controller {
         addBackButtonListener();
 
         final JoinGameView joinGameView = (JoinGameView) view;
+        final LobbyInfo lobbyState = (LobbyInfo) state;
 
         // Adds the player to the specified lobby
         joinGameView.joinButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                addPlayerTwoToLobby(joinGameView.inviteCodeTextField.getText(), joinGameView.usernameTextField.getText());
-                ControllerManager.getInstance().push(new JoinLobbyController());
+                if (!joinGameView.usernameTextField.getText().equals("")) {
+                    addPlayerTwoToLobby(joinGameView.inviteCodeTextField.getText(), joinGameView.usernameTextField.getText());
+                } else {
+                    lobbyState.setLobbyStatus(LobbyStatus.MISSINGUSERNAME);
+                }
+               // ControllerManager.getInstance().push(new JoinLobbyController());
             }
         });
 

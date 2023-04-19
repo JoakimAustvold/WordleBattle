@@ -3,6 +3,8 @@ package com.mygdx.game.view.multiplayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.View;
 
 /**
@@ -27,6 +29,9 @@ public class MultiplayerMenuView extends View {
      */
     @Override
     public void setup() {
+
+        
+
         Gdx.input.setInputProcessor(stage);
         createBackButton();
 
