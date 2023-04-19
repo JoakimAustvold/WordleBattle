@@ -2,6 +2,7 @@ package com.mygdx.game.controller;
 
 import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -63,16 +64,7 @@ public class SingleplayerGameController extends Controller {
     private void disableButtons(Collection<Character> disabledLetters){
         SingleplayerGameView singleplayerView = (SingleplayerGameView) view;
 
-        TextButton[][] buttons = singleplayerView.getButtons();
-        for (TextButton[] rowButtons : buttons) {
-            for (TextButton button : rowButtons) {
-                if(disabledLetters.contains((Character)button.getLabel().getText().toString().charAt(0))){
-                    //System.out.println("Disabling button: " + button.getLabel().getText());
-                    button.setDisabled(true);
-                }
-            }
-        }
-        singleplayerView.updateKeyboardStyle();
+        singleplayerView.updateKeyboardStyle(disabledLetters);
     }
 
 

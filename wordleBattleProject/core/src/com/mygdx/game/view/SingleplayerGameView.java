@@ -46,6 +46,7 @@ public class SingleplayerGameView extends View {
 
     private Skin skin;
 
+
     public SingleplayerGameView() {
         font.getData().setScale(6, 6);
         font.setColor(COLOR_KEY_ENABLED);
@@ -138,10 +139,14 @@ public class SingleplayerGameView extends View {
         return buttons;
     }
 
-    public void updateKeyboardStyle(){
+    public void updateKeyboardStyle(Collection<Character> disabledLetters){
         for (TextButton[] rowButtons : buttons) {
             for (TextButton button : rowButtons) {
-                button.setStyle(getButtonStyle(button));
+                Character buttonChar =  new Character(button.getText().toString().charAt(0)) ;
+                if(disabledLetters.contains(buttonChar)){
+                    System.out.println("disabling");
+                    button.setStyle(getButtonGuessedStyle());
+                }
             }
         }
     }
@@ -182,14 +187,10 @@ public class SingleplayerGameView extends View {
         return style;
     }
 
-    private TextButton.TextButtonStyle getButtonStyle(TextButton button) {
+    private TextButton.TextButtonStyle getButtonGuessedStyle() {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = font;
-        if(!button.isDisabled())
-            style.fontColor = COLOR_KEY_ENABLED;
-        else
-            style.fontColor = COLOR_KEY_DISABLED;
-
+        style.fontColor = COLOR_KEY_DISABLED;
         return style;
     }
 
