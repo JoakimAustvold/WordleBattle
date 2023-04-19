@@ -73,14 +73,7 @@ public class SingleplayerGameState extends State {
             gameStatus = GameStatus.LOSS;
         }
     }
-
-
-
-    @Override
-    public void update(float dt) {
-
-    }
-
+    
     public GameStatus getGameStatus() {
         return gameStatus;
     }

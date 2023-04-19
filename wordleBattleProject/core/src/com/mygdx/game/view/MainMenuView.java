@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.model.states.TutorialState;
+
 
 /**
  * The first view you see when you open the application
@@ -19,8 +21,11 @@ public class MainMenuView extends View {
     public TextButton tutorialButton;
     public TextButton highscoreButton;
 
-    public MainMenuView() {
+    private TutorialState ts;
+
+    public MainMenuView(TutorialState ts) {
         super();
+        this.ts = ts;
         // Create menu buttons
         singleplayerButton = new TextButton("Singleplayer", skin);
         multiplayerButton = new TextButton("Multiplayer", skin);
@@ -36,7 +41,6 @@ public class MainMenuView extends View {
 
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
         stage.addActor(table);
 
         Label titleLabel = new Label("WordleBattle", skin);
@@ -50,10 +54,11 @@ public class MainMenuView extends View {
         table.row().pad(50, 0, 50, 0);
         table.add(multiplayerButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
-        table.add(settingsButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
         table.add(tutorialButton).fill().uniform();
         table.row().pad(50, 0, 50, 0);
         table.add(highscoreButton).fill().uniform();
+
     }
+
 }

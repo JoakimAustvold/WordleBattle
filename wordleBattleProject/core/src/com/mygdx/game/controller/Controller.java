@@ -31,24 +31,7 @@ public abstract class Controller {
     public void render(SpriteBatch spriteBatch){
         view.render(state, spriteBatch);
     }
-
-
-    // TODO: Consider removeing update, handleInput. which methods does the super controller need?
-    /**
-     * Run the update function in the model.
-     */
-    public void update(float deltaTime){
-      // TODO: should a state be able to be null?
-        if (state != null) {
-            state.update(deltaTime);
-        }
-    }
-
-    /**
-     * Handle input.
-     */
-    public abstract void handleInput();
-
+    
 
     public abstract void resetView();
 

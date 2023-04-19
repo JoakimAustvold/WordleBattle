@@ -57,10 +57,4 @@ public class LobbyInfo extends State {
         this.playerTwo = username;
     }
 
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
-
 }

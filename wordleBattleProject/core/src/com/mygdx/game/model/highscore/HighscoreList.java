@@ -45,9 +45,4 @@ public class HighscoreList extends State {
         return output;
     }
 
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
 }

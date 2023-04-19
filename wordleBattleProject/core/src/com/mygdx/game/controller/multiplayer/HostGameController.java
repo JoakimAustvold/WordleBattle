@@ -49,11 +49,6 @@ public class HostGameController extends Controller {
 
 
     @Override
-    public void handleInput() {
-
-    }
-
-    @Override
     public void resetView() {
 
     }
