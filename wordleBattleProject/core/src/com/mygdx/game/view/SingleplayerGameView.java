@@ -25,22 +25,23 @@ import java.util.Collection;
 public class SingleplayerGameView extends View {
 
     public TextButton pauseButton;
-    private static final float WORD_POS_X_DIVISOR = 2.5f;
-    private static final float WORD_DELTA_Y = 150.0f;
+    protected static final float WORD_POS_X_DIVISOR = 2.5f;
+    protected static final float WORD_DELTA_Y = 150.0f;
 
-    private static final Color COLOR_KEY_ENABLED = Color.WHITE;
-    private static final Color COLOR_KEY_DISABLED = Color.GRAY;
+    protected final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
-    private static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
-    private static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
-    private static final float buttonPadding = buttonWidth / 5f;
-    private final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
+    protected static final Color COLOR_KEY_ENABLED = Color.WHITE;
+    protected static final Color COLOR_KEY_DISABLED = Color.GRAY;
 
-    private Texture graySquareTexture;
-    private Texture orangeSquareTexture;
-    private Texture greenSquareTexture;
+    protected static final float buttonWidth = Gdx.graphics.getWidth() / 16f;
+    protected static final float buttonHeight = Gdx.graphics.getHeight() / 20f;
+    protected static final float buttonPadding = buttonWidth / 5f;
+    protected final TextButton[][] buttons = new TextButton[SingleplayerGameState.buttonValues.length][];
 
-    private final LetterMap letterMap;
+    protected Texture graySquareTexture;
+    protected Texture orangeSquareTexture;
+    protected Texture greenSquareTexture;
+    private LetterMap letterMap;
 
     private final BitmapFont font = new BitmapFont();
     private final Stage keyboardStage = new Stage();
@@ -242,7 +243,7 @@ public class SingleplayerGameView extends View {
         return style;
     }
 
-    private void setupKeyboard(){
+    protected void setupKeyboard(){
         Table table = new Table();
         table.setFillParent(true);
         keyboardStage.addActor(table);

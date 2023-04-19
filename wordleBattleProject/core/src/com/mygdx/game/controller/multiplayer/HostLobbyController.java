@@ -22,6 +22,7 @@ public class HostLobbyController extends Controller {
             public void changed(ChangeEvent event, Actor actor) {
                 //TODO: Add a multiplayer game screen
                 System.out.println("The multiplayer game would be starting now");
+                ControllerManager.getInstance().push(new MultiplayerWordInputController());
                 //ControllerManager.getInstance().push(new HostLobbyController());
             }
         });
