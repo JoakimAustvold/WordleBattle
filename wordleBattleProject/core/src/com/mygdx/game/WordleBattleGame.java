@@ -33,7 +33,7 @@ public class WordleBattleGame extends ApplicationAdapter {
 
 		this.firebaseAPI = firebaseAPI;
 		SingletonAPI.getInstance().setFirebaseAPI(firebaseAPI);
-		this.highscores = new HighscoreList(firebaseAPI);
+		this.highscores = new HighscoreList();
 	}
 
 

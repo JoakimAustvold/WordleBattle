@@ -1,14 +1,10 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.FirebaseAPI;
 
 import java.util.Stack;
 
 /**
- * @author Marcus Birkeland
- * @version 13.03.2023
- *
  * Singleton class containing a stack of controllers.
  * Each controller is coupled with a view and a state class.
  * To change a game-screen, push a new controller to the stack!
