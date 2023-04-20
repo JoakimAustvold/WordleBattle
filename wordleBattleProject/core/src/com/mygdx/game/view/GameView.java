@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.input.GuessedLetter;
@@ -20,7 +19,7 @@ import com.mygdx.game.view.letters.LetterMap;
 
 import java.util.Collection;
 
-public class GameView extends View{
+public abstract class GameView extends View{
 
     public TextButton pauseButton;
     protected static final float WORD_POS_X_DIVISOR = 2.5f;
@@ -45,9 +44,6 @@ public class GameView extends View{
     protected final Stage keyboardStage = new Stage();
     protected final Stage endgameStage = new Stage();
 
-    public TextField usernameTextField;
-    public TextButton addHighscore;
-    public TextButton newGame;
 
 
     public GameView() {
@@ -57,9 +53,6 @@ public class GameView extends View{
 
         //Gdx.input.setInputProcessor(keyboardStage);
         // all buttons
-        usernameTextField = new TextField("", skin);
-        addHighscore = new TextButton("Add highscore", skin);
-        newGame = new TextButton("New Game", skin);
 
         graySquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/gray.png"));
         orangeSquareTexture= new Texture(Gdx.files.internal("textures/backgrounds/orange.png"));
@@ -68,25 +61,8 @@ public class GameView extends View{
         letterMap = new LetterMap();
         setupPauseButton();
         setupKeyboard();
-        setup();
     }
 
-    @Override
-    public void setup() {
-        usernameTextField.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 300), 400);
-        usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
-        usernameTextField.setMessageText("Username: ");
-
-        addHighscore.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR + 100), 400);
-        addHighscore.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
-
-        newGame.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 100);
-        newGame.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
-
-        endgameStage.addActor(usernameTextField);
-        endgameStage.addActor(addHighscore);
-        endgameStage.addActor(newGame);
-    }
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
@@ -142,11 +118,8 @@ public class GameView extends View{
         }
 
         if(gameState.getGameStatus().equals(GameStatus.WIN)){
-            font.draw(spriteBatch, "You win!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
-            // your score
-            font.draw(spriteBatch, "Your score is: " + gameState.getScore().getHighscore(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
-
-            // display input field for username + add highscore button + new game button
+            displayWinnerGraphics(spriteBatch, gameState);
+            // change which stage is displayed
             if (Gdx.input.getInputProcessor() != endgameStage) {
                 Gdx.input.setInputProcessor(endgameStage);
             }
@@ -154,14 +127,7 @@ public class GameView extends View{
             endgameStage.draw();
         }
         else if(gameState.getGameStatus().equals(GameStatus.LOSS)){
-            font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
-            font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
-            font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
-
-
-            // display a new game-button
-            addHighscore.remove();
-            usernameTextField.remove();
+            displayLoserGraphics(spriteBatch, gameState);
 
             if (Gdx.input.getInputProcessor() != endgameStage) {
                 Gdx.input.setInputProcessor(endgameStage);
@@ -169,9 +135,18 @@ public class GameView extends View{
             endgameStage.act(Gdx.graphics.getDeltaTime());
             endgameStage.draw();
         }
-
-
     }
+
+    /**
+     * End of game graphics for when the player has won
+     */
+    abstract protected void displayWinnerGraphics(SpriteBatch spriteBatch, GameState gameState);
+
+    /**
+     * End of game graphics for when the player has lost
+     */
+    abstract protected void displayLoserGraphics(SpriteBatch spriteBatch, GameState gameState);
+
 
     @Override
     public void dispose() {

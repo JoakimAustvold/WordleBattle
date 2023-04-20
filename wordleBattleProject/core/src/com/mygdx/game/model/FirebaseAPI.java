@@ -21,4 +21,5 @@ public interface FirebaseAPI {
     void viewAllLobbies(List<String> dataholder);
     void submitWord(String code, String player, String word);
     void getWordSubmitted (String code);
+   // void submitScore(String code, String player, S)
 }

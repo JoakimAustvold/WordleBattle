@@ -12,7 +12,6 @@ import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.states.GameState;
 import com.mygdx.game.view.GameView;
-import com.mygdx.game.view.SingleplayerGameView;
 
 import java.util.Collection;
 
@@ -23,8 +22,11 @@ public class GameController extends Controller{
     protected GameView gameView;
 
     public GameController(GameView gameView) {
+        this(gameView, new GameState());
+    }
 
-        this.state = new GameState();
+    public GameController(GameView gameView, GameState gameState) {
+        this.state = gameState;
         this.view = gameView;
 
         if (!(this.state instanceof GameState)) {
@@ -32,8 +34,6 @@ public class GameController extends Controller{
         }
         this.gameState = ((GameState) this.state);
         this.gameView = ((GameView) this.view);
-
-        //setupView();
     }
 
 
