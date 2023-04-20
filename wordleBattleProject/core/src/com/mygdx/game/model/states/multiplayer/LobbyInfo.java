@@ -17,7 +17,10 @@ public class LobbyInfo extends State {
     private String playerTwo;
     private String code;
 
+    private LobbyStatus lobbyStatus;
+
     private LobbyInfo() {
+        lobbyStatus = LobbyStatus.UNKNOWN;
     }
 
 
@@ -57,4 +60,11 @@ public class LobbyInfo extends State {
         this.playerTwo = username;
     }
 
+    public void setLobbyStatus(LobbyStatus lobbyStatus) {
+        this.lobbyStatus = lobbyStatus;
+    }
+
+    public LobbyStatus getLobbyStatus() {
+        return lobbyStatus;
+    }
 }

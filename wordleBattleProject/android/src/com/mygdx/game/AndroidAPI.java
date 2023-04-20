@@ -9,10 +9,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.multiplayer.LobbyCode;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -62,16 +66,66 @@ public class AndroidAPI implements FirebaseAPI {
         lobbiesRef.child(code).child("playerOne").setValue(username);
     }
 
+    /*
     /**
      * Adds a player wishing to join the game to the lobby, given that there is only
      * one player in the lobby
-     */
+     *
     @Override
      public void addPlayerTwoToLobby(String code, String username) {
         //TODO: Check that the lobby exists
         //TODO: Check that the lobby is not already full
          System.out.println(lobbiesRef.child(String.valueOf(code)).get());
          lobbiesRef.child(code).child("playerTwo").setValue(username);
+    }
+    */
+
+    @Override
+    public void addPlayerTwoToLobby(String code, String username) {
+        lobbiesRef.child(code).addListenerForSingleValueEvent(new ValueEventListener() {
+            /**
+             * This method will be called with a snapshot of the data at this location. It will also be called
+             * each time that data changes.
+             *
+             * @param snapshot The current data at the location
+             */
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // the lobby exists
+                    Log.d("firebase addP2toL:", "The lobby exists");
+                    if (!snapshot.hasChild("playerTwo")) {
+                        Log.d("firebase addP2toL:", "The lobby is available");
+                        lobbiesRef.child(code).child("playerTwo").setValue(username);
+                        //ControllerManager.getInstance().push(new JoinLobbyController());
+                        LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.AVAILABLE);
+                        
+                    } else {
+                        Log.d("firebase addP2toL:", "The lobby is occupied");
+                        //throw new IllegalStateException("The lobby is occupied");
+                        LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.OCCUPIED);
+                    }
+                } else {
+                    Log.d("firebase addP2toL:", "The lobby does not exists");
+                    //throw new IllegalArgumentException("The lobby does not exists");
+                    LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.NONEXISTENT);
+                }
+            }
+
+            /**
+             * This method will be triggered in the event that this listener either failed at the server, or
+             * is removed as a result of the security and Firebase Database rules. For more information on
+             * securing your data, see: <a
+             * href="https://firebase.google.com/docs/database/security/quickstart" target="_blank"> Security
+             * Quickstart</a>
+             *
+             * @param error A description of the error that occurred
+             */
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("firebase addP2toL", error.toException());
+            }
+        });
     }
 
 
@@ -105,6 +159,10 @@ public class AndroidAPI implements FirebaseAPI {
         });
     }
 
+    /**
+     * Read from firebase the name of player two and store it locally
+     * @param code The invite code of a lobby
+     */
     @Override
     public void createPlayerTwoListener(String code) {
         ValueEventListener postListener = new ValueEventListener() {
@@ -112,6 +170,7 @@ public class AndroidAPI implements FirebaseAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String playerTwo= dataSnapshot.getValue(String.class);
+                Log.d("firebase createP2List:", "The local player two is: " + playerTwo);
                 LobbyInfo.getInstance().setPlayerTwo(playerTwo);
             }
 
@@ -125,6 +184,10 @@ public class AndroidAPI implements FirebaseAPI {
         lobbiesRef.child(code).child("playerTwo").addValueEventListener(postListener);
     }
 
+    /**
+     * Read from firebase the name of player one and store it locally
+     * @param code The invite code of a lobby
+     */
     @Override
     public void createPlayerOneListener(String code) {
         ValueEventListener postListener = new ValueEventListener() {

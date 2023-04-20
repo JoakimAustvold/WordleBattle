@@ -6,6 +6,7 @@ import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.JoinLobbyView;
 
 public class JoinLobbyController extends Controller {
@@ -13,6 +14,9 @@ public class JoinLobbyController extends Controller {
     public JoinLobbyController() {
         this.state = LobbyInfo.getInstance();
         this.view = new JoinLobbyView();
+
+        final LobbyInfo lobbyState = (LobbyInfo) state;
+        lobbyState.setLobbyStatus(LobbyStatus.UNKNOWN);
 
         JoinLobbyView lobbyView = (JoinLobbyView) view;
 
@@ -22,9 +26,7 @@ public class JoinLobbyController extends Controller {
         lobbyView.backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                LobbyInfo lobbyState = (LobbyInfo) state;
                 SingletonAPI.getInstance().removePlayerTwoFromLobby(lobbyState.getCode());
-                
                 ControllerManager.getInstance().pop();
             }
         });
