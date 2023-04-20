@@ -3,7 +3,7 @@ package     com.mygdx.game.view.multiplayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.view.View;
 
@@ -30,7 +30,7 @@ public class LobbyView extends View {
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfoState lobbyState = (LobbyInfoState) state;
 
         font.getData().setScale(6);
         font.draw(spriteBatch, "Game code: " + lobbyState.getCode(),  (float) Gdx.graphics.getWidth()/2 - 400,  (float) (Gdx.graphics.getHeight()*0.8));

@@ -3,22 +3,21 @@ package com.mygdx.game.controller.multiplayer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.controller.Controller;
-import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.JoinGameView;
 
 public class JoinGameController extends Controller {
 
     public JoinGameController() {
-        this.state = LobbyInfo.getInstance();
+        this.state = LobbyInfoState.getInstance();
         this.view = new JoinGameView();
 
         addBackButtonListener();
 
         final JoinGameView joinGameView = (JoinGameView) view;
-        final LobbyInfo lobbyState = (LobbyInfo) state;
+        final LobbyInfoState lobbyState = (LobbyInfoState) state;
 
         // Adds the player to the specified lobby
         joinGameView.joinButton.addListener(new ChangeListener() {
@@ -43,7 +42,7 @@ public class JoinGameController extends Controller {
         //TODO: Does the lobby exists?
         //TODO: Are there available space in the lobby?
         //TODO: Updates the state if Singleton runs successfully
-        LobbyInfo lobbystate = (LobbyInfo) state;
+        LobbyInfoState lobbystate = (LobbyInfoState) state;
         lobbystate.setPlayerTwo(code, username);
         // Updates firebase
         SingletonAPI.getInstance().addPlayerTwoToLobby(code, username);

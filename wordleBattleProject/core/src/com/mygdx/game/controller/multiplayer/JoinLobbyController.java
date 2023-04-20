@@ -5,17 +5,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.JoinLobbyView;
 
 public class JoinLobbyController extends Controller {
 
     public JoinLobbyController() {
-        this.state = LobbyInfo.getInstance();
+        this.state = LobbyInfoState.getInstance();
         this.view = new JoinLobbyView();
 
-        final LobbyInfo lobbyState = (LobbyInfo) state;
+        final LobbyInfoState lobbyState = (LobbyInfoState) state;
         lobbyState.setLobbyStatus(LobbyStatus.UNKNOWN);
 
         JoinLobbyView lobbyView = (JoinLobbyView) view;

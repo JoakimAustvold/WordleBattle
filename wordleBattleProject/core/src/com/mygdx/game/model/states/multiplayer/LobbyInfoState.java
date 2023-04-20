@@ -5,11 +5,11 @@ import com.mygdx.game.model.states.State;
 /**
  * A state used for lobbies.
  */
-public class LobbyInfo extends State {
+public class LobbyInfoState extends State {
 
-    private static final LobbyInfo lobbyInfoInstance = new LobbyInfo();
+    private static final LobbyInfoState lobbyInfoInstance = new LobbyInfoState();
 
-    public static LobbyInfo getInstance() {
+    public static LobbyInfoState getInstance() {
         return lobbyInfoInstance;
     }
 
@@ -19,7 +19,7 @@ public class LobbyInfo extends State {
 
     private LobbyStatus lobbyStatus;
 
-    private LobbyInfo() {
+    private LobbyInfoState() {
         lobbyStatus = LobbyStatus.UNKNOWN;
     }
 

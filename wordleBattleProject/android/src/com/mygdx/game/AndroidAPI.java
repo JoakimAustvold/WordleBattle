@@ -9,12 +9,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
-import com.mygdx.game.model.multiplayer.LobbyCode;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 
 import java.util.Collections;
@@ -98,17 +95,17 @@ public class AndroidAPI implements FirebaseAPI {
                         Log.d("firebase addP2toL:", "The lobby is available");
                         lobbiesRef.child(code).child("playerTwo").setValue(username);
                         //ControllerManager.getInstance().push(new JoinLobbyController());
-                        LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.AVAILABLE);
+                        LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.AVAILABLE);
                         
                     } else {
                         Log.d("firebase addP2toL:", "The lobby is occupied");
                         //throw new IllegalStateException("The lobby is occupied");
-                        LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.OCCUPIED);
+                        LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.OCCUPIED);
                     }
                 } else {
                     Log.d("firebase addP2toL:", "The lobby does not exists");
                     //throw new IllegalArgumentException("The lobby does not exists");
-                    LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.NONEXISTENT);
+                    LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.NONEXISTENT);
                 }
             }
 
@@ -171,7 +168,7 @@ public class AndroidAPI implements FirebaseAPI {
                 // Get Post object and use the values to update the UI
                 String playerTwo= dataSnapshot.getValue(String.class);
                 Log.d("firebase createP2List:", "The local player two is: " + playerTwo);
-                LobbyInfo.getInstance().setPlayerTwo(playerTwo);
+                LobbyInfoState.getInstance().setPlayerTwo(playerTwo);
             }
 
             @Override
@@ -195,7 +192,7 @@ public class AndroidAPI implements FirebaseAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String playerOne= dataSnapshot.getValue(String.class);
-                LobbyInfo.getInstance().setPlayerOne(playerOne);
+                LobbyInfoState.getInstance().setPlayerOne(playerOne);
             }
 
             @Override

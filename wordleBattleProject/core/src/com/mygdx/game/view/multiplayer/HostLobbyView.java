@@ -3,11 +3,10 @@ package com.mygdx.game.view.multiplayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 
 /**
  * The view the player hosting a lobby sees. They will see the user joining the lobby and be able to
@@ -44,10 +43,10 @@ public class HostLobbyView extends LobbyView {
 
         super.render(state, spriteBatch);
 
-        LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfoState lobbyState = (LobbyInfoState) state;
         font.getData().setScale(4);
 
-        if (!(state instanceof LobbyInfo)) {
+        if (!(state instanceof LobbyInfoState)) {
             throw new StateException("Wrong state type! Please provide LobbyInfo as state");
         }
 

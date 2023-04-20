@@ -6,19 +6,19 @@ import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.multiplayer.LobbyCode;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.HostGameView;
 
 public class HostGameController extends Controller {
 
     public HostGameController() {
-        this.state = LobbyInfo.getInstance();
+        this.state = LobbyInfoState.getInstance();
         this.view = new HostGameView();
         addBackButtonListener();
 
         final HostGameView hostGameView = (HostGameView) view;
-        final LobbyInfo lobbyState = (LobbyInfo) state;
+        final LobbyInfoState lobbyState = (LobbyInfoState) state;
 
         hostGameView.createLobbyButton.addListener(new ChangeListener() {
             @Override
@@ -40,7 +40,7 @@ public class HostGameController extends Controller {
 
     public void createLobby(String username , String code) {
         // Updates local state
-        LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfoState lobbyState = (LobbyInfoState) state;
         lobbyState.setUsername(username);
         lobbyState.setCode(code);
         // Updates firebase
