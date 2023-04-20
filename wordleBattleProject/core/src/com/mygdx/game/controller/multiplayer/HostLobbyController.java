@@ -23,7 +23,7 @@ public class HostLobbyController extends Controller {
                 //TODO: Add a multiplayer game screen
                 if (lobbyInfo.getPlayerTwo() != null) {
                     System.out.println("The multiplayer game would be starting now");
-                    //ControllerManager.getInstance().push(new HostLobbyController());
+                    ControllerManager.getInstance().push(new MultiplayerWordInputController());
                 } else {
                     System.out.println("Missing player two!!!!!");
                 }

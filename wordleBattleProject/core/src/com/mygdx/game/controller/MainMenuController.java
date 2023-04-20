@@ -18,10 +18,10 @@ public class MainMenuController extends Controller {
         this.view = new MainMenuView(new TutorialState());
         MainMenuView mainMenuView = (MainMenuView) view;
 
-        Preferences prefs = Gdx.app.getPreferences("wordleBattle");
-        final boolean hasPlayed = prefs.getBoolean("hasPlayed");
-
         mainMenuView.singleplayerButton.addListener(new ChangeListener() {
+            Preferences prefs = Gdx.app.getPreferences("wordleBattle");
+            final boolean hasPlayed = prefs.getBoolean("hasPlayed");
+
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ControllerManager.getInstance().push(new SingleplayerGameController());
