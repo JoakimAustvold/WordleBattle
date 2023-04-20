@@ -32,10 +32,4 @@ public class MultiplayerMenuController extends Controller {
             }
         });
     }
-    
-
-    @Override
-    public void resetView() {
-        LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.UNKNOWN);
-    }
 }

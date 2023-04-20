@@ -35,9 +35,4 @@ public class TutorialController extends Controller {
 
         ((TutorialState) state).setHasPlayed();
     }
-
-    @Override
-    public void resetView() {
-
-    }
 }

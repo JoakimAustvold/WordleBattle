@@ -37,7 +37,6 @@ public class SingleplayerGameController extends Controller {
     /**
      * Needs to reset view in order to be responsive after a stack-pop.
      */
-    @Override
     public void resetView() {
         setupView();
     }

@@ -49,10 +49,4 @@ public class JoinGameController extends Controller {
         // Adds player one locally from firebase
         SingletonAPI.getInstance().createPlayerOneListener(code);
     }
-
-    @Override
-    public void resetView() {
-
-    }
-
 }

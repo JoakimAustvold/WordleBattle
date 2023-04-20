@@ -31,9 +31,4 @@ public class MultiplayerWordInputController extends Controller {
             }
         });
     }
-
-    @Override
-    public void resetView() {
-
-    }
 }

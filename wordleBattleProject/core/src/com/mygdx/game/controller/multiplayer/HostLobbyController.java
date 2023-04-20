@@ -40,9 +40,4 @@ public class HostLobbyController extends Controller {
         });
 
     }
-
-    @Override
-    public void resetView() {
-
-    }
 }

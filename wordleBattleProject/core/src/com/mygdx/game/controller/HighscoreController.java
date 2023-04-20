@@ -14,11 +14,4 @@ public class HighscoreController extends Controller{
 
         addBackButtonListener();
     }
-
-    @Override
-    public void resetView() {
-
-    }
-
-
 }

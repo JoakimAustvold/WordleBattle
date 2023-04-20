@@ -49,10 +49,4 @@ public class HostGameController extends Controller {
         // With listener
         SingletonAPI.getInstance().createPlayerTwoListener(code);
     }
-
-
-    @Override
-    public void resetView() {
-
-    }
 }

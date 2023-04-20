@@ -31,9 +31,4 @@ public class JoinLobbyController extends Controller {
             }
         });
     }
-    
-    @Override
-    public void resetView() {
-
-    }
 }

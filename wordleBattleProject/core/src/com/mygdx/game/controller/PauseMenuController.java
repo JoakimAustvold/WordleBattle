@@ -22,6 +22,10 @@ public class PauseMenuController extends Controller {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ControllerManager.getInstance().pop();
+                 SingleplayerGameController sgc =
+                         (SingleplayerGameController) ControllerManager.getInstance().peek();
+
+                 sgc.resetView();
             }
         });
 
@@ -41,10 +45,5 @@ public class PauseMenuController extends Controller {
                 ControllerManager.getInstance().push(new TutorialController(false));
             }
         });
-    }
-
-    @Override
-    public void resetView() {
-
     }
 }
