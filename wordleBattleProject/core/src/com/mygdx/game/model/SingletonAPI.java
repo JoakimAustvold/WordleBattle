@@ -90,5 +90,19 @@ public class SingletonAPI implements FirebaseAPI{
         }
     }
 
+    @Override
+    public void submitWord(String code, String player, String word) {
+        if (firebaseAPI != null) {
+            firebaseAPI.submitWord(code, player, word);
+        }
+    }
+
+    @Override
+    public void getWordSubmitted(String code) {
+        if (firebaseAPI != null) {
+            firebaseAPI.getWordSubmitted(code);
+        }
+    }
+
 
 }

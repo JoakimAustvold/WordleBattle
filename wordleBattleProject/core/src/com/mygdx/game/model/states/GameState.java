@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-public class SingleplayerGameState extends State {
+public class GameState extends State {
 
     private GameStatus gameStatus; // Replaces isGameOver
     private int turn;
@@ -38,10 +38,25 @@ public class SingleplayerGameState extends State {
             {"Enter", "z", "x", "c", "v", "b", "n", "m", "<--"}
     };
 
-    public SingleplayerGameState() {
+    // Constructor for singleplayer game mode
+    public GameState() {
         keyboardInput = new KeyboardInput();
         WordGenerator wg = new WordGenerator(language);
         solution = wg.generateWord();
+        guesses = new ArrayList<>();
+        disabledChars = new ArrayList<>();
+        wordInputHandler = new WordInputHandler(solution, language, guesses, disabledChars);
+        gameStatus= GameStatus.ONGOING;
+        startTime = new Date();
+        score = new Score("Filler", 10);
+    }
+
+    // Constructor for multiplayer game mode
+    public GameState(String word){
+        keyboardInput = new KeyboardInput();
+        //WordGenerator wg = new WordGenerator(language);
+        //solution = wg.generateWord();
+        solution = word;
         guesses = new ArrayList<>();
         disabledChars = new ArrayList<>();
         wordInputHandler = new WordInputHandler(solution, language, guesses, disabledChars);

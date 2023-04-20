@@ -8,10 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.exception.StateException;
-import com.mygdx.game.model.states.SingleplayerGameState;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
-import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.View;
 
 /**

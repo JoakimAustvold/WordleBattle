@@ -19,4 +19,6 @@ public interface FirebaseAPI {
     void createPlayerOneListener(String code);
     void removePlayerTwoFromLobby(String code);
     void viewAllLobbies(List<String> dataholder);
+    void submitWord(String code, String player, String word);
+    void getWordSubmitted (String code);
 }

@@ -61,5 +61,15 @@ public class CoreAPI implements FirebaseAPI {
 
     }
 
+    @Override
+    public void submitWord(String code, String player, String word) {
+
+    }
+
+    @Override
+    public void getWordSubmitted(String code) {
+
+    }
+
 
 }

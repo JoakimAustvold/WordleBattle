@@ -68,5 +68,16 @@ public class DesktopAPI implements FirebaseAPI {
     public void viewAllLobbies(List<String> dataholder) {
         
     }
-    
+
+    @Override
+    public void submitWord(String code, String player, String word) {
+
+    }
+
+    @Override
+    public void getWordSubmitted(String code) {
+
+    }
+
+
 }
