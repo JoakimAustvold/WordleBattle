@@ -1,10 +1,8 @@
 package com.mygdx.game.model.states.multiplayer;
 
-import com.mygdx.game.model.Player;
 import com.mygdx.game.model.states.State;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A state used for lobbies.
