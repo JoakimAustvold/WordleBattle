@@ -10,7 +10,7 @@ import com.mygdx.game.view.TutorialView;
 
 public class TutorialController extends Controller {
 
-    public TutorialController(boolean checkPrefs) {
+    public TutorialController(final boolean checkPrefs) {
         state = new TutorialState();
         view = new TutorialView((TutorialState) state);
 
@@ -19,7 +19,11 @@ public class TutorialController extends Controller {
         pauseMenuView.backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
+                if (checkPrefs){
+                    ControllerManager.getInstance().set(new SingleplayerGameController());
+                } else{
+                    ControllerManager.getInstance().pop();
+                }
             }
         });
 
