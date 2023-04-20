@@ -1,10 +1,8 @@
 package com.mygdx.game.controller;
 
 import com.mygdx.game.model.highscore.HighscoreList;
-import com.mygdx.game.model.highscore.Score;
-import com.mygdx.game.view.HighscoreView;
 
-import java.util.List;
+import com.mygdx.game.view.HighscoreView;
 
 public class HighscoreController extends Controller{
 

@@ -1,22 +1,16 @@
 package com.mygdx.game.view.multiplayer;
 
-import static com.badlogic.gdx.net.HttpRequestBuilder.json;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.model.words.Words;
-import com.mygdx.game.view.View;
 
-import java.util.Arrays;
+import com.mygdx.game.view.View;
 
 public class MultiplayerWordInputView extends View {
 

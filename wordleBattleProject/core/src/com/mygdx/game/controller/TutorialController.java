@@ -5,7 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.model.states.TutorialState;
-import com.mygdx.game.view.PauseMenuView;
+
 import com.mygdx.game.view.TutorialView;
 
 public class TutorialController extends Controller {

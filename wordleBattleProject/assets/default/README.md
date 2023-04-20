@@ -1,17 +1,35 @@
-# LibGDX default skin
+# Cloud Form UI
 
-The one, the only, [*the default one*](https://github.com/libgdx/libgdx/tree/master/tests/gdx-tests-android/assets/data).
+```
+Cloud Form UI Ver. 1
 
-Majority of LibGDX devs started with this skin, as it's easy to find with ~~Goog~~ your search engine of choice. And, well, it *works*.
+Created by Raymond "Raeleus" Buckley
+Visit ray3k.wordpress.com for games, tutorials, and much more!
+© Copyright 2016 Raymond Buckley
 
-Supports most of the **Scene2D** widgets (including the newest tooltips), with notable exceptions being the image buttons. Features no additional icons, so if you want fancy controls for turning music on and off, you might want to [modify it](https://github.com/libgdx/libgdx/tree/master/tests/gdx-tests-android/assets-raw/skin).
+Cloud Form UI can be used under the CC BY license.
+http://creativecommons.org/licenses/by/4.0/
 
-![Default](preview.png)
+RadialDrawable.java can be used under the MIT license.
+https://opensource.org/licenses/MIT
 
-Preview taken from [LibGDX skins](https://github.com/libgdx/libgdx-skins):
+RadialProgressBar.java can be used under the Apache 2.0 license.
+Derived from ProgressBar class by mzechner and Nathan Sweet. Added RadialDrawable functionality and removed all use of Drawable knobs.
+http://www.apache.org/licenses/LICENSE-2.0
 
-![Default](preview-large.png)
+Gravity font by Vincenzo Vuono
+© Vincenzo Vuono www.vincenzovuono.com
+Used under the CC BY license.
+http://creativecommons.org/licenses/by/4.0/
+```
+
+Features styles of most of **Scene2D** widgets. Simplistic UI in style of (corporate) desktop applications. [Example project](https://ray3k.wordpress.com/cloud-form-ui-skin-for-libgdx/) contains example implementation of a radial progress bar.
+
+![Cloud Form](preview.gif)
+
+### About
+
+Created with [Skin Composer](https://github.com/raeleus/skin-composer) by [**Raeleus**](https://ray3k.wordpress.com/cloud-form-ui-skin-for-libgdx/).
 
 ### License
-
-Seems to be the same as the whole **LibGDX** framework. But then again - in commercial products, you might want to try out something fancier.
+[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/). See the quote above for more data. Give credit to [***Raymond "Raeleus" Buckley***](https://ray3k.wordpress.com/software/skin-composer-for-libgdx/) and [Vincenzo Vuono](http://www.vincenzovuono.com) if you use the fonts.

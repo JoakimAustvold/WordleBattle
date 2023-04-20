@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -10,6 +11,9 @@ public class PauseMenuView extends View {
     public TextButton newGameButton;
     public TextButton backToMainButton;
     public TextButton tutorialButton;
+
+    private static final int buttonPaddingX = -120;
+    private static final int buttonPaddingY = 80;
     
     public PauseMenuView() {
         super();
@@ -29,14 +33,17 @@ public class PauseMenuView extends View {
         stage.addActor(table);
 
         // Add the buttons to the table
-        table.row().pad(50, 0, 50, 0);
+        table.row().pad(buttonPaddingY, buttonPaddingX, buttonPaddingY, buttonPaddingX);
         table.add(backToGameButton).fill().uniform();
-        table.row().pad(50, 0, 50, 0);
+        table.row().pad(buttonPaddingY, buttonPaddingX, buttonPaddingY, buttonPaddingX);
         table.add(tutorialButton).fill().uniform();
-        table.row().pad(50, 0, 50, 0);
+        table.row().pad(buttonPaddingY, buttonPaddingX, buttonPaddingY, buttonPaddingX);
         table.add(newGameButton).fill().uniform();
-        table.row().pad(50, 0, 50, 0);
+        table.row().pad(buttonPaddingY, buttonPaddingX, 50, buttonPaddingX);
         table.add(backToMainButton).fill().uniform();
+        table.row().pad(50, -64, 50, -64);
+        table.add(new Label("",skin)).fill().uniform(); // hack to get padding inside button
+
     }
 
     @Override

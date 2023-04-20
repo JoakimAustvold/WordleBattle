@@ -2,7 +2,7 @@ package com.mygdx.game;//import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
-import com.mygdx.game.model.multiplayer.LobbyCode;
+
 import java.util.List;
 
 public class DesktopAPI implements FirebaseAPI {

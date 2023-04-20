@@ -4,10 +4,10 @@ package com.mygdx.game.model.states;
 import static com.mygdx.game.model.words.Language.ENGLISH;
 
 import com.mygdx.game.model.GameStatus;
-import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
+import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.input.WordStatus;
 import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;

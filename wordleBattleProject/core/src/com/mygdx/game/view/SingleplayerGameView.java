@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -27,8 +26,6 @@ public class SingleplayerGameView extends View {
     public TextButton pauseButton;
     protected static final float WORD_POS_X_DIVISOR = 2.5f;
     protected static final float WORD_DELTA_Y = 150.0f;
-
-    protected final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
     protected static final Color COLOR_KEY_ENABLED = Color.WHITE;
     protected static final Color COLOR_KEY_DISABLED = Color.GRAY;
@@ -59,9 +56,9 @@ public class SingleplayerGameView extends View {
 
         Gdx.input.setInputProcessor(keyboardStage);
         // all buttons
-        usernameTextField = new TextField("", skin);
-        addHighscore = new TextButton("Add highscore", skin);
-        newGame = new TextButton("New Game", skin);
+        usernameTextField = new TextField("Name", skin);
+        addHighscore = new TextButton("Submit", skin);
+        newGame = new TextButton("New game", skin);
 
         graySquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/gray.png"));
         orangeSquareTexture= new Texture(Gdx.files.internal("textures/backgrounds/orange.png"));
@@ -79,8 +76,8 @@ public class SingleplayerGameView extends View {
         usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
         usernameTextField.setMessageText("Username: ");
 
-        addHighscore.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR + 100), 400);
-        addHighscore.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
+        addHighscore.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR + 300), 400);
+        addHighscore.setSize((float) (Gdx.graphics.getWidth()*0.3), (float) (Gdx.graphics.getHeight() * 0.05));
 
         newGame.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 100);
         newGame.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
@@ -100,10 +97,8 @@ public class SingleplayerGameView extends View {
 
         spriteBatch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
 
-
-        // TODO: Remove the solution
         // Draw solution word
-        font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
+        font.draw(spriteBatch, "Guesses:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = gameState.getGuesses();
 
         // Draw guessed words
@@ -273,7 +268,8 @@ public class SingleplayerGameView extends View {
     }
 
     private void setupPauseButton() {
-        pauseButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
+        pauseButton.setPosition( Gdx.graphics.getWidth() - pauseButton.getWidth() - 50, (float) (Gdx.graphics.getHeight()) - 150);
+
         keyboardStage.addActor(pauseButton);
     }
 }
