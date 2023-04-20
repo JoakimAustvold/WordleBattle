@@ -7,47 +7,33 @@ import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.states.GameState;
 import com.mygdx.game.model.states.State;
+import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
+import com.mygdx.game.model.states.multiplayer.LobbyInfo;
 import com.mygdx.game.view.GameView;
 
 public class MultiplayerGameView extends GameView {
 
-    public TextButton rematchButton;
-    public TextButton leaveButton;
+    public TextButton backToLobbyButton;
+    private boolean first = true;
 
     public MultiplayerGameView() {
         super();
 
-        rematchButton = new TextButton("Rematch opponent", skin);
-        leaveButton = new TextButton("Leave lobby", skin);
+        backToLobbyButton = new TextButton("Leave lobby", skin);
     }
 
     @Override
     public void setup() {
         Gdx.input.setInputProcessor(keyboardStage);
 
-        rematchButton.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 300);
-        //rematchButton.setSize((float) (Gdx.graphics.getWidth()*0.6), (float) (Gdx.graphics.getHeight() * 0.05));
+        backToLobbyButton.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 200);
+        backToLobbyButton.setSize((float) (Gdx.graphics.getWidth()*0.6), (float) (Gdx.graphics.getHeight() * 0.05));
 
-        leaveButton.setPosition((Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100), 200);
-        leaveButton.setSize((float) (Gdx.graphics.getWidth()*0.6), (float) (Gdx.graphics.getHeight() * 0.05));
-
-        endgameStage.addActor(rematchButton);
-        endgameStage.addActor(leaveButton);
     }
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
         super.render(state, spriteBatch);
-
-        final GameState gameState = (GameState) state;
-
-        if (!(state instanceof GameState)) {
-            throw new StateException("Wrong state type! Please provide a PlayState.");
-        }
-
-        if(gameState.getGameStatus().equals(GameStatus.WIN)){
-
-        }
     }
 
     /**
@@ -57,7 +43,9 @@ public class MultiplayerGameView extends GameView {
     protected void displayWinnerGraphics(SpriteBatch spriteBatch, GameState gameState) {
         font.draw(spriteBatch, "Correct guess", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
         font.draw(spriteBatch, "Your score is: " + gameState.getScore().getHighscore(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 700);
-        // display the oponents score and who won
+        // display the opponents score and who won
+        displayOpponentsScore(spriteBatch, gameState);
+
     }
 
     /**
@@ -69,5 +57,32 @@ public class MultiplayerGameView extends GameView {
         font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
         font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
         // isplay the oponents score and who won
+        displayOpponentsScore(spriteBatch, gameState);
+    }
+
+
+    private void displayOpponentsScore(SpriteBatch spriteBatch, GameState gameState) {
+        if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+            if (LobbyInfo.getInstance().getPlayerTwoScore() != null) {
+                font.draw(spriteBatch, "Opponent score is: " + LobbyInfo.getInstance().getPlayerTwoScore(), 20, 600);
+                displayEndgameButtons();
+            } else {
+                font.draw(spriteBatch, "Waiting on opponent", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 600);
+            }
+        } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
+            if (LobbyInfo.getInstance().getPlayerOneScore() != null) {
+                font.draw(spriteBatch, "Opponent score is: " + LobbyInfo.getInstance().getPlayerOneScore(), 20, 600);
+                displayEndgameButtons();
+            } else {
+                font.draw(spriteBatch, "Waiting on opponent", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 600);
+            }
+        }
+    }
+
+    private void displayEndgameButtons() {
+        if (first) {
+            first = false;
+            endgameStage.addActor(backToLobbyButton);
+        }
     }
 }

@@ -1,29 +1,19 @@
 package com.mygdx.game.view.multiplayer;
 
-import static com.badlogic.gdx.net.HttpRequestBuilder.json;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.model.words.Words;
 import com.mygdx.game.view.View;
-
-import java.util.Arrays;
 
 public class MultiplayerWordInputView extends View {
 
     //private Stage stage;
     //private Skin skin;
     private BitmapFont font;
-    private String errormessage;
+    private String feedbackMessage;
 
     public TextButton submitButton;
     public TextField wordField;
@@ -31,7 +21,7 @@ public class MultiplayerWordInputView extends View {
 
     public MultiplayerWordInputView() {
         font = new BitmapFont();
-        errormessage = "Enter your word";
+        feedbackMessage = "Enter your word";
         submitButton = new TextButton("Submit", skin);
         wordField = new TextField("", skin);
         font.getData().setScale(6);
@@ -41,7 +31,7 @@ public class MultiplayerWordInputView extends View {
     public void render(State state, SpriteBatch spriteBatch) {
         super.render(state, spriteBatch);
 
-        font.draw(spriteBatch, errormessage,(float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.3), (float) (Gdx.graphics.getHeight() * 0.5));
+        font.draw(spriteBatch, feedbackMessage,(float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.3), (float) (Gdx.graphics.getHeight() * 0.5));
     }
 
     @Override
@@ -63,7 +53,7 @@ public class MultiplayerWordInputView extends View {
         skin.dispose();
     }
 
-    public void setErrormessage(String errormessage) {
-        this.errormessage = errormessage;
+    public void setFeedbackMessage(String feedbackMessage) {
+        this.feedbackMessage = feedbackMessage;
     }
 }

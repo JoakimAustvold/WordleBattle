@@ -5,5 +5,6 @@ public enum LobbyStatus {
     AVAILABLE,
     OCCUPIED,
     NONEXISTENT,
-    MISSINGUSERNAME
+    MISSINGUSERNAME,
+    PLAYING
 }

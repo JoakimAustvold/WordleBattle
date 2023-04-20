@@ -1,8 +1,10 @@
 package com.mygdx.game.model.states.multiplayer;
 
+import com.mygdx.game.model.Player;
 import com.mygdx.game.model.states.State;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A state used for lobbies.
@@ -16,19 +18,29 @@ public class LobbyInfo extends State {
     }
 
     private CurrentPlayer currentPlayer;
+    private String code;
+
+
+
+    /*
+    private List<Player> players;
+    private List<String> wordList;
+    private List<Integer> scores;
+     */
+
     private String playerOne;
     private String playerTwo;
     private ArrayList<String> playerOneWordlist;
     private ArrayList<String> playerTwoWordlist;
-    private String code;
+    private Integer playerOneScore;
+    private Integer playerTwoScore;
 
     private LobbyStatus lobbyStatus;
 
     private LobbyInfo() {
         lobbyStatus = LobbyStatus.UNKNOWN;
-        playerOneWordlist = new ArrayList<String>();
-        playerTwoWordlist = new ArrayList<String>();
-        System.out.println("****" + playerTwoWordlist.size());
+        playerOneWordlist = new ArrayList<>();
+        playerTwoWordlist = new ArrayList<>();
 
     }
     public void setCurrentPlayer(CurrentPlayer currentPlayer) {
@@ -96,7 +108,22 @@ public class LobbyInfo extends State {
     }
 
     public ArrayList<String> getPlayerTwoWordlist() {
-        System.out.println("Krasj?: " + playerTwoWordlist.size());
         return new ArrayList<String>(playerTwoWordlist);
+    }
+
+    public Integer getPlayerOneScore() {
+        return playerOneScore;
+    }
+
+    public Integer getPlayerTwoScore() {
+        return playerTwoScore;
+    }
+
+    public void setPlayerOneScore(Integer playerOneScore) {
+        this.playerOneScore = playerOneScore;
+    }
+
+    public void setPlayerTwoScore(Integer playerTwoScore) {
+        this.playerTwoScore = playerTwoScore;
     }
 }

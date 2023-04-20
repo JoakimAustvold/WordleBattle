@@ -32,8 +32,8 @@ public class JoinGameController extends Controller {
                 }
                // ControllerManager.getInstance().push(new JoinLobbyController());
                 addPlayerTwoToLobby(joinGameView.inviteCodeTextField.getText(), joinGameView.usernameTextField.getText());
-                ControllerManager.getInstance().push(new JoinLobbyController());
                 lobbyState.setCurrentPlayer(CurrentPlayer.PLAYERTWO);
+                ControllerManager.getInstance().push(new JoinLobbyController());
             }
         });
 

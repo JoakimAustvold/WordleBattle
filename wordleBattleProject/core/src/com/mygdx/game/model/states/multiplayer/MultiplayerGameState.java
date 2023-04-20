@@ -2,7 +2,6 @@ package com.mygdx.game.model.states.multiplayer;
 
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.states.GameState;
-import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;
 

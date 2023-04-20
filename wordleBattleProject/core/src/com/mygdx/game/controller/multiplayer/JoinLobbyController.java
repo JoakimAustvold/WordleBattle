@@ -16,9 +16,11 @@ public class JoinLobbyController extends Controller {
         this.view = new JoinLobbyView();
 
         final LobbyInfo lobbyState = (LobbyInfo) state;
-        lobbyState.setLobbyStatus(LobbyStatus.UNKNOWN);
+        //lobbyState.setLobbyStatus(LobbyStatus.UNKNOWN);
 
         JoinLobbyView lobbyView = (JoinLobbyView) view;
+
+        SingletonAPI.getInstance().getOnlineLobbyStatus(lobbyState.getCode());
 
         /**
         * Removes the second player from the lobby and goes back to the previous view

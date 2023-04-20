@@ -4,11 +4,13 @@ package com.mygdx.game.model.states;
 import static com.mygdx.game.model.words.Language.ENGLISH;
 
 import com.mygdx.game.model.GameStatus;
+import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
 import com.mygdx.game.model.input.WordStatus;
+import com.mygdx.game.model.states.multiplayer.LobbyInfo;
 import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;
 
@@ -81,6 +83,7 @@ public class GameState extends State {
         if(wordStatus.equals(WordStatus.SOLUTION)){
             // Create the score
             this.score = new Score(startTime, new Date(), getGuesses());
+            SingletonAPI.getInstance().submitMultiplayerScore(LobbyInfo.getInstance().getCode(), LobbyInfo.getInstance().getCurrentPlayer(), score.getHighscore());
             gameStatus = GameStatus.WIN;
         }
 
