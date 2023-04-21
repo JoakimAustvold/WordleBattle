@@ -5,8 +5,6 @@ import static com.mygdx.game.WordleBattleGame.WORD_LENGTH;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 
-import java.util.Random;
-
 /**
  * Class to validate any input word.
  * @author Marcus Birkeland

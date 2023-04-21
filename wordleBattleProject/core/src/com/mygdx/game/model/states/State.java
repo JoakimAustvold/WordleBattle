@@ -8,5 +8,4 @@ package com.mygdx.game.model.states;
  * Only business logic should be handled in a State-subclass.
  */
 public abstract class State {
-
 }

@@ -1,38 +1,28 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.MainMenuController;
-import com.mygdx.game.controller.SingleplayerGameController;
+
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.TutorialState;
 
 public class TutorialView extends View {
-    private final SpriteBatch batch = new SpriteBatch();
     private final BitmapFont font = new BitmapFont();
     private Stage stage;
     private Texture tutorialTexture;
-    private TutorialState ts;
-    private Skin skin;
 
     public TextButton backButton;
 
 
     public TutorialView(TutorialState ts) {
-        this.ts = ts;
         // Fontsizing and scaling
         float fontSize = 3f; // Change this to the desired font size
 
@@ -42,7 +32,6 @@ public class TutorialView extends View {
 
         // Load the tutorial image from the assets folder
         tutorialTexture = new Texture("tutorial2.png");
-        this.skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         backButton = new TextButton("Back", skin);
         this.stage = new Stage(new ScreenViewport());
         setup();
@@ -70,7 +59,7 @@ public class TutorialView extends View {
 
         // Create back button
         backButton.setTransform(true);
-        backButton.setScale(4);
+        backButton.setScale(2);
 
         // Add the button to the stage
         stage.addActor(backButton);

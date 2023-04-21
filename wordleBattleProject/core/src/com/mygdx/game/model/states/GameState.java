@@ -4,13 +4,14 @@ package com.mygdx.game.model.states;
 import static com.mygdx.game.model.words.Language.ENGLISH;
 
 import com.mygdx.game.model.GameStatus;
+
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.highscore.Score;
 import com.mygdx.game.model.input.GuessedWord;
 import com.mygdx.game.model.input.KeyboardInput;
 import com.mygdx.game.model.input.WordInputHandler;
 import com.mygdx.game.model.input.WordStatus;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.words.Language;
 import com.mygdx.game.model.words.WordGenerator;
 
@@ -33,6 +34,9 @@ public class GameState extends State {
     private Date startTime;
     private Score score;
 
+    // TODO: change this to arv
+    private boolean singlePlayer;
+
 
     public static final String[][] buttonValues = {
             {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"},
@@ -42,6 +46,7 @@ public class GameState extends State {
 
     // Constructor for singleplayer game mode
     public GameState() {
+        singlePlayer = true;
         keyboardInput = new KeyboardInput();
         WordGenerator wg = new WordGenerator(language);
         solution = wg.generateWord();
@@ -55,6 +60,7 @@ public class GameState extends State {
 
     // Constructor for multiplayer game mode
     public GameState(String word){
+        singlePlayer = false;
         keyboardInput = new KeyboardInput();
         //WordGenerator wg = new WordGenerator(language);
         //solution = wg.generateWord();
@@ -83,7 +89,9 @@ public class GameState extends State {
         if(wordStatus.equals(WordStatus.SOLUTION)){
             // Create the score
             this.score = new Score(startTime, new Date(), getGuesses());
-            SingletonAPI.getInstance().submitMultiplayerScore(LobbyInfo.getInstance().getCode(), LobbyInfo.getInstance().getCurrentPlayer(), score.getHighscore());
+            if (!singlePlayer) {
+                SingletonAPI.getInstance().submitMultiplayerScore(LobbyInfoState.getInstance().getCode(), LobbyInfoState.getInstance().getCurrentPlayer(), score.getHighscore());
+            }
             gameStatus = GameStatus.WIN;
         }
 

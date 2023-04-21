@@ -6,7 +6,7 @@ import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.states.GameState;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.view.multiplayer.MultiplayerGameView;
 
 public class MultiplayerGameController extends GameController {
@@ -14,7 +14,7 @@ public class MultiplayerGameController extends GameController {
     public MultiplayerGameController(String word) {
         super(new MultiplayerGameView(), new GameState(word));
 
-        SingletonAPI.getInstance().getMultiplayerScore(LobbyInfo.getInstance().getCode());
+        SingletonAPI.getInstance().getMultiplayerScore(LobbyInfoState.getInstance().getCode());
 
         setupView();
     }
@@ -37,8 +37,4 @@ public class MultiplayerGameController extends GameController {
         });
     }
 
-    @Override
-    public void resetView() {
-        
-    }
 }

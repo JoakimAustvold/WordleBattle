@@ -5,12 +5,12 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.model.states.TutorialState;
-import com.mygdx.game.view.PauseMenuView;
+
 import com.mygdx.game.view.TutorialView;
 
 public class TutorialController extends Controller {
 
-    public TutorialController(boolean checkPrefs) {
+    public TutorialController(final boolean checkPrefs) {
         state = new TutorialState();
         view = new TutorialView((TutorialState) state);
 
@@ -19,7 +19,11 @@ public class TutorialController extends Controller {
         pauseMenuView.backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ControllerManager.getInstance().pop();
+                if (checkPrefs){
+                    ControllerManager.getInstance().set(new SingleplayerGameController());
+                } else{
+                    ControllerManager.getInstance().pop();
+                }
             }
         });
 
@@ -34,10 +38,5 @@ public class TutorialController extends Controller {
         }
 
         ((TutorialState) state).setHasPlayed();
-    }
-
-    @Override
-    public void resetView() {
-
     }
 }

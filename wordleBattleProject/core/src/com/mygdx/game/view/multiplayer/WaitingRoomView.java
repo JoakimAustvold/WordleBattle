@@ -3,12 +3,11 @@ package com.mygdx.game.view.multiplayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.multiplayer.MultiplayerGameController;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.view.View;
 
 public class WaitingRoomView extends View {
@@ -24,7 +23,7 @@ public class WaitingRoomView extends View {
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
 
-        LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfoState lobbyState = (LobbyInfoState) state;
 
         super.render(state, spriteBatch);
         if((lobbyState.getCurrentPlayer() == CurrentPlayer.PLAYERONE) && (lobbyState.getPlayerTwoWordlist().size() == 1) ) {

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.exception.StateException;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.View;
 
@@ -47,9 +47,9 @@ public class HostGameView extends View {
 
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
-        LobbyInfo lobbyState = (LobbyInfo) state;
+        LobbyInfoState lobbyState = (LobbyInfoState) state;
 
-        if (!(state instanceof LobbyInfo)) {
+        if (!(state instanceof LobbyInfoState)) {
             throw new StateException("Wrong state type! Please provide LobbyInfo as state");
         }
 

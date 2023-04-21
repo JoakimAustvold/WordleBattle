@@ -1,10 +1,8 @@
 package com.mygdx.game.model;
 
 import com.mygdx.game.model.highscore.Score;
-import com.mygdx.game.model.multiplayer.LobbyCode;
 import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
-
 import java.util.List;
 
 /**

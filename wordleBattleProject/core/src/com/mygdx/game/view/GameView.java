@@ -25,7 +25,7 @@ public abstract class GameView extends View{
     protected static final float WORD_POS_X_DIVISOR = 2.5f;
     protected static final float WORD_DELTA_Y = 150.0f;
 
-    protected final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
+   // protected final Texture texture = new Texture(Gdx.files.internal("textures/letters/a.png"));
 
     protected static final Color COLOR_KEY_ENABLED = Color.WHITE;
     protected static final Color COLOR_KEY_DISABLED = Color.GRAY;
@@ -53,6 +53,7 @@ public abstract class GameView extends View{
 
         //Gdx.input.setInputProcessor(keyboardStage);
         // all buttons
+
 
         graySquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/gray.png"));
         orangeSquareTexture= new Texture(Gdx.files.internal("textures/backgrounds/orange.png"));

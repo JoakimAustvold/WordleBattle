@@ -1,10 +1,8 @@
 package com.mygdx.game.model;
 
 import com.mygdx.game.model.highscore.Score;
-import com.mygdx.game.model.multiplayer.LobbyCode;
 import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
-
 import java.util.List;
 
 /**
@@ -27,6 +25,8 @@ public class SingletonAPI implements FirebaseAPI {
     public void getHighscoreList(List<Score> dataholder) {
         if (firebaseAPI != null) {
             firebaseAPI.getHighscoreList(dataholder);
+        } else {
+            throw new IllegalStateException("Firebase is not connected");
         }
     }
 

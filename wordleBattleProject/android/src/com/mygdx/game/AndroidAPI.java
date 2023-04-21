@@ -11,8 +11,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,17 +97,17 @@ public class AndroidAPI implements FirebaseAPI {
                         Log.d("firebase addP2toL:", "The lobby is available");
                         lobbiesRef.child(code).child("playerTwo").setValue(username);
                         //ControllerManager.getInstance().push(new JoinLobbyController());
-                        LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.AVAILABLE);
+                        LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.AVAILABLE);
                         
                     } else {
                         Log.d("firebase addP2toL:", "The lobby is occupied");
                         //throw new IllegalStateException("The lobby is occupied");
-                        LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.OCCUPIED);
+                        LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.OCCUPIED);
                     }
                 } else {
                     Log.d("firebase addP2toL:", "The lobby does not exists");
                     //throw new IllegalArgumentException("The lobby does not exists");
-                    LobbyInfo.getInstance().setLobbyStatus(LobbyStatus.NONEXISTENT);
+                    LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.NONEXISTENT);
                 }
             }
 
@@ -170,7 +170,7 @@ public class AndroidAPI implements FirebaseAPI {
                 // Get Post object and use the values to update the UI
                 String playerTwo= dataSnapshot.getValue(String.class);
                 Log.d("firebase createP2List:", "The local player two is: " + playerTwo);
-                LobbyInfo.getInstance().setPlayerTwo(playerTwo);
+                LobbyInfoState.getInstance().setPlayerTwo(playerTwo);
             }
 
             @Override
@@ -194,7 +194,7 @@ public class AndroidAPI implements FirebaseAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String playerOne= dataSnapshot.getValue(String.class);
-                LobbyInfo.getInstance().setPlayerOne(playerOne);
+                LobbyInfoState.getInstance().setPlayerOne(playerOne);
             }
 
             @Override
@@ -252,10 +252,10 @@ public class AndroidAPI implements FirebaseAPI {
                 ArrayList<String> playerWords = (ArrayList<String>) dataSnapshot.getValue();
                 Log.d("firebase newWordList: ", "The word list is " + playerWords);
                 if (playerWords != null) {
-                    if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
-                        LobbyInfo.getInstance().setPlayerTwoWordlist(playerWords);
+                    if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+                        LobbyInfoState.getInstance().setPlayerTwoWordlist(playerWords);
                     } else {
-                        LobbyInfo.getInstance().setPlayerOneWordlist(playerWords);
+                        LobbyInfoState.getInstance().setPlayerOneWordlist(playerWords);
                     }
                 }
             }
@@ -267,9 +267,9 @@ public class AndroidAPI implements FirebaseAPI {
             }
         };
 
-        if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+        if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
             lobbiesRef.child(code).child(CurrentPlayer.PLAYERTWO.label+"Wordlist").addValueEventListener(postListener);
-        } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
+        } else if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
             lobbiesRef.child(code).child(CurrentPlayer.PLAYERONE.label+"Wordlist").addValueEventListener(postListener);
         }
     }
@@ -286,11 +286,11 @@ public class AndroidAPI implements FirebaseAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 Integer score = dataSnapshot.getValue(Integer.class);
-                if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
-                    LobbyInfo.getInstance().setPlayerTwoScore(score);
+                if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+                    LobbyInfoState.getInstance().setPlayerTwoScore(score);
                     Log.d("firebase MultiScores: ", "PlayerTwo's score is: " + score);
-                } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO) {
-                    LobbyInfo.getInstance().setPlayerOneScore(score);
+                } else if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO) {
+                    LobbyInfoState.getInstance().setPlayerOneScore(score);
                     Log.d("firebase MultiScores: ", "PlayerOne's score is: " + score);
                 }
             }
@@ -302,9 +302,9 @@ public class AndroidAPI implements FirebaseAPI {
             }
         };
 
-        if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+        if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
             lobbiesRef.child(code).child(CurrentPlayer.PLAYERTWO.label+"Score").addValueEventListener(postListener);
-        } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
+        } else if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
             lobbiesRef.child(code).child(CurrentPlayer.PLAYERONE.label+"Score").addValueEventListener(postListener);
         }
     }
@@ -321,7 +321,7 @@ public class AndroidAPI implements FirebaseAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 LobbyStatus lobbyStatus = dataSnapshot.getValue(LobbyStatus.class);
-                LobbyInfo.getInstance().setLobbyStatus(lobbyStatus);
+                LobbyInfoState.getInstance().setLobbyStatus(lobbyStatus);
             }
 
             @Override

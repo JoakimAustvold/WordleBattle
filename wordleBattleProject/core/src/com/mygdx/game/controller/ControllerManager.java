@@ -31,7 +31,6 @@ public class ControllerManager{
          // TODO: Add dispose and setup to all methods in a correct manner
         controllerStack.peek().getView().dispose();
         controllerStack.pop();
-        controllerStack.peek().resetView();
         controllerStack.peek().getView().setup();
     }
 

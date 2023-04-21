@@ -1,0 +1,784 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.mygdx.game.WordleBattleGame",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_104370703 { 
+   	label=mygdx
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1554244721 { 
+   	label=game
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   AndroidAPI670316286[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AndroidAPI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   database: FirebaseDatabase [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   highscoresRef: DatabaseReference [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lobbiesRef: DatabaseReference [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addPlayerOneToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addPlayerTwoToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerOneListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerTwoListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getHighscoreList(dataholder: List&lt;Score&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removePlayerTwoFromLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ submitHighscore(score: Score)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ viewAllLobbies(dataholder: List&lt;String&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Controller432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Controller</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   state: State [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   view: View [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addBackButtonListener()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ControllerManager432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ControllerManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   controllerStack: Stack&lt;Controller&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ peek(): Controller</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pop()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ push(controller: Controller)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CoreAPI1030395847[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CoreAPI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addPlayerOneToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addPlayerTwoToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerOneListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerTwoListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getHighscoreList(dataholder: List&lt;Score&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removePlayerTwoFromLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ submitHighscore(score: Score)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ viewAllLobbies(dataholder: List&lt;String&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DesktopAPI670316286[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DesktopAPI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addPlayerOneToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addPlayerTwoToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerOneListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerTwoListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getHighscoreList(dataholder: List&lt;Score&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removePlayerTwoFromLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ submitHighscore(score: Score)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ viewAllLobbies(dataholder: List&lt;String&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HighscoreController432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HighscoreController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HighscoreList416751291[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HighscoreList</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   highScores: List&lt;Score&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ fetchHighscores()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HighscoreView1972638827[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HighscoreView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   container: Table [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   scrollPane: ScrollPane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   table: Table [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HostGameController2012137208[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HostGameController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createLobby(username: String, code: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HostGameView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HostGameView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   createLobbyButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   usernameTextField: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HostLobbyController2012137208[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HostLobbyController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HostLobbyView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HostLobbyView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   startGameButton: TextButton [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createButton()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JoinGameController2012137208[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JoinGameController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- addPlayerTwoToLobby(code: String, username: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JoinGameView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JoinGameView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   inviteCodeTextField: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   joinButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   usernameTextField: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JoinLobbyController2012137208[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JoinLobbyController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JoinLobbyView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JoinLobbyView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+KeyboardInput1654971861[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)KeyboardInput</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   text: StringBuilder [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ appendChar(newText: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ clear()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteLastChar()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LetterMap1146161228[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LetterMap</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   textureMap: HashMap&lt;String, Texture&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getTexture(c: String): Texture</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LobbyInfoState653830333[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LobbyInfoState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   code: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lobbyStatus: LobbyStatus [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   playerOne: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   playerTwo: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LobbyView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LobbyView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MainMenuController432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MainMenuController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MainMenuView1972638827[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MainMenuView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   highscoreButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   multiplayerButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   settingsButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   singleplayerButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ts: TutorialState [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   tutorialButton: TextButton [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MultiplayerGameState653830333[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MultiplayerGameState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   guessesPlayer1: String[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   guessesPlayer2: String[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   inviteCode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isDuel: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isGameOver: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   keyboardInput: KeyboardInput [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   turn: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   word: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MultiplayerGameView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MultiplayerGameView</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MultiplayerMenuController2012137208[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MultiplayerMenuController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MultiplayerMenuView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MultiplayerMenuView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   hostGameButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   joinGameButton: TextButton [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MultiplayerWordInputController2012137208[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MultiplayerWordInputController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MultiplayerWordInputView560542591[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MultiplayerWordInputView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   errormessage: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   skin: Skin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   stage: Stage [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   submitButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   wordField: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PauseMenuController432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PauseMenuController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PauseMenuView1972638827[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PauseMenuView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   backToGameButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   backToMainButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   newGameButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   tutorialButton: TextButton [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SingleplayerGameController432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SingleplayerGameController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   gameState: SingleplayerGameState [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   keyboardInput: KeyboardInput [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- disableButtons(disabledLetters: Collection&lt;Character&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resetView()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SingleplayerGameState55904599[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SingleplayerGameState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   disabledChars: Collection&lt;Character&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gameStatus: GameStatus [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   guesses: Collection&lt;GuessedWord&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   keyboardInput: KeyboardInput [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   language: Language [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   score: Score [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   solution: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   turn: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   wordInputHandler: WordInputHandler [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ handleSubmit(wordStatus: WordStatus)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SingleplayerGameView1972638827[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SingleplayerGameView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   addHighscore: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   buttons: TextButton[][] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   endgameStage: Stage [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   graySquareTexture: Texture [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   greenSquareTexture: Texture [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   keyboardStage: Stage [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   letterMap: LetterMap [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   newGame: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   orangeSquareTexture: Texture [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   pauseButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   texture: Texture [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   usernameTextField: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- createColoredList(guessedWord: GuessedWord): String[]</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >- getColorFromLetter(guessedLetter: GuessedLetter): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateKeyboardStyle(disabledLetters: Collection&lt;Character&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SingletonAPI1030395847[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SingletonAPI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   firebaseAPI: FirebaseAPI [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addPlayerOneToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addPlayerTwoToLobby(code: String, username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerOneListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createPlayerTwoListener(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getHighscoreList(dataholder: List&lt;Score&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removePlayerTwoFromLobby(code: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ submitHighscore(score: Score)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ viewAllLobbies(dataholder: List&lt;String&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+State55904599[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)State</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TutorialController432447628[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TutorialController</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TutorialState55904599[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TutorialState</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TutorialView1972638827[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TutorialView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   backButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   batch: SpriteBatch [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   font: BitmapFont [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   skin: Skin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   stage: Stage [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ts: TutorialState [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tutorialTexture: Texture [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resize(width: int, height: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+View1972638827[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)View</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   backButton: TextButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   backgroundTexture: Texture [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   skin: Skin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   stage: Stage [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createBackButton()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(state: State, spriteBatch: SpriteBatch)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+WordleBattleGame670316286[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WordleBattleGame</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   batch: SpriteBatch [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   firebaseAPI: FirebaseAPI [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   highscores: HighscoreList [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ create()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Controller432447628 -> ControllerManager432447628[label="addBackButtonListener() -> pop()"];
+Controller432447628 -> HighscoreController432447628[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> HostGameController2012137208[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> HostLobbyController2012137208[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> JoinGameController2012137208[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> JoinLobbyController2012137208[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> MainMenuController432447628[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> MultiplayerMenuController2012137208[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> MultiplayerWordInputController2012137208[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> PauseMenuController432447628[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> SingleplayerGameController432447628[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> State55904599[label="state
+[0..1]"];
+Controller432447628 -> TutorialController432447628[arrowhead=none, arrowtail=empty, dir=both];
+Controller432447628 -> View1972638827[label="view
+[0..1]"];
+ControllerManager432447628 -> Controller432447628[label="controllerStack
+[0..*]"];
+ControllerManager432447628 -> View1972638827[label="pop() -> dispose()"];
+JoinGameView560542591 -> ControllerManager432447628[label="render() -> push()"];
+LobbyView560542591 -> HostLobbyView560542591[arrowhead=none, arrowtail=empty, dir=both];
+LobbyView560542591 -> JoinLobbyView560542591[arrowhead=none, arrowtail=empty, dir=both];
+MainMenuView1972638827 -> TutorialState55904599[label="ts
+[0..1]"];
+SingleplayerGameController432447628 -> KeyboardInput1654971861[label="keyboardInput
+[0..1]"];
+SingleplayerGameController432447628 -> SingleplayerGameState55904599[label="gameState
+[0..1]"];
+SingleplayerGameController432447628 -> SingleplayerGameView1972638827[label="disableButtons() -> updateKeyboardStyle()"];
+SingleplayerGameView1972638827 -> LetterMap1146161228[label="letterMap
+[0..1]"];
+SingleplayerGameView1972638827 -> MultiplayerGameView560542591[arrowhead=none, arrowtail=empty, dir=both];
+SingletonAPI1030395847 -> AndroidAPI670316286[arrowhead=none];
+SingletonAPI1030395847 -> CoreAPI1030395847[arrowhead=none];
+SingletonAPI1030395847 -> DesktopAPI670316286[arrowhead=none];
+State55904599 -> HighscoreList416751291[arrowhead=none, arrowtail=empty, dir=both];
+State55904599 -> LobbyInfoState653830333[arrowhead=none, arrowtail=empty, dir=both];
+State55904599 -> MultiplayerGameState653830333[arrowhead=none, arrowtail=empty, dir=both];
+State55904599 -> SingleplayerGameState55904599[arrowhead=none, arrowtail=empty, dir=both];
+State55904599 -> TutorialState55904599[arrowhead=none, arrowtail=empty, dir=both];
+TutorialView1972638827 -> TutorialState55904599[label="ts
+[0..1]"];
+View1972638827 -> HighscoreView1972638827[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> HostGameView560542591[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> JoinGameView560542591[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> LobbyView560542591[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> MainMenuView1972638827[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> MultiplayerMenuView560542591[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> MultiplayerWordInputView560542591[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> PauseMenuView1972638827[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> SingleplayerGameView1972638827[arrowhead=none, arrowtail=empty, dir=both];
+View1972638827 -> TutorialView1972638827[arrowhead=none, arrowtail=empty, dir=both];
+WordleBattleGame670316286 -> HighscoreList416751291[label="highscores
+[0..1]"];
+    
+}
+@enduml

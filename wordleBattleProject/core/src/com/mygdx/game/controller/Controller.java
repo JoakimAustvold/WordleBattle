@@ -31,9 +31,6 @@ public abstract class Controller {
     public void render(SpriteBatch spriteBatch){
         view.render(state, spriteBatch);
     }
-    
-
-    public abstract void resetView();
 
     public View getView() {
             return view;
