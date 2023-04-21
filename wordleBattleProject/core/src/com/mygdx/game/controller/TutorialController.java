@@ -14,9 +14,9 @@ public class TutorialController extends Controller {
         state = new TutorialState();
         view = new TutorialView((TutorialState) state);
 
-        TutorialView pauseMenuView = ((TutorialView) view);
+        //TutorialView pauseMenuView = ((TutorialView) view);
 
-        pauseMenuView.backButton.addListener(new ChangeListener() {
+        view.backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (checkPrefs){
@@ -26,6 +26,9 @@ public class TutorialController extends Controller {
                 }
             }
         });
+
+
+
 
         Preferences prefs = Gdx.app.getPreferences("wordleBattle");
         boolean hasPlayed = prefs.getBoolean("hasPlayed");
