@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.multiplayer.MultiplayerWordInputController;
 import com.mygdx.game.model.states.State;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 
 /**
@@ -36,8 +36,8 @@ public class JoinLobbyView extends LobbyView {
         super.render(state, spriteBatch);
         font.draw(spriteBatch, "Waiting for the host to start the game", (float) 75, (float) (Gdx.graphics.getHeight() * 0.2));
         // TODO: Fix this horrendousness
-        System.out.println("LobbyStatus: " + LobbyInfo.getInstance().getLobbyStatus());
-        if (LobbyInfo.getInstance().getLobbyStatus() == LobbyStatus.PLAYING) {
+        System.out.println("LobbyStatus: " + LobbyInfoState.getInstance().getLobbyStatus());
+        if (LobbyInfoState.getInstance().getLobbyStatus() == LobbyStatus.PLAYING) {
             System.out.println("WE ARE PLAYING");
             ControllerManager.getInstance().push(new MultiplayerWordInputController());
         }

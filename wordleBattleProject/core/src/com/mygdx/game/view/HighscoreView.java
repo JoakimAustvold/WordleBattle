@@ -61,7 +61,7 @@ import java.util.List;
         titleLabel.setFontScale(5, 5);
         table.add(titleLabel);
 
-        // Adds all the higschore entries to the table to be displayed
+        // Adds all the highscore entries to the table to be displayed
         for(int i = 0; i < highscores.size(); i++) {
              Score score = highscores.get(i);
              Label scoreLabel = new Label(i+1 + ". " +score.getUsername() + ":  " + score.getHighscore() , skin);

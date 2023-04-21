@@ -8,7 +8,7 @@ import com.mygdx.game.model.GameStatus;
 import com.mygdx.game.model.states.GameState;
 import com.mygdx.game.model.states.State;
 import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
-import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.view.GameView;
 
 public class MultiplayerGameView extends GameView {
@@ -62,16 +62,16 @@ public class MultiplayerGameView extends GameView {
 
 
     private void displayOpponentsScore(SpriteBatch spriteBatch, GameState gameState) {
-        if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
-            if (LobbyInfo.getInstance().getPlayerTwoScore() != null) {
-                font.draw(spriteBatch, "Opponent score is: " + LobbyInfo.getInstance().getPlayerTwoScore(), 20, 600);
+        if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+            if (LobbyInfoState.getInstance().getPlayerTwoScore() != null) {
+                font.draw(spriteBatch, "Opponent score is: " + LobbyInfoState.getInstance().getPlayerTwoScore(), 20, 600);
                 displayEndgameButtons();
             } else {
                 font.draw(spriteBatch, "Waiting on opponent", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 600);
             }
-        } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
-            if (LobbyInfo.getInstance().getPlayerOneScore() != null) {
-                font.draw(spriteBatch, "Opponent score is: " + LobbyInfo.getInstance().getPlayerOneScore(), 20, 600);
+        } else if (LobbyInfoState.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
+            if (LobbyInfoState.getInstance().getPlayerOneScore() != null) {
+                font.draw(spriteBatch, "Opponent score is: " + LobbyInfoState.getInstance().getPlayerOneScore(), 20, 600);
                 displayEndgameButtons();
             } else {
                 font.draw(spriteBatch, "Waiting on opponent", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 600);

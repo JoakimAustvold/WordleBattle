@@ -24,8 +24,6 @@ public class PauseMenuController extends Controller {
                 ControllerManager.getInstance().pop();
                  SingleplayerGameController sgc =
                          (SingleplayerGameController) ControllerManager.getInstance().peek();
-
-                 sgc.resetView();
             }
         });
 

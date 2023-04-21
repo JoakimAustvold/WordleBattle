@@ -38,14 +38,6 @@ public class GameController extends Controller{
 
 
 
-    /**
-     * Needs to reset view in order to be responsive after a stack-pop.
-     */
-    @Override
-    public void resetView() {
-        setupView();
-    }
-
 
     protected void addPauseButtonListener() {
         gameView.pauseButton.addListener(new ChangeListener() {

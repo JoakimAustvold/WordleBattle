@@ -26,7 +26,6 @@ public abstract class View {
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("default/skin/cloud-form-ui.json"));
         skin.getFont("font").getData().setScale(6.5f, 6.5f);
-        // TODO: Pick a nice background ^^
         backgroundTexture = new Texture(Gdx.files.internal("textures/backgrounds/bg.png"));
         backButton = new TextButton("Back", skin);
     }
