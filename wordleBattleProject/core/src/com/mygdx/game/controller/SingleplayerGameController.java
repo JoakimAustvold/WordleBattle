@@ -21,7 +21,7 @@ public class SingleplayerGameController extends GameController {
              final SingleplayerGameView singleplayerGameView = (SingleplayerGameView) view;
 
             // add listeners to the buttons
-            singleplayerGameView.addHighscoreButton.addListener(new ChangeListener() {
+            singleplayerGameView.addHighscore.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                     // update username

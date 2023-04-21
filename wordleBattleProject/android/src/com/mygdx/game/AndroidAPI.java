@@ -320,8 +320,11 @@ public class AndroidAPI implements FirebaseAPI {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
+
                 LobbyStatus lobbyStatus = dataSnapshot.getValue(LobbyStatus.class);
-                LobbyInfoState.getInstance().setLobbyStatus(lobbyStatus);
+                if (lobbyStatus != null){
+                    LobbyInfoState.getInstance().setLobbyStatus(lobbyStatus);
+                }
             }
 
             @Override
