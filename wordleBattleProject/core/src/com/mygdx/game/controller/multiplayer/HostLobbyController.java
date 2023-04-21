@@ -6,6 +6,7 @@ import com.mygdx.game.controller.Controller;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.HostLobbyView;
 
 public class HostLobbyController extends Controller {
@@ -23,6 +24,8 @@ public class HostLobbyController extends Controller {
                 //TODO: Add a multiplayer game screen
                 if (lobbyInfo.getPlayerTwo() != null) {
                     System.out.println("The multiplayer game would be starting now");
+                    SingletonAPI.getInstance().setOnlineLobbyStatus(lobbyInfo.getCode(), LobbyStatus.PLAYING);
+                    lobbyInfo.setLobbyStatus(LobbyStatus.PLAYING);
                     ControllerManager.getInstance().push(new MultiplayerWordInputController());
                 } else {
                     System.out.println("Missing player two!!!!!");

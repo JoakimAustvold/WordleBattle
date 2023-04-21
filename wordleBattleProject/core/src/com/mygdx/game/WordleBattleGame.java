@@ -13,8 +13,6 @@ import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.highscore.HighscoreList;
 import com.mygdx.game.model.states.TutorialState;
 
-import jdk.tools.jmod.Main;
-
 /**
  * App entrypoint from LibGDX.
  */

@@ -1,6 +1,9 @@
 package com.mygdx.game.model;
 
 import com.mygdx.game.model.highscore.Score;
+import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
+
 import java.util.List;
 
 /**
@@ -19,4 +22,11 @@ public interface FirebaseAPI {
     void createPlayerOneListener(String code);
     void removePlayerTwoFromLobby(String code);
     void viewAllLobbies(List<String> dataholder);
+    void submitWord(String code, String player, String word);
+    void getWordSubmitted (String code);
+    void submitMultiplayerScore(String code, CurrentPlayer player, Integer score);
+    void getMultiplayerScore(String code);
+    void setOnlineLobbyStatus(String code, LobbyStatus lobbyStatus);
+    void getOnlineLobbyStatus(String code);
+
 }

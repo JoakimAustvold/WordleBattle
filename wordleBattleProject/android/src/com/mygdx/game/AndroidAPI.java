@@ -9,14 +9,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mygdx.game.controller.ControllerManager;
-import com.mygdx.game.controller.multiplayer.JoinLobbyController;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
-import com.mygdx.game.model.multiplayer.LobbyCode;
+import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
 import com.mygdx.game.model.states.multiplayer.LobbyInfo;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -240,5 +239,97 @@ public class AndroidAPI implements FirebaseAPI {
         });
     }
 
+    @Override
+    public void submitWord(String code, String player, String word) {
+        lobbiesRef.child(code).child(player+"Wordlist").setValue(new ArrayList<String>(Arrays.asList(word)));
+    }
 
+    @Override
+    public void getWordSubmitted (String code) {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> playerWords = (ArrayList<String>) dataSnapshot.getValue();
+                Log.d("firebase newWordList: ", "The word list is " + playerWords);
+                if (playerWords != null) {
+                    if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+                        LobbyInfo.getInstance().setPlayerTwoWordlist(playerWords);
+                    } else {
+                        LobbyInfo.getInstance().setPlayerOneWordlist(playerWords);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("loadWords:onCancelled", databaseError.toException());
+            }
+        };
+
+        if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+            lobbiesRef.child(code).child(CurrentPlayer.PLAYERTWO.label+"Wordlist").addValueEventListener(postListener);
+        } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
+            lobbiesRef.child(code).child(CurrentPlayer.PLAYERONE.label+"Wordlist").addValueEventListener(postListener);
+        }
+    }
+
+    @Override
+    public void submitMultiplayerScore(String code, CurrentPlayer player, Integer score) {
+        lobbiesRef.child(code).child(player.label +"Score").setValue(score);
+    }
+
+    @Override
+    public void getMultiplayerScore(String code) {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Integer score = dataSnapshot.getValue(Integer.class);
+                if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+                    LobbyInfo.getInstance().setPlayerTwoScore(score);
+                    Log.d("firebase MultiScores: ", "PlayerTwo's score is: " + score);
+                } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO) {
+                    LobbyInfo.getInstance().setPlayerOneScore(score);
+                    Log.d("firebase MultiScores: ", "PlayerOne's score is: " + score);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("MultiScore:onCancelled", databaseError.toException());
+            }
+        };
+
+        if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERONE) {
+            lobbiesRef.child(code).child(CurrentPlayer.PLAYERTWO.label+"Score").addValueEventListener(postListener);
+        } else if (LobbyInfo.getInstance().getCurrentPlayer() == CurrentPlayer.PLAYERTWO){
+            lobbiesRef.child(code).child(CurrentPlayer.PLAYERONE.label+"Score").addValueEventListener(postListener);
+        }
+    }
+
+    @Override
+    public void setOnlineLobbyStatus(String code, LobbyStatus lobbyStatus) {
+        lobbiesRef.child(code).child("onlineLobbyStatus").setValue(lobbyStatus);
+    }
+
+    @Override
+    public void getOnlineLobbyStatus(String code) {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                LobbyStatus lobbyStatus = dataSnapshot.getValue(LobbyStatus.class);
+                LobbyInfo.getInstance().setLobbyStatus(lobbyStatus);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("lobbyStatus:onCancelled", databaseError.toException());
+            }
+        };
+        lobbiesRef.child(code).child("onlineLobbyStatus").addValueEventListener(postListener);
+    }
 }

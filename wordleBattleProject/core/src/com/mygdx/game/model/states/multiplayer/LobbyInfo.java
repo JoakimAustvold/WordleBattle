@@ -2,6 +2,8 @@ package com.mygdx.game.model.states.multiplayer;
 
 import com.mygdx.game.model.states.State;
 
+import java.util.ArrayList;
+
 /**
  * A state used for lobbies.
  */
@@ -13,16 +15,39 @@ public class LobbyInfo extends State {
         return lobbyInfoInstance;
     }
 
+    private CurrentPlayer currentPlayer;
+    private String code;
+
+
+
+    /*
+    private List<Player> players;
+    private List<String> wordList;
+    private List<Integer> scores;
+     */
+
     private String playerOne;
     private String playerTwo;
-    private String code;
+    private ArrayList<String> playerOneWordlist;
+    private ArrayList<String> playerTwoWordlist;
+    private Integer playerOneScore;
+    private Integer playerTwoScore;
 
     private LobbyStatus lobbyStatus;
 
     private LobbyInfo() {
         lobbyStatus = LobbyStatus.UNKNOWN;
+        playerOneWordlist = new ArrayList<>();
+        playerTwoWordlist = new ArrayList<>();
+
+    }
+    public void setCurrentPlayer(CurrentPlayer currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
+    public CurrentPlayer getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     public void setPlayerOne(String playerOne) {
         this.playerOne = playerOne;
@@ -66,5 +91,37 @@ public class LobbyInfo extends State {
 
     public LobbyStatus getLobbyStatus() {
         return lobbyStatus;
+    }
+
+    public void setPlayerOneWordlist(ArrayList<String> playerOneWordlist) {
+        this.playerOneWordlist = playerOneWordlist;
+    }
+
+    public void setPlayerTwoWordlist(ArrayList<String> playerTwoWordlist) {
+        this.playerTwoWordlist = playerTwoWordlist;
+    }
+
+    public ArrayList<String> getPlayerOneWordlist() {
+        return new ArrayList<String>(playerOneWordlist);
+    }
+
+    public ArrayList<String> getPlayerTwoWordlist() {
+        return new ArrayList<String>(playerTwoWordlist);
+    }
+
+    public Integer getPlayerOneScore() {
+        return playerOneScore;
+    }
+
+    public Integer getPlayerTwoScore() {
+        return playerTwoScore;
+    }
+
+    public void setPlayerOneScore(Integer playerOneScore) {
+        this.playerOneScore = playerOneScore;
+    }
+
+    public void setPlayerTwoScore(Integer playerTwoScore) {
+        this.playerTwoScore = playerTwoScore;
     }
 }
