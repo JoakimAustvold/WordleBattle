@@ -7,6 +7,7 @@ import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.model.SingletonAPI;
 import com.mygdx.game.model.multiplayer.LobbyCode;
 import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
+import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
 import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import com.mygdx.game.view.multiplayer.HostGameView;
 
@@ -20,6 +21,7 @@ public class HostGameController extends Controller {
         final HostGameView hostGameView = (HostGameView) view;
         final LobbyInfoState lobbyState = (LobbyInfoState) state;
 
+
         hostGameView.createLobbyButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -28,6 +30,8 @@ public class HostGameController extends Controller {
                     // Generate a lobby
                     createLobby(hostGameView.usernameTextField.getText(),  new LobbyCode().getCode());
                     ControllerManager.getInstance().push(new HostLobbyController());
+                    lobbyState.setCurrentPlayer(CurrentPlayer.PLAYERONE);
+
                 } else {
                     //TODO: give the user feedback on missing input
                     System.out.println("You are missing a username. We cannot proceed without it :(");

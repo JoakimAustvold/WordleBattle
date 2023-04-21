@@ -22,6 +22,7 @@ public class ControllerManager{
     }
 
     public void push(Controller controller){
+        System.out.println("ONE CONTROLLER IS PUSHED!!!!!**************************");
         controllerStack.push(controller);
         controllerStack.peek().getView().setup();
     }

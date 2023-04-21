@@ -14,9 +14,9 @@ import com.mygdx.game.model.highscore.HighscoreList;
  * App entrypoint from LibGDX.
  */
 public class WordleBattleGame extends ApplicationAdapter {
-	private SpriteBatch batch;
-	private FirebaseAPI firebaseAPI;
-	private HighscoreList highscores;
+	SpriteBatch batch;
+	FirebaseAPI firebaseAPI;
+	HighscoreList highscores;
 
 	// Do not change, it will break everything!! (wordlists only consist of 5-letter words.)
 	public static final int WORD_LENGTH = 5;

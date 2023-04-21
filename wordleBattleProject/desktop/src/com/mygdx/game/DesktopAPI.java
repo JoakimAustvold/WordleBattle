@@ -2,7 +2,9 @@ package com.mygdx.game;//import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 import com.mygdx.game.model.FirebaseAPI;
 import com.mygdx.game.model.highscore.Score;
-
+import com.mygdx.game.model.multiplayer.LobbyCode;
+import com.mygdx.game.model.states.multiplayer.CurrentPlayer;
+import com.mygdx.game.model.states.multiplayer.LobbyStatus;
 import java.util.List;
 
 public class DesktopAPI implements FirebaseAPI {
@@ -68,5 +70,38 @@ public class DesktopAPI implements FirebaseAPI {
     public void viewAllLobbies(List<String> dataholder) {
         
     }
-    
+
+    @Override
+    public void submitWord(String code, String player, String word) {
+
+    }
+
+    @Override
+    public void getWordSubmitted(String code) {
+
+    }
+
+    @Override
+    public void submitMultiplayerScore(String code, CurrentPlayer player, Integer score) {
+
+    }
+
+    @Override
+    public void getMultiplayerScore(String code) {
+
+    }
+
+
+
+    @Override
+    public void setOnlineLobbyStatus(String code, LobbyStatus lobbyStatus) {
+
+    }
+
+    @Override
+    public void getOnlineLobbyStatus(String code) {
+
+    }
+
+
 }
