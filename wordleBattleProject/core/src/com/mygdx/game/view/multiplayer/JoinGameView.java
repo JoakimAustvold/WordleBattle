@@ -46,16 +46,15 @@ public class JoinGameView extends View {
         stage.addActor(joinButton);
         stage.addActor(usernameTextField);
 
-        inviteCodeTextField.setPosition((float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.6));
-        inviteCodeTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
-        inviteCodeTextField.setMessageText("Code: ");
+        inviteCodeTextField.setPosition((float) (Gdx.graphics.getWidth()*0.3 - 50), (float) (Gdx.graphics.getHeight() * 0.6));
+        inviteCodeTextField.setSize((float) (Gdx.graphics.getWidth()*0.5), (float) (Gdx.graphics.getHeight() * 0.05));
+        inviteCodeTextField.setMessageText("Game Code");
 
-        usernameTextField.setPosition((float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight() * 0.4));
-        usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
-        usernameTextField.setMessageText("Username: ");
+        usernameTextField.setPosition((float) (Gdx.graphics.getWidth()*0.3 - 50), (float) (Gdx.graphics.getHeight() * 0.4));
+        usernameTextField.setSize((float) (Gdx.graphics.getWidth()*0.5), (float) (Gdx.graphics.getHeight() * 0.05));
+        usernameTextField.setMessageText("Username");
 
         joinButton.setPosition((float) (Gdx.graphics.getWidth() *0.5 -Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight()*0.1));
-        joinButton.setSize((float) (Gdx.graphics.getWidth()*0.4), (float) (Gdx.graphics.getHeight() * 0.05));
     }
 
     @Override
@@ -66,6 +65,8 @@ public class JoinGameView extends View {
         if (!(state instanceof LobbyInfoState)) {
             throw new StateException("Wrong state type! Please provide LobbyInfo as state");
         }
+
+        font.draw(spriteBatch, "Insert a game code and a\nusername to join a lobby!", (float) (Gdx.graphics.getWidth()*0.2), (float) (Gdx.graphics.getHeight()*0.8));
 
         switch(lobbyState.getLobbyStatus()) {
             case UNKNOWN:
