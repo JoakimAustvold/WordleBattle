@@ -75,7 +75,7 @@ public abstract class GameView extends View{
 
         // TODO: Remove the solution
         // Draw solution word
-        font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
+        font.draw(spriteBatch, "Guess:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, Gdx.graphics.getHeight() - WORD_DELTA_Y);
         Collection<GuessedWord> guessedWords = gameState.getGuesses();
 
         // Draw guessed words
@@ -244,7 +244,7 @@ public abstract class GameView extends View{
     }
 
     private void setupPauseButton() {
-        pauseButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.90));
+        pauseButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.95));
         keyboardStage.addActor(pauseButton);
     }
 }

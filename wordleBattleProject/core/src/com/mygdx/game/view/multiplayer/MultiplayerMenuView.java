@@ -35,7 +35,7 @@ public class MultiplayerMenuView extends View {
 
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setDebug(false);
         stage.addActor(table);
 
         // Add the buttons to the table
