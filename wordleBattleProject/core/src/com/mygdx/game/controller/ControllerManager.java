@@ -39,6 +39,10 @@ public class ControllerManager{
         controllerStack.push(controller);
     }
 
+    public void setStack(Stack<Controller> controllers) {
+        controllerStack = (Stack<Controller>) controllers.clone();
+    }
+
 
     public void render(SpriteBatch spriteBatch){
         controllerStack.peek().render(spriteBatch);

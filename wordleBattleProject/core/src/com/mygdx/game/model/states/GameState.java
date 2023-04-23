@@ -96,6 +96,10 @@ public class GameState extends State {
         }
 
         else if(guesses.size() >= MAX_GUESSES){
+            if (!singlePlayer) {
+                this.score = new Score();
+                SingletonAPI.getInstance().submitMultiplayerScore(LobbyInfoState.getInstance().getCode(), LobbyInfoState.getInstance().getCurrentPlayer(), score.getHighscore());
+            }
             gameStatus = GameStatus.LOSS;
         }
     }

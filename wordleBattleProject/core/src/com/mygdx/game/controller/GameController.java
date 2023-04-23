@@ -63,7 +63,7 @@ public class GameController extends Controller{
 
     protected void setupView() {
        // this.view = new GameView();
-        addPauseButtonListener();
+
         setupKeyboard();
     }
 

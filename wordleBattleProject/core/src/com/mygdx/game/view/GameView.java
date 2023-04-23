@@ -57,7 +57,6 @@ public abstract class GameView extends View{
         greenSquareTexture = new Texture(Gdx.files.internal("textures/backgrounds/green.png"));
         pauseButton = new TextButton("Options", skin);
         letterMap = new LetterMap();
-        setupPauseButton();
         setupKeyboard();
     }
 
@@ -243,8 +242,9 @@ public abstract class GameView extends View{
         table.setY(-Gdx.graphics.getHeight()/3.5f);
     }
 
-    private void setupPauseButton() {
+    protected void setupPauseButton() {
         pauseButton.setPosition(50, (float) (Gdx.graphics.getHeight() * 0.95));
         keyboardStage.addActor(pauseButton);
     }
+
 }
