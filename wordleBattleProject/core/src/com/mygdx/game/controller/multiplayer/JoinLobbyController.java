@@ -16,12 +16,11 @@ public class JoinLobbyController extends Controller {
         this.view = new JoinLobbyView();
 
         final LobbyInfoState lobbyState = (LobbyInfoState) state;
-        lobbyState.setLobbyStatus(LobbyStatus.UNKNOWN);
+        //lobbyState.setLobbyStatus(LobbyStatus.UNKNOWN);
 
         JoinLobbyView lobbyView = (JoinLobbyView) view;
 
         SingletonAPI.getInstance().getOnlineLobbyStatus(lobbyState.getCode());
-
 
         /**
         * Removes the second player from the lobby and goes back to the previous view
@@ -30,6 +29,7 @@ public class JoinLobbyController extends Controller {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 SingletonAPI.getInstance().removePlayerTwoFromLobby(lobbyState.getCode());
+                SingletonAPI.getInstance().setOnlineLobbyStatus(lobbyState.getCode(), LobbyStatus.UNKNOWN);
                 ControllerManager.getInstance().pop();
             }
         });

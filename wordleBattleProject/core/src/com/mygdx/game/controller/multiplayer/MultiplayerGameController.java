@@ -37,6 +37,7 @@ public class MultiplayerGameController extends GameController {
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
 
                 LobbyInfoState.getInstance().setLobbyStatus(LobbyStatus.UNKNOWN);
+                SingletonAPI.getInstance().setOnlineLobbyStatus(LobbyInfoState.getInstance().getCode(), LobbyStatus.UNKNOWN);
                 // TODO: fix this mess
                 ControllerManager.getInstance().pop();
                 ControllerManager.getInstance().pop();
