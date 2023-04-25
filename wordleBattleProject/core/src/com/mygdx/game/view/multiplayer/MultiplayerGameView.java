@@ -19,7 +19,7 @@ public class MultiplayerGameView extends GameView {
     public MultiplayerGameView() {
         super();
 
-        backToLobbyButton = new TextButton("Leave lobby", skin);
+        backToLobbyButton = new TextButton("Back to lobby", skin);
     }
 
     @Override
@@ -53,9 +53,9 @@ public class MultiplayerGameView extends GameView {
      */
     @Override
     protected void displayLoserGraphics(SpriteBatch spriteBatch, GameState gameState) {
-        font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 800);
-        font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
-        font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
+        font.draw(spriteBatch, "Out of guesses!", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 100, 900);
+        font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 800);
+        font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 700);
         // isplay the oponents score and who won
         displayOpponentsScore(spriteBatch, gameState);
     }

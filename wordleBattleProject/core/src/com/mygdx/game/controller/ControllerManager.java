@@ -22,7 +22,6 @@ public class ControllerManager{
     }
 
     public void push(Controller controller){
-        System.out.println("ONE CONTROLLER IS PUSHED!!!!!**************************");
         controllerStack.push(controller);
         controllerStack.peek().getView().setup();
     }
@@ -37,6 +36,10 @@ public class ControllerManager{
     public void set (Controller controller){
         controllerStack.pop();
         controllerStack.push(controller);
+    }
+
+    public void setStack(Stack<Controller> controllers) {
+        controllerStack = (Stack<Controller>) controllers.clone();
     }
 
 

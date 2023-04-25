@@ -52,6 +52,9 @@ public class HostLobbyView extends LobbyView {
 
         // Only show the start game button if the lobby is full
         if(lobbyState.getPlayerTwo() == null) {
+            if (stage.getActors().contains(startGameButton, true)) {
+                startGameButton.remove();
+            }
             font.draw(spriteBatch, "Waiting for player two", (float) Gdx.graphics.getWidth() / 2 - 350, (float) (Gdx.graphics.getHeight() * 0.2));
         } else {
             if (!stage.getActors().contains(startGameButton, true)) {

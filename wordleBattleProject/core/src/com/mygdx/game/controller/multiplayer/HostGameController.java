@@ -18,6 +18,8 @@ public class HostGameController extends Controller {
         this.view = new HostGameView();
         addBackButtonListener();
 
+     
+
         final HostGameView hostGameView = (HostGameView) view;
         final LobbyInfoState lobbyState = (LobbyInfoState) state;
 

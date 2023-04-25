@@ -17,6 +17,7 @@ public class SingleplayerGameController extends GameController {
         @Override
         protected void setupView() {
              super.setupView();
+             addPauseButtonListener();
 
              final SingleplayerGameView singleplayerGameView = (SingleplayerGameView) view;
 

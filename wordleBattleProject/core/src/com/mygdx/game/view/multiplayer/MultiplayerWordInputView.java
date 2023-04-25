@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.states.State;
 
+import com.mygdx.game.model.states.multiplayer.LobbyInfoState;
 import com.mygdx.game.view.View;
 
 
@@ -34,6 +35,7 @@ public class MultiplayerWordInputView extends View {
     }
     @Override
     public void render(State state, SpriteBatch spriteBatch) {
+        System.out.println("Remove: LobbyStatus MultiPlayerWordInput: " + LobbyInfoState.getInstance().getLobbyStatus());
         super.render(state, spriteBatch);
 
         font.draw(spriteBatch, feedbackMessage,(float) (Gdx.graphics.getWidth()*0.5-Gdx.graphics.getWidth()*0.3), (float) (Gdx.graphics.getHeight() * 0.5));

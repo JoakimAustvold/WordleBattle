@@ -30,6 +30,7 @@ public class SingleplayerGameView extends GameView {
         usernameTextField = new TextField("", skin);
         newGameButton = new TextButton("New Game", skin);
         addHighscore = new TextButton("Add Score", skin);
+        setupPauseButton();
         setup();
     }
 
@@ -77,4 +78,6 @@ public class SingleplayerGameView extends GameView {
         font.draw(spriteBatch, "The word was:", Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR - 200, 650);
         font.draw(spriteBatch, gameState.getSolution(), Gdx.graphics.getWidth() / WORD_POS_X_DIVISOR, 550);
     }
+
+
 }
