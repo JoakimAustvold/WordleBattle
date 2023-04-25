@@ -1,9 +1,9 @@
 # Wordle Battle 
 ## Architectural Structure
 The main structure that shows the software architecture of the application code can be found under `WordleBattle > wordleBattleProject > core > src/com/mygdx/game`.
-Inside the core folder of the project, the MVC (Model View Controller) architectural pattern is evident - with the following packages: controller, exception, model, and view. A further explanation of the structure is shown in the image below, which shows the overall architecture. The view module is blue, controller is brown, state is green, Firebase is yellow and lastly the application adapter is red
+Inside the core folder of the project, the MVC (Model View Controller) architectural pattern is evident - with the following packages: controller, exception, model, and view. A further explanation of the structure is shown in the image below, which shows the overall architecture. The view module is blue, controller is brown, the model is a combination of the state in green and the Firebase in yellow, and lastly the application adapter is red.
 
-<img src="https://i.imgur.com/MFH9CNv.png" width="75%"> 
+<img src="./images/class-diagram.png" width="75%"> 
 
 ## Installation Manual
 
